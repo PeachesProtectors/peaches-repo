@@ -1,7 +1,7 @@
 import React from 'react'
 import connect from 'react-redux'
 import {Link} from 'react-router-dom'
-import Plant from './Plant'
+import Plant from './plant'
 import getPlantsThunk from '../store/allPlantsReducer'
 
 class AllPlants extends React.Component {
@@ -26,7 +26,7 @@ class AllPlants extends React.Component {
 
 const mapState = state => {
   return {
-    allPlants: state.allPlantsReducer
+    allPlants: state.allPlantsReducer.plants
   }
 }
 

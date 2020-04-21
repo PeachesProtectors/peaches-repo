@@ -5,6 +5,7 @@ import {composeWithDevTools} from 'redux-devtools-extension'
 import user from './user'
 import allPlantsReducer from './allPlantsReducer';
 
+
 const reducer = combineReducers({
   user,
   allPlantsReducer

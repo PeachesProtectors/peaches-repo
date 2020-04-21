@@ -1,7 +1,7 @@
 import React from 'react'
 import connect from 'react-redux'
-import {Link} from 'react-router-dom'
-// import getPlantsThunk from '../store/allPlantsReducer'
+// import {Link} from 'react-router-dom'
+import getSinglePlantThunk from '../store/allPlantsReducer'
 
 class SinglePlant extends React.Component {
   componentDidMount() {
@@ -36,13 +36,13 @@ class SinglePlant extends React.Component {
 
 const mapState = state => {
   return {
-    plant: state.PlantReducer
+    plant: state.allPlantsReducer.singlePlant
   }
 }
 
 const mapDispatch = dispatch => {
   return {
-    getPlant: plantId => dispatch(getPlant(plantId))
+    getPlant: plantId => dispatch(getSinglePlantThunk(plantId))
   }
 }
 

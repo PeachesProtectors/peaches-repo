@@ -5,17 +5,21 @@ import history from '../history'
  * ACTION TYPES
  */
 const GET_PLANTS = 'GET_PLANTS';
-
+const GET_SINGLE_PLANT = 'GET_SINGLE_PLANT';
 
 /**
  * INITIAL STATE
  */
-const initialState = [];
+const initialState = {
+  plants: [],
+  singlePlant: {}
+};
 
 /**
  * ACTION CREATORS
  */
-const getPlants = plants => ({ type: GET_PLANTS, plants })
+const getPlants = plants => ({ type: GET_PLANTS, plants });
+const getSinglePlant = plant => ({type: GET_SINGLE_PLANT, plant});
 
 
 /**
@@ -30,13 +34,24 @@ export const getPlantsThunk = () => async dispatch => {
   }
 }
 
+export const getSinglePlantThunk = (id) => async dispatch => {
+  try {
+    const res = await axios.get(`/api/plants/${id}`)  // check the server api route
+    dispatch(getSinglePlant(res.data))
+  } catch (err) {
+    console.error(err)
+  }
+}
+
 /**
  * REDUCER
  */
 const allPlantsReducer = (state = initialState, action) => {
   switch (action.type) {
     case GET_PLANTS:
-      return action.plants
+      return {...state, plants: action.plants}
+    case GET_SINGLE_PLANT:
+      return {...state, singlePlant: action.plant}
     default:
       return state
   }
@@ -44,11 +59,3 @@ const allPlantsReducer = (state = initialState, action) => {
 
 export default allPlantsReducer;
 
-// export default function (state = initialState, action) {
-//   switch (action.type) {
-//     case GET_PLANTS:
-//       return action.plants
-//     default:
-//       return state
-//   }
-// }
