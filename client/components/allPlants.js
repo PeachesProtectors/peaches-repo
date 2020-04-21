@@ -1,22 +1,26 @@
 import React from 'react'
 import connect from 'react-redux'
-import { Link } from 'react-router-dom'
+import {Link} from 'react-router-dom'
 import Plant from './Plant'
 import getPlantsThunk from '../store/allPlantsReducer'
 
 class AllPlants extends React.Component {
-  // constructor () {
-
-  // }
-  componentDidMount () {
+  componentDidMount() {
     this.props.getAllPlants()
   }
 
-  render () {
-
-    return {
-      //{this.props.allPlants && this.state} //map to Plant component and make Links
-    }
+  render() {
+    const {allPlants} = this.props
+    return (
+      <div>
+        {allPlants &&
+          allPlants.map(plant => (
+            <Link to={} id={plant.id}>
+              <Plant plant={plant} />
+            </Link>
+          ))}
+      </div>
+    )
   }
 }
 
@@ -28,7 +32,7 @@ const mapState = state => {
 
 const mapDispatch = dispatch => {
   return {
-    getAllPlants: ()=> dispatch(getPlantsThunk())
+    getAllPlants: () => dispatch(getPlantsThunk())
   }
 }
 
