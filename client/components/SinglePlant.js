@@ -16,14 +16,19 @@ class SinglePlant extends React.Component {
   handleClick() {
     let cart = window.localStorage
     const {id, name, imageUrl, price} = this.props.plant
-    const plant = {
+
+    let purchasePlants = []
+    if (cart.getItem('plant')) {
+      purchasePlants = JSON.parse(cart.getItem('plant'))
+    }
+    purchasePlants.push({
       id: id,
       name: name,
       imageUrl: imageUrl,
       price: price,
       quantity: 1
-    }
-    cart.setItem('plant', JSON.stringify(plant))
+    })
+    cart.setItem('plant', JSON.stringify(purchasePlants))
     console.log(cart)
   }
 
