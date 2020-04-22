@@ -4,18 +4,34 @@ import {connect} from 'react-redux'
 import {getSinglePlantThunk} from '../store/allPlantsReducer'
 
 class SinglePlant extends React.Component {
+  constructor() {
+    super()
+    this.handleClick = this.handleClick.bind(this)
+  }
   componentDidMount() {
     const plantId = this.props.match.params.plantId
     this.props.getPlant(plantId)
   }
 
+  handleClick() {
+    let cart = window.localStorage
+    const {id, name, imageUrl, price} = this.props.plant
+    const plant = {
+      id: id,
+      name: name,
+      imageUrl: imageUrl,
+      price: price,
+      quantity: 1
+    }
+    cart.setItem('plant', JSON.stringify(plant))
+    console.log(cart)
+  }
+
   render() {
-    console.log(this.props)
     const {plant} = this.props
     const {id, name, imageUrl, description, price, lightReqs} = plant
     return (
       <div>
-        {/* {plant && */}
         <img src={imageUrl} />
 
         <h1>{name}</h1>
@@ -24,8 +40,7 @@ class SinglePlant extends React.Component {
         <p>{description}</p>
         <p>{lightReqs}</p>
 
-        <button type="submit">
-          {/* do something with this button */}
+        <button type="submit" onClick={() => this.handleClick()}>
           Add to Cart
         </button>
 
