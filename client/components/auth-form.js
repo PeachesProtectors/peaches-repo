@@ -1,7 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import PropTypes from 'prop-types'
-import {auth} from '../store'
+import {auth, authSignup} from '../store'
 
 /**
  * COMPONENT
@@ -101,15 +101,27 @@ const mapDispatch = dispatch => {
       const formName = evt.target.name
       const email = evt.target.email.value
       const password = evt.target.password.value
-      // const firstName = evt.target.firstName.value
-      // const lastName = evt.target.lastName.value
       dispatch(auth(email, password, formName))
     }
   }
 }
 
+const mapDispatchSignUp = dispatch => {
+  return {
+    handleSubmit(evt) {
+      evt.preventDefault()
+      const formName = evt.target.name
+      const email = evt.target.email.value
+      const password = evt.target.password.value
+      const firstName = evt.target.firstName.value
+      const lastName = evt.target.lastName.value
+      dispatch(authSignup(firstName, lastName, email, password, formName))
+    }
+  }
+}
+
 export const Login = connect(mapLogin, mapDispatch)(AuthForm)
-export const Signup = connect(mapSignup, mapDispatch)(AuthForm)
+export const Signup = connect(mapSignup, mapDispatchSignUp)(AuthForm)
 
 /**
  * PROP TYPES
