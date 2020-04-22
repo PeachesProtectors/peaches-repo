@@ -5,8 +5,7 @@ import {getSinglePlantThunk} from '../store/allPlantsReducer'
 
 class SinglePlant extends React.Component {
   componentDidMount() {
-    const {plantId} = this.props.match.params
-    console.log(plantId)
+    const plantId = this.props.match.params.plantId
     this.props.getPlant(plantId)
   }
 
@@ -20,7 +19,7 @@ class SinglePlant extends React.Component {
         <img src={imageUrl} />
 
         <h1>{name}</h1>
-        <h2>{price}</h2>
+        <h2>Price: {price}</h2>
 
         <p>{description}</p>
         <p>{lightReqs}</p>

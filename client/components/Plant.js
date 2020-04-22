@@ -8,7 +8,7 @@ const Plant = props => {
     <Link to={`/plants/${id}`}>
       <img src={imageUrl} />
       <h2>{name}</h2>
-      <h3>{price}</h3>
+      <h3>Price: ${price}</h3>
     </Link>
   )
 }
