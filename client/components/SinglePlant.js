@@ -1,21 +1,23 @@
 import React from 'react'
-import connect from 'react-redux'
+import {connect} from 'react-redux'
 // import {Link} from 'react-router-dom'
-import getSinglePlantThunk from '../store/allPlantsReducer'
+import {getSinglePlantThunk} from '../store/allPlantsReducer'
 
 class SinglePlant extends React.Component {
   componentDidMount() {
     const {plantId} = this.props.match.params
+    console.log(plantId)
     this.props.getPlant(plantId)
   }
 
   render() {
+    console.log(this.props)
     const {plant} = this.props
     const {id, name, imageUrl, description, price, lightReqs} = plant
     return (
       <div>
         {/* {plant && */}
-        <img src={imageUrl}></img>
+        <img src={imageUrl} />
 
         <h1>{name}</h1>
         <h2>{price}</h2>

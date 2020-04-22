@@ -4,8 +4,8 @@ import history from '../history'
 /**
  * ACTION TYPES
  */
-const GET_PLANTS = 'GET_PLANTS';
-const GET_SINGLE_PLANT = 'GET_SINGLE_PLANT';
+const GET_PLANTS = 'GET_PLANTS'
+const GET_SINGLE_PLANT = 'GET_SINGLE_PLANT'
 
 /**
  * INITIAL STATE
@@ -13,30 +13,29 @@ const GET_SINGLE_PLANT = 'GET_SINGLE_PLANT';
 const initialState = {
   plants: [],
   singlePlant: {}
-};
+}
 
 /**
  * ACTION CREATORS
  */
-const getPlants = plants => ({ type: GET_PLANTS, plants });
-const getSinglePlant = plant => ({type: GET_SINGLE_PLANT, plant});
-
+const getPlants = plants => ({type: GET_PLANTS, plants})
+const getSinglePlant = plant => ({type: GET_SINGLE_PLANT, plant})
 
 /**
  * THUNK CREATORS
  */
 export const getPlantsThunk = () => async dispatch => {
   try {
-    const res = await axios.get('/api/plants')  // check the server api route
+    const res = await axios.get('/api/products') // check the server api route
     dispatch(getPlants(res.data))
   } catch (err) {
     console.error(err)
   }
 }
 
-export const getSinglePlantThunk = (id) => async dispatch => {
+export const getSinglePlantThunk = id => async dispatch => {
   try {
-    const res = await axios.get(`/api/plants/${id}`)  // check the server api route
+    const res = await axios.get(`/api/products/${id}`) // check the server api route
     dispatch(getSinglePlant(res.data))
   } catch (err) {
     console.error(err)
@@ -57,5 +56,4 @@ const allPlantsReducer = (state = initialState, action) => {
   }
 }
 
-export default allPlantsReducer;
-
+export default allPlantsReducer
