@@ -14,12 +14,12 @@ router.get('/', async (req, res, next) => {
 
 router.get('/:productId', async (req, res, next) => {
   try {
-    const singleProduct = await Product.findOne({
-      where: {
-        id: req.params.productId
-      }
-    })
-    res.json(singleProduct)
+    const singleProduct = await Product.findByPk(req.params.productId)
+    if (singleProduct) {
+      res.json(singleProduct)
+    } else {
+      res.status(404).json('Product not found')
+    }
   } catch (err) {
     next(err)
   }
