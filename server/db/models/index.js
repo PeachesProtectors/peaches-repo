@@ -1,13 +1,15 @@
 const User = require('./user')
-const Product = require("./products")
-const Order = require("./order")
-//One to many 
+const Product = require('./products')
+const Order = require('./order')
+const OrderHistory = require('./orderHistory')
+
+//One to many
 Order.belongsTo(User)
-User.hasMany(Order);
+User.hasMany(Order)
 
 //Many to many
-Order.belongsToMany(Product, {through: 'order-history'})
-Product.belongsToMany(Order, {through: 'order-history'})
+Order.belongsToMany(Product, {through: OrderHistory})
+Product.belongsToMany(Order, {through: OrderHistory})
 /**
  * If we had any associations to make, this would be a great place to put them!
  * ex. if we had another model called BlogPost, we might say:
