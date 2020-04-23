@@ -3,48 +3,62 @@ import {connect} from 'react-redux'
 import {Link, Route} from 'react-router-dom'
 
 class Checkout extends React.Component {
+  constructor() {
+    this.state = {
+      email: '',
+      address: '',
+    }
+    this.handleChange = this.handleChange.bind(this)
+  }
+  // check if they are logged in
+  // this.props.isLoggedIn
   // componentDidMount() {
   //   this.props.getAllPlants()
   // }
+  handleChange(e) {
+    this.setState({
+      [e.target.name]: e.target.value,
+    })
+  }
 
   render() {
     // const {plants} = this.props
     return (
       <div>
-        if (cart is empty) (<p>Your cart is currently empty.</p>) else (
-        <ul>
-          {cartItems.map(item => (
-            <li>
-              <img />
-              <h3>{item.name}</h3>
+        {/* Order Information */}
+        <div>
+          <form>
+            <div>
+              <label htmlFor="email">
+                <small>Email</small>
+              </label>
+              <input name="email" type="text" onChange={handleChange} />
+            </div>
 
-              <button>remove</button>
-              <p>{item.price}</p>
-            </li>
-          ))}
-        </ul>
-        <div>
-          <p>
-            subtotal: <span />
-          </p>
-          <Link to="/checkout"> checkout </Link>
+            <div>
+              <label htmlFor="address">
+                <small>Address</small>
+              </label>
+              <input name="address" type="text" onChange={handleChange} />
+            </div>
+          </form>
         </div>
-        <div>
-          <Route path="/checkout" component={checkout} />
-        </div>
-        )
+
+        <Link to="/Thanks">
+          <button>Pay Now</button>
+        </Link>
       </div>
     )
   }
 }
 
-const mapState = state => {
+const mapState = (state) => {
   return {
-    // plants: state.allPlantsReducer.plants
+    isLoggedIn: !!state.user.id,
   }
 }
 
-const mapDispatch = dispatch => {
+const mapDispatch = (dispatch) => {
   return {
     // getAllPlants: () => dispatch(getPlantsThunk())
   }
