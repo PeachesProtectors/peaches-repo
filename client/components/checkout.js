@@ -1,9 +1,8 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {Link, Route} from 'react-router-dom'
-import Checkout from './components/checkout'
 
-class Cart extends React.Component {
+class Checkout extends React.Component {
   // componentDidMount() {
   //   this.props.getAllPlants()
   // }
@@ -31,7 +30,7 @@ class Cart extends React.Component {
           <Link to="/checkout"> checkout </Link>
         </div>
         <div>
-          <Route path="/checkout" component={Checkout} />
+          <Route path="/checkout" component={checkout} />
         </div>
         )
       </div>
@@ -51,4 +50,4 @@ const mapDispatch = dispatch => {
   }
 }
 
-export default connect(mapState, mapDispatch)(Cart)
+export default connect(mapState, mapDispatch)(Checkout)
