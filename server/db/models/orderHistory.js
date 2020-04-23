@@ -8,6 +8,9 @@ const OrderHistory = db.define('OrderHistory', {
       min: 0,
       isDecimal: false
     }
+  },
+  quantity: {
+    type: Sequelize.INTEGER
   }
 })
 

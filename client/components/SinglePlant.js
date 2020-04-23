@@ -1,6 +1,5 @@
 import React from 'react'
 import {connect} from 'react-redux'
-// import {Link} from 'react-router-dom'
 import {getSinglePlantThunk} from '../store/allPlantsReducer'
 
 class SinglePlant extends React.Component {
@@ -21,15 +20,20 @@ class SinglePlant extends React.Component {
     if (cart.getItem('plant')) {
       purchasePlants = JSON.parse(cart.getItem('plant'))
     }
-    purchasePlants.push({
-      id: id,
-      name: name,
-      imageUrl: imageUrl,
-      price: price,
-      quantity: 1
-    })
+
+    const existingPlant = purchasePlants.find(plant => plant.id === id)
+    if (!existingPlant) {
+      purchasePlants.push({
+        id: id,
+        name: name,
+        imageUrl: imageUrl,
+        price: price,
+        quantity: 1
+      })
+    } else {
+      existingPlant.quantity++
+    }
     cart.setItem('plant', JSON.stringify(purchasePlants))
-    console.log(cart)
   }
 
   render() {
@@ -48,8 +52,6 @@ class SinglePlant extends React.Component {
         <button type="submit" onClick={() => this.handleClick()}>
           Add to Cart
         </button>
-
-        {/* } */}
       </div>
     )
   }

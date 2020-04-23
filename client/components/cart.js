@@ -1,29 +1,70 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {Link} from 'react-router-dom'
+import {Link, Route} from 'react-router-dom'
+import Checkout from './checkout'
 
 class Cart extends React.Component {
-  // componentDidMount() {
-  //   this.props.getAllPlants()
-  // }
+  constructor() {
+    super()
+    this.state = {
+      cart: JSON.parse(window.localStorage.getItem('plant'))
+    }
+    this.increment = this.increment.bind(this)
+    this.decrement = this.decrement.bind(this)
+    this.remove = this.remove.bind(this)
+  }
+
+  increment(id) {
+    let plant = this.state.cart.find(p => p.id === id)
+    plant.quantity++
+    this.setState({cart: this.state.cart})
+    window.localStorage.setItem('plant', JSON.stringify(this.state.cart))
+  }
+
+  decrement(id) {
+    let plant = this.state.cart.find(p => p.id === id)
+    if (plant.quantity === 1) return
+    plant.quantity--
+    this.setState({cart: this.state.cart})
+    window.localStorage.setItem('plant', JSON.stringify(this.state.cart))
+  }
+
+  remove(index) {
+    this.state.cart.splice(index, 1)
+    this.setState({cart: this.state.cart})
+    window.localStorage.setItem('plant', JSON.stringify(this.state.cart))
+  }
 
   render() {
-    // const {plants} = this.props
+    let cart = this.state.cart
+    console.log(cart)
     return (
       <div>
-        if (cart is empty) (<p>Your cart is currently empty.</p>) else (
-        <ul>
-          {cartItems.map(item => (
-            <li>
-              <img />
-              <h3>{item.name}</h3>
-
-              <button>remove</button>
-              <p>{item.price}</p>
-            </li>
-          ))}
-        </ul>
-        )
+        {cart.length === 0 ? (
+          <p>Your cart is currently empty.</p>
+        ) : (
+          <ul>
+            {cart.map((item, i) => (
+              <li key={item.id}>
+                <h3>{item.name}</h3>
+                <button type="button" onClick={() => this.increment(item.id)}>
+                  +
+                </button>
+                <span>Qty: {item.quantity}</span>
+                <button type="button" onClick={() => this.decrement(item.id)}>
+                  -
+                </button>
+                <button type="button" onClick={() => this.remove(i)}>
+                  remove
+                </button>
+                <p>{item.price}</p>
+              </li>
+            ))}
+          </ul>
+        )}
+        <button type="button">
+          <Link to="/checkout"> Checkout </Link>
+        </button>
       </div>
     )
   }
@@ -41,4 +82,5 @@ const mapDispatch = dispatch => {
   }
 }
 
-export default connect(mapState, mapDispatch)(Cart)
+export default Cart
+// export default connect(mapState, mapDispatch)(Cart)
