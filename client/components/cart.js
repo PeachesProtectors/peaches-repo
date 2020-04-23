@@ -1,39 +1,46 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {Link, Route} from 'react-router-dom'
-import Checkout from './components/checkout'
 
 class Cart extends React.Component {
-  // componentDidMount() {
-  //   this.props.getAllPlants()
-  // }
+  constructor() {
+    super()
+    this.increment = this.increment.bind(this)
+    this.decrement = this.decrement.bind(this)
+    this.remove = this.remove.bind(this)
+  }
+
+  increment() {}
+
+  decrement() {}
+
+  remove() {}
 
   render() {
-    // const {plants} = this.props
+    const cart = JSON.parse(window.localStorage.getItem('plant'))
+    console.log(cart)
     return (
       <div>
-        if (cart is empty) (<p>Your cart is currently empty.</p>) else (
-        <ul>
-          {cartItems.map(item => (
-            <li>
-              <img />
-              <h3>{item.name}</h3>
-
-              <button>remove</button>
-              <p>{item.price}</p>
-            </li>
-          ))}
-        </ul>
-        <div>
-          <p>
-            subtotal: <span />
-          </p>
-          <Link to="/checkout"> checkout </Link>
-        </div>
-        <div>
-          <Route path="/checkout" component={Checkout} />
-        </div>
-        )
+        {cart.length === 0 ? (
+          <p>Your cart is currently empty.</p>
+        ) : (
+          <ul>
+            {cart.map(item => (
+              <li key={item.id}>
+                <h3>{item.name}</h3>
+                <button type="button" onClick={() => increment()}>
+                  +
+                </button>
+                <span>Qty: {item.quantity}</span>
+                <button type="button" onClick={() => decrement()}>
+                  -
+                </button>
+                <button onClick={() => remove()}>remove</button>
+                <p>{item.price}</p>
+              </li>
+            ))}
+          </ul>
+        )}
       </div>
     )
   }
@@ -51,4 +58,5 @@ const mapDispatch = dispatch => {
   }
 }
 
-export default connect(mapState, mapDispatch)(Cart)
+export default Cart
+// export default connect(mapState, mapDispatch)(Cart)

@@ -4,47 +4,57 @@ import {Link, Route} from 'react-router-dom'
 
 class Checkout extends React.Component {
   constructor() {
+    super()
     this.state = {
       email: '',
-      address: '',
+      address: ''
     }
     this.handleChange = this.handleChange.bind(this)
+    this.handleSubmit = this.handleSubmit.bind(this)
   }
   // check if they are logged in
   // this.props.isLoggedIn
   // componentDidMount() {
   //   this.props.getAllPlants()
   // }
+  async handleSubmit(e) {
+    e.preventDefault()
+    try {
+      // send the order to the db
+      // direct user to Thanks component
+    } catch (err) {
+      console.error(err)
+    }
+  }
+
   handleChange(e) {
     this.setState({
-      [e.target.name]: e.target.value,
+      [e.target.name]: e.target.value
     })
   }
 
   render() {
-    // const {plants} = this.props
     return (
       <div>
-        {/* Order Information */}
         <div>
           <form>
             <div>
               <label htmlFor="email">
                 <small>Email</small>
               </label>
-              <input name="email" type="text" onChange={handleChange} />
+              <input name="email" type="text" onChange={this.handleChange} />
             </div>
 
             <div>
               <label htmlFor="address">
                 <small>Address</small>
               </label>
-              <input name="address" type="text" onChange={handleChange} />
+              <input name="address" type="text" onChange={this.handleChange} />
             </div>
           </form>
         </div>
-
-        <Link to="/Thanks">
+        {/* Order Information */}
+        <Link to="/Thanks" onSubmit={this.handleSubmit}>
           <button>Pay Now</button>
         </Link>
       </div>
@@ -52,13 +62,14 @@ class Checkout extends React.Component {
   }
 }
 
-const mapState = (state) => {
+const mapState = state => {
   return {
-    isLoggedIn: !!state.user.id,
+    isLoggedIn: !!state.user.id
   }
 }
 
-const mapDispatch = (dispatch) => {
+//sends info from form to db
+const mapDispatch = dispatch => {
   return {
     // getAllPlants: () => dispatch(getPlantsThunk())
   }
