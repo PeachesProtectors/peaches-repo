@@ -24,3 +24,43 @@ router.get('/:productId', async (req, res, next) => {
     next(err)
   }
 })
+
+router.post('/', async (req, res, next) => {
+  try {
+    const newProduct = await Product.create(req.body)
+    res.json(newProduct)
+  } catch (err) {
+    next(err)
+  }
+})
+
+router.put('/:productId', async (req, res, next) => {
+  try {
+    const currProduct = await Product.findByPk(req.params.productId)
+    if (currProduct) {
+      const updatedProduct = await currProduct.update(req.body)
+      res.json(updatedProduct)
+    } else {
+      res.status(404).json('Product not found')
+    }
+  } catch (err) {
+    next(err)
+  }
+})
+
+router.delete('/:productId', async (req, res, next) => {
+  try {
+    const currProduct = await Product.findByPk(req.params.productId)
+    if (currProduct) {
+      const name = currProduct.dataValues.name
+      await Product.destroy({
+        where: {id: req.params.productId}
+      })
+      res.send(`Goodbye ${name}!`)
+    } else {
+      res.status(404).json('Product not found')
+    }
+  } catch (err) {
+    next(err)
+  }
+})
