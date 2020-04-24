@@ -21,6 +21,9 @@ router.get('/', async (req, res, next) => {
 router.post('/', async (req, res, next) => {
   let localCart = req.body || []
   try {
+    // get pending order for a userID (logged in)
+    // get the orderID
+
     const [order] = await Order.findOrCreate({
       where: {
         userId: req.user.id,
@@ -35,6 +38,7 @@ router.post('/', async (req, res, next) => {
       }
     })
 
+    //overwrite products in through table with local storage data instead
     for (let i = 0; i < localCart.length; i++) {
       const plant = await Product.findOne({
         where: {
@@ -51,3 +55,5 @@ router.post('/', async (req, res, next) => {
     next(err)
   }
 })
+
+//change order process to 'complete' after checkout
