@@ -133,15 +133,20 @@ async function seed() {
 
   const orders = await Promise.all([
     Order.create({
-      orderDate: '2016-08-09 04:05:02'
+      orderDate: '2016-08-09 04:05:02',
+      orderStatus: 'pending',
+      userId: 1
     }),
     Order.create({
-      orderDate: '2020-04-21 16:03:05'
+      orderDate: '2020-04-21 16:03:05',
+      orderStatus: 'complete',
+      userId: 2
     })
   ])
 
   console.log(`seeded ${users.length} users`)
   console.log(`seeded ${products.length} products`)
+  console.log(`seeded ${orders.length} products`)
   console.log(`seeded successfully`)
 }
 
