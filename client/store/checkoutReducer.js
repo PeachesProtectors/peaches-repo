@@ -4,7 +4,6 @@ import axios from 'axios'
  * ACTION TYPES
  */
 const ADD_ORDER = 'ADD_ORDER'
-
 /**
  * INITIAL STATE
  */
@@ -20,10 +19,19 @@ const addOrder = order => ({type: ADD_ORDER, order})
 /**
  * THUNK CREATORS
  */
-export const postNewOrder = order => async dispatch => {
+export const postNewOrder = product => async dispatch => {
   try {
-    const res = await axios.post('/api/orders', order)
+    const res = await axios.post('/api/orderhistories', product)
     dispatch(addOrder(res.data))
+  } catch (err) {
+    console.error(err)
+  }
+}
+
+export const fetchOrderId = () => async dispatch => {
+  try {
+    const res = await axios.get('/api/orders')
+    dispatch(res.data.id)
   } catch (err) {
     console.error(err)
   }
