@@ -51,7 +51,17 @@ router.get('/:productId', async (req, res, next) => {
   }
 })
 
-router.post('/', async (req, res, next) => {
+const isAdmin = (req, res, next) => {
+  const {user} = req
+  if (!user || !user.isAdmin) {
+    const err = new Error("You're not an admin!")
+    err.status = 401
+    return next(err)
+  }
+  next()
+}
+
+router.post('/', isAdmin, async (req, res, next) => {
   try {
     const newProduct = await Product.create(req.body)
     res.json(newProduct)
@@ -60,7 +70,7 @@ router.post('/', async (req, res, next) => {
   }
 })
 
-router.put('/:productId', async (req, res, next) => {
+router.put('/:productId', isAdmin, async (req, res, next) => {
   try {
     const currProduct = await Product.findByPk(req.params.productId)
     if (currProduct) {
@@ -74,7 +84,7 @@ router.put('/:productId', async (req, res, next) => {
   }
 })
 
-router.delete('/:productId', async (req, res, next) => {
+router.delete('/:productId', isAdmin, async (req, res, next) => {
   try {
     const currProduct = await Product.findByPk(req.params.productId)
     if (currProduct) {
