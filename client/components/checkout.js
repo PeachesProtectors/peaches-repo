@@ -55,7 +55,7 @@ class Checkout extends React.Component {
         </div>
         {/* Order Information */}
         <Link to="/Thanks" onSubmit={this.handleSubmit}>
-          <button>Pay Now</button>
+          <button type="button">Pay Now</button>
         </Link>
       </div>
     )

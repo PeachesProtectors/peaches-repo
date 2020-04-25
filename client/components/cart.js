@@ -17,9 +17,13 @@ class Cart extends React.Component {
   componentDidMount() {
     //login user: load cart from db
     this.props.loadCart()
+    if (!this.props.loggedIn) {
+      this.setState({cart: this.state.cart})
+    }
   }
 
   increment(id) {
+    console.log(this.state.cart)
     let plant = this.state.cart.find(p => p.id === id)
     plant.quantity++
     this.setState({cart: this.state.cart})
@@ -56,77 +60,82 @@ class Cart extends React.Component {
   }
 
   render() {
-    console.log(this.props.isLoggedIn)
-    // if (this.props.isLoggedIn) {
-    //   let cart = this.props.loadCart()
-    //   console.log(this.props)
-    //   return (
-    //     <div>
-    //     {cart && cart.length === 0 || cart === null ? (
-    //       <p>Your cart is currently empty.</p>
-    //     ) : (
-    //       <ul>
-    //         {cart.map((item, i) => (
-    //           <li key={item.products[0].OrderHistory.productId}>
-    //             <h3>{item.products[0].name}</h3>
-    //             <button type="button" onClick={() => this.increment(item.products[0].productId)}>
-    //               +
-    //             </button>
-    //             <span>Qty: {item.products[0].OrderHistory.quantity}</span>
-    //             <button type="button" onClick={() => this.decrement(item.products[0].productId)}>
-    //               -
-    //             </button>
-    //             <button type="button" onClick={() => this.remove(i)}>
-    //               remove
-    //             </button>
-    //             <p>{item.products[0].price}</p>
-    //           </li>
-    //         ))}
-    //       </ul>
-    //     )}
-    //     <button type="button">
-    //       <Link to="/checkout"> Checkout </Link>
-    //     </button>
-    //   </div>
-    //   )
-    // } else {
-    let cart = this.state.cart
-    return (
-      <div>
-        {(cart && cart.length === 0) || cart === null ? (
-          <p>Your cart is currently empty.</p>
-        ) : (
-          <ul>
-            {cart.map((item, i) => (
-              <li key={item.id}>
-                <h3>{item.name}</h3>
-                <button type="button" onClick={() => this.increment(item.id)}>
-                  +
-                </button>
-                <span>Qty: {item.quantity}</span>
-                <button type="button" onClick={() => this.decrement(item.id)}>
-                  -
-                </button>
-                <button type="button" onClick={() => this.remove(i)}>
-                  remove
-                </button>
-                <p>{item.price}</p>
-              </li>
-            ))}
-          </ul>
-        )}
-        <button type="button">
-          <Link to="/checkout"> Checkout </Link>
-        </button>
-      </div>
-    )
+    if (this.props.isLoggedIn) {
+      let cart = this.props.cart
+      return (
+        <div>
+          {(cart && cart.length === 0) || cart === null ? (
+            <p>Your cart is currently empty.</p>
+          ) : (
+            <ul>
+              {cart.products.map((item, i) => (
+                <li key={item.OrderHistory.productId}>
+                  <h3>{item.name}</h3>
+                  <button
+                    type="button"
+                    onClick={() => this.increment(item.productId)}
+                  >
+                    +
+                  </button>
+                  <span>Qty: {item.OrderHistory.quantity}</span>
+                  <button
+                    type="button"
+                    onClick={() => this.decrement(item.productId)}
+                  >
+                    -
+                  </button>
+                  <button type="button" onClick={() => this.remove(i)}>
+                    remove
+                  </button>
+                  <p>{item.price}</p>
+                </li>
+              ))}
+            </ul>
+          )}
+          <button type="button">
+            <Link to="/checkout"> Checkout </Link>
+          </button>
+        </div>
+      )
+    } else {
+      let cart = this.state.cart
+      return (
+        <div>
+          {(cart && cart.length === 0) || cart === null ? (
+            <p>Your cart is currently empty.</p>
+          ) : (
+            <ul>
+              {cart.map((item, i) => (
+                <li key={item.id}>
+                  <h3>{item.name}</h3>
+                  <button type="button" onClick={() => this.increment(item.id)}>
+                    +
+                  </button>
+                  <span>Qty: {item.quantity}</span>
+                  <button type="button" onClick={() => this.decrement(item.id)}>
+                    -
+                  </button>
+                  <button type="button" onClick={() => this.remove(i)}>
+                    remove
+                  </button>
+                  <p>{item.price}</p>
+                </li>
+              ))}
+            </ul>
+          )}
+          <button type="button">
+            <Link to="/checkout"> Checkout </Link>
+          </button>
+        </div>
+      )
+    }
   }
-  // }
 }
 
 const mapState = state => {
   return {
-    isLoggedIn: !!state.user.id
+    isLoggedIn: !!state.user.id,
+    cart: state.checkoutReducer.cart
   }
 }
 
