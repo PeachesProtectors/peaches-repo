@@ -26,7 +26,8 @@ router.get('/:productId', async (req, res, next) => {
 })
 
 const isAdmin = (req, res, next) => {
-  if (!req.user || !req.user.isAdmin) {
+  const {user} = req
+  if (!user || !user.isAdmin) {
     const err = new Error("You're not an admin!")
     err.status = 401
     return next(err)
