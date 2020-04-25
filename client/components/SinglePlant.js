@@ -1,6 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {getSinglePlantThunk} from '../store/allPlantsReducer'
+import {updateCartThunk} from '../store/checkoutReducer'
 
 class SinglePlant extends React.Component {
   constructor() {
@@ -34,6 +35,10 @@ class SinglePlant extends React.Component {
       existingPlant.quantity++
     }
     cart.setItem('plant', JSON.stringify(purchasePlants))
+
+    if (this.props.isLoggedIn) {
+      this.props.updateCart(purchasePlants)
+    }
   }
 
   render() {
@@ -59,13 +64,15 @@ class SinglePlant extends React.Component {
 
 const mapState = state => {
   return {
-    plant: state.allPlantsReducer.singlePlant
+    plant: state.allPlantsReducer.singlePlant,
+    isLoggedIn: !!state.user.id
   }
 }
 
 const mapDispatch = dispatch => {
   return {
-    getPlant: plantId => dispatch(getSinglePlantThunk(plantId))
+    getPlant: plantId => dispatch(getSinglePlantThunk(plantId)),
+    updateCart: product => dispatch(updateCartThunk(product))
   }
 }
 

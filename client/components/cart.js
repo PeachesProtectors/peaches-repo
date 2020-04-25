@@ -1,7 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {Link, Route} from 'react-router-dom'
-import Checkout from './checkout'
+import {updateCartThunk, getCartThunk} from '../store/checkoutReducer'
 
 class Cart extends React.Component {
   constructor() {
@@ -14,11 +14,23 @@ class Cart extends React.Component {
     this.remove = this.remove.bind(this)
   }
 
+  componentDidMount() {
+    //login user: load cart from db
+    if (this.props.isLoggedIn) {
+      this.props.loadCart()
+    }
+  }
+
   increment(id) {
     let plant = this.state.cart.find(p => p.id === id)
     plant.quantity++
     this.setState({cart: this.state.cart})
     window.localStorage.setItem('plant', JSON.stringify(this.state.cart))
+
+    //login user: update db
+    if (this.props.isLoggedIn) {
+      this.props.updateCart(this.state.cart)
+    }
   }
 
   decrement(id) {
@@ -27,17 +39,26 @@ class Cart extends React.Component {
     plant.quantity--
     this.setState({cart: this.state.cart})
     window.localStorage.setItem('plant', JSON.stringify(this.state.cart))
+
+    //login user: update db
+    if (this.props.isLoggedIn) {
+      this.props.updateCart(this.state.cart)
+    }
   }
 
   remove(index) {
     this.state.cart.splice(index, 1)
     this.setState({cart: this.state.cart})
     window.localStorage.setItem('plant', JSON.stringify(this.state.cart))
+
+    //login user: update db
+    if (this.props.isLoggedIn) {
+      this.props.updateCart(this.state.cart)
+    }
   }
 
   render() {
     let cart = this.state.cart
-    console.log(cart)
     return (
       <div>
         {cart.length === 0 ? (
@@ -72,15 +93,15 @@ class Cart extends React.Component {
 
 const mapState = state => {
   return {
-    // plants: state.allPlantsReducer.plants
+    isLoggedIn: !!state.user.id
   }
 }
 
 const mapDispatch = dispatch => {
   return {
-    // getAllPlants: () => dispatch(getPlantsThunk())
+    loadCart: () => dispatch(getCartThunk()),
+    updateCart: product => dispatch(updateCartThunk(product))
   }
 }
 
-export default Cart
-// export default connect(mapState, mapDispatch)(Cart)
+export default connect(mapState, mapDispatch)(Cart)
