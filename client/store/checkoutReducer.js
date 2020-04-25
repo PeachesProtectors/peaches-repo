@@ -3,41 +3,30 @@ import axios from 'axios'
 /**
  * ACTION TYPES
  */
-const ADD_ORDER = 'ADD_ORDER'
-/**
- * INITIAL STATE
- */
-const initialState = {
-  orders: []
-}
+const GET_CART = 'GET_CART'
 
 /**
  * ACTION CREATORS
  */
-// const addOrder = order => ({type: ADD_ORDER, order})
+
+const getCart = cart => ({type: GET_CART, cart})
 
 /**
  * THUNK CREATORS
  */
-export const postNewOrder = product => async dispatch => {
+export const updateCartThunk = product => async dispatch => {
   try {
     await axios.post('/api/orders', product)
-    // dispatch(addOrder(res.data))
   } catch (err) {
     console.error(err)
   }
 }
 
-/**
- * REDUCER
- */
-const checkoutReducer = (state = initialState, action) => {
-  switch (action.type) {
-    case ADD_ORDER:
-      return {...state, orders: action.order}
-    default:
-      return state
+export const getCartThunk = () => async dispatch => {
+  try {
+    const res = await axios.get('/api/orders')
+    dispatch(getCart(res.data))
+  } catch (err) {
+    console.error(err)
   }
 }
-
-export default checkoutReducer

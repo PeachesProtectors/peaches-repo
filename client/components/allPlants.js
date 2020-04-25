@@ -13,12 +13,7 @@ class AllPlants extends React.Component {
     const {plants} = this.props
     return (
       <div>
-        {plants &&
-          plants.map(plant => (
-            // <Link to={`/products/${plant.id}`} key={plant.id}>
-            <Plant key={plant.id} plant={plant} />
-            // </Link>
-          ))}
+        {plants && plants.map(plant => <Plant key={plant.id} plant={plant} />)}
       </div>
     )
   }
