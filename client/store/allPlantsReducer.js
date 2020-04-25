@@ -7,12 +7,18 @@ import history from '../history'
 const GET_PLANTS = 'GET_PLANTS'
 const GET_SINGLE_PLANT = 'GET_SINGLE_PLANT'
 
+//filter 
+const GET_LOW_LIGHT = 'GET_LOW_LIGHT'
+const GET_BRIGHT_LIGHT = 'GET_BRIGHT_LIGHT'
+
 /**
  * INITIAL STATE
  */
 const initialState = {
   plants: [],
-  singlePlant: {}
+  singlePlant: {},
+  lowLightPlants: [],
+  brightLightPlants: []
 }
 
 /**
@@ -20,6 +26,8 @@ const initialState = {
  */
 const getPlants = plants => ({type: GET_PLANTS, plants})
 const getSinglePlant = plant => ({type: GET_SINGLE_PLANT, plant})
+const getLowLightPlants = plants => ({type: GET_LOW_LIGHT, plants})
+const getBrightLightPlants = plants => ({type: GET_BRIGHT_LIGHT, plants})
 
 /**
  * THUNK CREATORS
@@ -42,6 +50,26 @@ export const getSinglePlantThunk = id => async dispatch => {
   }
 }
 
+//filter thunks 'Low Light', 'Bright Light'
+//low light
+export const getLowLightThunk = () => async dispatch => {
+  try {
+    const res = await axios.get('/api/products/low-light') 
+    dispatch(getLowLightPlants(res.data))
+  } catch (err) {
+    console.error(err)
+  }
+}
+//bright light
+export const getBrightLightThunk = () => async dispatch => {
+  try {
+    const res = await axios.get('/api/products/bright-light') 
+    dispatch(getBrightLightPlants(res.data))
+  } catch (err) {
+    console.error(err)
+  }
+}
+
 /**
  * REDUCER
  */
@@ -51,6 +79,10 @@ const allPlantsReducer = (state = initialState, action) => {
       return {...state, plants: action.plants}
     case GET_SINGLE_PLANT:
       return {...state, singlePlant: action.plant}
+    case GET_LOW_LIGHT:
+      return {...state, lowLightPlants: action.plants}
+    case GET_BRIGHT_LIGHT:
+      return {...state, brightLightPlants: action.plants}
     default:
       return state
   }

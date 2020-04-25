@@ -4,13 +4,19 @@ import {Link} from 'react-router-dom'
 import Plant from './Plant'
 import {getPlantsThunk} from '../store/allPlantsReducer'
 
+
 class AllPlants extends React.Component {
+  constructor(){
+    super()
+  }
+
   componentDidMount() {
     this.props.getAllPlants()
   }
-
+  
   render() {
     const {plants} = this.props
+    console.log("PLANTS ==========> ", plants)
     return (
       <div>
         {plants &&
@@ -26,7 +32,7 @@ class AllPlants extends React.Component {
 
 const mapState = state => {
   return {
-    plants: state.allPlantsReducer.plants
+    plants: state.allPlantsReducer.plants,
   }
 }
 
