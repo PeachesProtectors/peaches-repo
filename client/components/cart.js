@@ -16,9 +16,7 @@ class Cart extends React.Component {
 
   componentDidMount() {
     //login user: load cart from db
-    if (this.props.isLoggedIn) {
-      this.props.loadCart()
-    }
+    this.props.loadCart()
   }
 
   increment(id) {
@@ -58,10 +56,44 @@ class Cart extends React.Component {
   }
 
   render() {
+    console.log(this.props.isLoggedIn)
+    // if (this.props.isLoggedIn) {
+    //   let cart = this.props.loadCart()
+    //   console.log(this.props)
+    //   return (
+    //     <div>
+    //     {cart && cart.length === 0 || cart === null ? (
+    //       <p>Your cart is currently empty.</p>
+    //     ) : (
+    //       <ul>
+    //         {cart.map((item, i) => (
+    //           <li key={item.products[0].OrderHistory.productId}>
+    //             <h3>{item.products[0].name}</h3>
+    //             <button type="button" onClick={() => this.increment(item.products[0].productId)}>
+    //               +
+    //             </button>
+    //             <span>Qty: {item.products[0].OrderHistory.quantity}</span>
+    //             <button type="button" onClick={() => this.decrement(item.products[0].productId)}>
+    //               -
+    //             </button>
+    //             <button type="button" onClick={() => this.remove(i)}>
+    //               remove
+    //             </button>
+    //             <p>{item.products[0].price}</p>
+    //           </li>
+    //         ))}
+    //       </ul>
+    //     )}
+    //     <button type="button">
+    //       <Link to="/checkout"> Checkout </Link>
+    //     </button>
+    //   </div>
+    //   )
+    // } else {
     let cart = this.state.cart
     return (
       <div>
-        {cart.length === 0 ? (
+        {(cart && cart.length === 0) || cart === null ? (
           <p>Your cart is currently empty.</p>
         ) : (
           <ul>
@@ -89,6 +121,7 @@ class Cart extends React.Component {
       </div>
     )
   }
+  // }
 }
 
 const mapState = state => {

@@ -22,11 +22,28 @@ export const updateCartThunk = product => async dispatch => {
   }
 }
 
-export const getCartThunk = () => async dispatch => {
-  try {
-    const res = await axios.get('/api/orders')
-    dispatch(getCart(res.data))
-  } catch (err) {
-    console.error(err)
+export const getCartThunk = () => {
+  return async dispatch => {
+    try {
+      const {data} = await axios.get('/api/orders')
+      dispatch(getCart(data))
+    } catch (err) {
+      console.error(err)
+    }
   }
 }
+
+const initialState = {
+  cart: []
+}
+
+const checkoutReducer = (state = initialState, action) => {
+  switch (action.type) {
+    case GET_CART:
+      return {...state, cart: action.cart}
+    default:
+      return state
+  }
+}
+
+export default checkoutReducer
