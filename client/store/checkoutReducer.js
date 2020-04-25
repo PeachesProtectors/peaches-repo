@@ -14,24 +14,15 @@ const initialState = {
 /**
  * ACTION CREATORS
  */
-const addOrder = order => ({type: ADD_ORDER, order})
+// const addOrder = order => ({type: ADD_ORDER, order})
 
 /**
  * THUNK CREATORS
  */
 export const postNewOrder = product => async dispatch => {
   try {
-    const res = await axios.post('/api/orderhistories', product)
-    dispatch(addOrder(res.data))
-  } catch (err) {
-    console.error(err)
-  }
-}
-
-export const fetchOrderId = () => async dispatch => {
-  try {
-    const res = await axios.get('/api/orders')
-    dispatch(res.data.id)
+    await axios.post('/api/orders', product)
+    // dispatch(addOrder(res.data))
   } catch (err) {
     console.error(err)
   }

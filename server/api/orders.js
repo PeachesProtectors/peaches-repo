@@ -23,7 +23,7 @@ router.post('/', async (req, res, next) => {
   try {
     // get pending order for a userID (logged in)
     // get the orderID
-
+    console.log(localCart)
     const [order] = await Order.findOrCreate({
       where: {
         userId: req.user.id,

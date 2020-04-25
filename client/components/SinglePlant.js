@@ -1,7 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {getSinglePlantThunk} from '../store/allPlantsReducer'
-import {postNewOrder, fetchOrderId} from '../store/checkoutReducer'
+import {postNewOrder} from '../store/checkoutReducer'
 
 class SinglePlant extends React.Component {
   constructor() {
@@ -35,14 +35,9 @@ class SinglePlant extends React.Component {
       existingPlant.quantity++
     }
     cart.setItem('plant', JSON.stringify(purchasePlants))
+
     if (this.props.isLoggedIn) {
-      console.log(this.props.getOrderId())
-      this.props.postOrder({
-        price: this.props.plant.price,
-        quantity: 1,
-        orderId: 3,
-        productId: this.props.plant.id
-      })
+      this.props.postOrder(purchasePlants)
     }
   }
 
@@ -77,8 +72,7 @@ const mapState = state => {
 const mapDispatch = dispatch => {
   return {
     getPlant: plantId => dispatch(getSinglePlantThunk(plantId)),
-    postOrder: product => dispatch(postNewOrder(product)),
-    getOrderId: () => dispatch(fetchOrderId())
+    postOrder: product => dispatch(postNewOrder(product))
   }
 }
 
