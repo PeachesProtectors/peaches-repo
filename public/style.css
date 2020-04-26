@@ -87,6 +87,64 @@ body {
   position: relative;
 }
 
+.fa {
+  padding: 20px;
+  font-size: 30px;
+  width: 30px;
+  text-align: center;
+  text-decoration: none;
+  border-radius: 50%;
+}
+.fa:hover {
+  opacity: 0.7;
+}
+.fa-facebook {
+  background: #3B5998;
+  color: white;
+}
+
+.fa-twitter {
+  background: #55ACEE;
+  color: white;
+}
+
+.fa-instagram {
+  background: #125688;
+  color: white;
+}
+
+div.polaroid {
+  margin-bottom: 50px;
+  margin-top: 50px;
+  position: relative;
+  right: 50%;
+}
+.plant-image{
+  height: 300px;
+  width: 400px;
+ 
+}
+.description{
+  margin-top: 50px;
+  padding: 0px 16px 16px 48px;
+  font-family: Arial, Helvetica, sans-serif;
+}
+.plant-description{
+  margin-right: 40%;
+
+}
+.name-plant{
+ font-size: 3rem;
+}
+
+#price{
+  margin-left: 30px;
+  font-size: 2.5rem;
+}
+#single-plant{
+  margin-left: 25%;
+  height: 75vh;
+}
 /*
 #peach2{
   right: -10%
