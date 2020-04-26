@@ -1,6 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {getSinglePlantThunk} from '../store/allPlantsReducer'
+import UpdatePlant from './update'
 
 class SinglePlant extends React.Component {
   constructor() {
@@ -37,7 +38,7 @@ class SinglePlant extends React.Component {
   }
 
   render() {
-    const {plant} = this.props
+    const {plant, isAdmin} = this.props
     const {id, name, imageUrl, description, price, lightReqs} = plant
     return (
       <div>
@@ -52,6 +53,12 @@ class SinglePlant extends React.Component {
         <button type="submit" onClick={() => this.handleClick()}>
           Add to Cart
         </button>
+        {isAdmin && (
+          <div>
+            {/* <UpdatePlant plant={plant}/> */}
+            {/* <RemovePlant /> */}
+          </div>
+        )}
       </div>
     )
   }
@@ -59,7 +66,8 @@ class SinglePlant extends React.Component {
 
 const mapState = state => {
   return {
-    plant: state.allPlantsReducer.singlePlant
+    plant: state.allPlantsReducer.singlePlant,
+    isAdmin: !!state.user.isAdmin
   }
 }
 

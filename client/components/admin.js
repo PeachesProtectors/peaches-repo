@@ -1,7 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
 // import PropTypes from 'prop-types'
-import {addPlantThunk} from '../store/adminReducer'
+import {addPlantThunk} from '../store/admin'
 
 /**
  * COMPONENT
@@ -11,6 +11,7 @@ class Admin extends React.Component {
     const {handleSubmit} = this.props
     return (
       <div>
+        <h2>Add Plant:</h2>
         <form onSubmit={handleSubmit}>
           <div>
             <label htmlFor="plantName">
@@ -59,13 +60,6 @@ class Admin extends React.Component {
     )
   }
 }
-
-// const mapState = (state) => {
-//   //is there a state?
-//   return {
-//     // error: state.user.error,
-//   }
-// }
 
 const mapDispatch = dispatch => {
   return {
