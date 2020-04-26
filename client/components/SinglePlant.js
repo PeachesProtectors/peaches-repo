@@ -1,30 +1,26 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {getSinglePlantThunk} from '../store/allPlantsReducer'
-import {updateCartThunk} from '../store/checkoutReducer'
+import {updateCartThunk} from '../store/cartReducer'
 
 class SinglePlant extends React.Component {
   constructor() {
     super()
+    if (!window.localStorage.getItem('plant')) {
+      window.localStorage.setItem('plant', JSON.stringify([]))
+    }
     this.handleClick = this.handleClick.bind(this)
   }
   componentDidMount() {
     const plantId = this.props.match.params.plantId
-    this.props.getPlant(plantId)
+    this.props.getSinglePlant(plantId)
   }
 
   handleClick() {
-    let cart = window.localStorage
     const {id, name, imageUrl, price} = this.props.plant
-
-    let purchasePlants = []
-    if (cart.getItem('plant')) {
-      purchasePlants = JSON.parse(cart.getItem('plant'))
-    }
-
-    const existingPlant = purchasePlants.find(plant => plant.id === id)
-    if (!existingPlant) {
-      purchasePlants.push({
+    const currentPlant = this.props.cart.find(p => p.id === id)
+    if (!currentPlant) {
+      this.props.cart.push({
         id: id,
         name: name,
         imageUrl: imageUrl,
@@ -32,12 +28,13 @@ class SinglePlant extends React.Component {
         quantity: 1
       })
     } else {
-      existingPlant.quantity++
+      currentPlant.quantity++
     }
-    cart.setItem('plant', JSON.stringify(purchasePlants))
+
+    window.localStorage.setItem('plant', JSON.stringify(this.props.cart))
 
     if (this.props.isLoggedIn) {
-      this.props.updateCart(purchasePlants)
+      this.props.updateCart(this.props.cart)
     }
   }
 
@@ -65,14 +62,15 @@ class SinglePlant extends React.Component {
 const mapState = state => {
   return {
     plant: state.allPlantsReducer.singlePlant,
-    isLoggedIn: !!state.user.id
+    isLoggedIn: !!state.user.id,
+    cart: state.cartReducer
   }
 }
 
 const mapDispatch = dispatch => {
   return {
-    getPlant: plantId => dispatch(getSinglePlantThunk(plantId)),
-    updateCart: product => dispatch(updateCartThunk(product))
+    getSinglePlant: plantId => dispatch(getSinglePlantThunk(plantId)),
+    updateCart: cart => dispatch(updateCartThunk(cart))
   }
 }
 

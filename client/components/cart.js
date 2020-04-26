@@ -1,13 +1,19 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {Link, Route} from 'react-router-dom'
-import {updateCartThunk, getCartThunk} from '../store/checkoutReducer'
+import {
+  updateCartThunk,
+  getCartThunk,
+  increaseQty,
+  decreaseQty,
+  removePlant
+} from '../store/cartReducer'
 
 class Cart extends React.Component {
   constructor() {
     super()
-    this.state = {
-      cart: JSON.parse(window.localStorage.getItem('plant'))
+    if (!window.localStorage.getItem('plant')) {
+      window.localStorage.setItem('plant', JSON.stringify([]))
     }
     this.increment = this.increment.bind(this)
     this.decrement = this.decrement.bind(this)
@@ -21,51 +27,48 @@ class Cart extends React.Component {
     }
   }
 
-  increment(id) {
-    let plant = this.state.cart.find(p => p.id === id)
-    plant.quantity++
-    this.setState({cart: this.state.cart})
-    window.localStorage.setItem('plant', JSON.stringify(this.state.cart))
+  // componentDidUpdate() {
+  //   if (this.props.isLoggedIn) {
+  //     this.props.loadCart()
+  //   }
+  // }
 
-    //login user: update db
+  increment(id) {
+    this.props.increment(id)
+    window.localStorage.setItem('plant', JSON.stringify(this.props.cart))
+
     if (this.props.isLoggedIn) {
-      this.props.updateCart(this.state.cart)
+      this.props.updateCart(this.props.cart)
     }
   }
 
   decrement(id) {
-    let plant = this.state.cart.find(p => p.id === id)
-    if (plant.quantity === 1) return
-    plant.quantity--
-    this.setState({cart: this.state.cart})
-    window.localStorage.setItem('plant', JSON.stringify(this.state.cart))
+    this.props.decrement(id)
+    window.localStorage.setItem('plant', JSON.stringify(this.props.cart))
 
-    //login user: update db
     if (this.props.isLoggedIn) {
-      this.props.updateCart(this.state.cart)
+      this.props.updateCart(this.props.cart)
     }
   }
 
-  remove(index) {
-    this.state.cart.splice(index, 1)
-    this.setState({cart: this.state.cart})
-    window.localStorage.setItem('plant', JSON.stringify(this.state.cart))
+  remove(id) {
+    this.props.remove(id)
+    window.localStorage.setItem('plant', JSON.stringify(this.props.cart))
 
-    //login user: update db
     if (this.props.isLoggedIn) {
-      this.props.updateCart(this.state.cart)
+      this.props.updateCart(this.props.cart)
     }
   }
 
   render() {
-    let cart = this.state.cart
+    // let cart = JSON.parse(window.localStorage.getItem('plant'))
     return (
       <div>
-        {cart.length === 0 ? (
+        {!this.props.cart ? (
           <p>Your cart is currently empty.</p>
         ) : (
           <ul>
-            {cart.map((item, i) => (
+            {this.props.cart.map(item => (
               <li key={item.id}>
                 <h3>{item.name}</h3>
                 <button type="button" onClick={() => this.increment(item.id)}>
@@ -75,7 +78,7 @@ class Cart extends React.Component {
                 <button type="button" onClick={() => this.decrement(item.id)}>
                   -
                 </button>
-                <button type="button" onClick={() => this.remove(i)}>
+                <button type="button" onClick={() => this.remove(item.id)}>
                   remove
                 </button>
                 <p>{item.price}</p>
@@ -93,14 +96,18 @@ class Cart extends React.Component {
 
 const mapState = state => {
   return {
-    isLoggedIn: !!state.user.id
+    isLoggedIn: !!state.user.id,
+    cart: state.cartReducer
   }
 }
 
 const mapDispatch = dispatch => {
   return {
     loadCart: () => dispatch(getCartThunk()),
-    updateCart: product => dispatch(updateCartThunk(product))
+    updateCart: cart => dispatch(updateCartThunk(cart)),
+    increment: plantId => dispatch(increaseQty(plantId)),
+    decrement: plantId => dispatch(decreaseQty(plantId)),
+    remove: plantId => dispatch(removePlant(plantId))
   }
 }
 
