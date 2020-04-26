@@ -1,7 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {getSinglePlantThunk} from '../store/allPlantsReducer'
-import {updateCartThunk} from '../store/cartReducer'
+import {updateCartThunk, getCartThunk} from '../store/cartReducer'
 
 class SinglePlant extends React.Component {
   constructor() {
@@ -14,6 +14,7 @@ class SinglePlant extends React.Component {
   componentDidMount() {
     const plantId = this.props.match.params.plantId
     this.props.getSinglePlant(plantId)
+    this.props.loadCart()
   }
 
   handleClick() {
@@ -70,7 +71,8 @@ const mapState = state => {
 const mapDispatch = dispatch => {
   return {
     getSinglePlant: plantId => dispatch(getSinglePlantThunk(plantId)),
-    updateCart: cart => dispatch(updateCartThunk(cart))
+    updateCart: cart => dispatch(updateCartThunk(cart)),
+    loadCart: () => dispatch(getCartThunk())
   }
 }
 

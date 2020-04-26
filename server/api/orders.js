@@ -3,7 +3,7 @@ const {Product, Order, OrderHistory} = require('../db/models')
 
 module.exports = router
 
-router.get('/', async (req, res, next) => {
+router.get('/cart', async (req, res, next) => {
   try {
     const order = await Order.findOne({
       where: {
@@ -28,7 +28,7 @@ router.get('/', async (req, res, next) => {
   }
 })
 
-router.post('/', async (req, res, next) => {
+router.post('/cart', async (req, res, next) => {
   let localCart = req.body || []
   try {
     // get pending order for a logged in userID

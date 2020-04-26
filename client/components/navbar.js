@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
 import {logout} from '../store'
+import {clearCart} from '../store/cartReducer'
 
 const Navbar = ({handleClick, isLoggedIn}) => (
   <div>
@@ -15,6 +16,7 @@ const Navbar = ({handleClick, isLoggedIn}) => (
           <a href="#" onClick={handleClick}>
             Logout
           </a>
+          <Link to="/cart">Cart</Link>
         </div>
       ) : (
         <div>
@@ -42,7 +44,8 @@ const mapDispatch = dispatch => {
   return {
     handleClick() {
       dispatch(logout())
-      window.localStorage.clear()
+      dispatch(clearCart()) //clear this.props.cart
+      window.localStorage.clear() //clear local storage
     }
   }
 }
