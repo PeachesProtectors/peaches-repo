@@ -17,7 +17,7 @@ export const getCart = cart => ({type: GET_CART, cart})
 export const increaseQty = plantId => ({type: INCREASE_QTY, plantId})
 export const decreaseQty = plantId => ({type: DECREASE_QTY, plantId})
 export const removePlant = plantId => ({type: REMOVE_PLANT, plantId})
-export const clearCart = () => ({type: CLEAR_CART})
+export const clearCart = () => ({type: CLEAR_CART}) //login user(comp/navbar) clear this.props.cart
 
 /**
  * THUNK CREATORS
@@ -37,10 +37,12 @@ const updateLocalStorage = cart => {
 export const getCartThunk = () => async dispatch => {
   let res
   try {
+    //login
     res = await axios.get('/api/orders/cart')
-    updateLocalStorage(res.data)
+    updateLocalStorage(res.data) //sync db with localstorage
     dispatch(getCart(res.data))
   } catch (err) {
+    //guest
     res = {data: JSON.parse(window.localStorage.getItem('plant')) || []}
     dispatch(getCart(res.data))
     console.log(err)

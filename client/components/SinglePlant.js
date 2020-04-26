@@ -18,6 +18,7 @@ class SinglePlant extends React.Component {
   }
 
   handleClick() {
+    // does not differ for login and guest
     const {id, name, imageUrl, price} = this.props.plant
     const localCart = JSON.parse(window.localStorage.getItem('plant'))
     const currentPlant = localCart.find(p => p.id === id)
@@ -34,7 +35,6 @@ class SinglePlant extends React.Component {
     }
 
     window.localStorage.setItem('plant', JSON.stringify(localCart))
-
     if (this.props.isLoggedIn) {
       this.props.updateCart(localCart)
     }

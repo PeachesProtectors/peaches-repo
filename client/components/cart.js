@@ -18,6 +18,7 @@ class Cart extends React.Component {
     this.increment = this.increment.bind(this)
     this.decrement = this.decrement.bind(this)
     this.remove = this.remove.bind(this)
+    this.syncLocalAndDb = this.syncLocalAndDb.bind(this)
   }
 
   componentDidMount() {
