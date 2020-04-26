@@ -13,22 +13,22 @@ class UpdatePlant extends React.Component {
     this.handleChange = this.handleChange.bind(this)
   }
 
-  handleChange(e) {
-    this.setState({
-      [e.target.name]: e.target.value
-    })
-    console.log(this.state)
-  }
+  // handleChange(e) {
+  //   this.setState({
+  //     [e.target.name]: e.target.value
+  //   })
+  //   console.log(this.state)
+  // }
 
-  async handleSubmit(e) {
-    console.log('e', e)
-    e.preventDefault()
-    try {
-      await this.props.updatePlant(plant)
-    } catch (error) {
-      console.error(error)
-    }
-  }
+  // async handleSubmit(e) {
+  //   console.log('e', e)
+  //   e.preventDefault()
+  //   try {
+  //     await this.props.updatePlant(plant)
+  //   } catch (error) {
+  //     console.error(error)
+  //   }
+  // }
 
   render() {
     const {plant} = this.props

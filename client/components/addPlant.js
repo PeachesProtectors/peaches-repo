@@ -2,7 +2,7 @@ import React from 'react'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
 
-const addPlant = props => {
+const AddPlant = props => {
   const {handleSubmit} = props
   return (
     <form onSubmit={handleSubmit}>
@@ -52,4 +52,4 @@ const addPlant = props => {
   )
 }
 
-export default addPlant
+export default AddPlant
