@@ -21,8 +21,8 @@ class Cart extends React.Component {
   }
 
   componentDidMount() {
-    this.props.loadCart()
-    window.localStorage.setItem('plant', JSON.stringify(this.props.cart))
+    this.props.loadCart(this.props.isLoggedIn)
+    // window.localStorage.setItem('plant', JSON.stringify(this.props.cart))
   }
 
   componentDidUpdate() {
@@ -45,14 +45,14 @@ class Cart extends React.Component {
   }
 
   render() {
-    // let cart = JSON.parse(window.localStorage.getItem('plant'))
+    const cart = this.props.cart
     return (
       <div>
-        {!this.props.cart ? (
+        {(cart && cart.length === 0) || cart === null ? (
           <p>Your cart is currently empty.</p>
         ) : (
           <ul>
-            {this.props.cart.map(item => (
+            {cart.map(item => (
               <li key={item.id}>
                 <h3>{item.name}</h3>
                 <button type="button" onClick={() => this.increment(item.id)}>
@@ -87,7 +87,7 @@ const mapState = state => {
 
 const mapDispatch = dispatch => {
   return {
-    loadCart: () => dispatch(getCartThunk()),
+    loadCart: isLoggedIn => dispatch(getCartThunk(isLoggedIn)),
     updateCart: cart => dispatch(updateCartThunk(cart)),
     increment: plantId => dispatch(increaseQty(plantId)),
     decrement: plantId => dispatch(decreaseQty(plantId)),

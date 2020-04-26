@@ -32,10 +32,17 @@ const updateLocalStorage = cart => {
   window.localStorage.setItem('plant', JSON.stringify(cart))
 }
 
-export const getCartThunk = () => async dispatch => {
+export const getCartThunk = isLoggedIn => async dispatch => {
   try {
-    const res = await axios.get('/api/orders')
-    updateLocalStorage(res.data)
+    let res
+    if (isLoggedIn) {
+      res = await axios.get('/api/orders')
+      updateLocalStorage(res.data)
+    } else {
+      res = {
+        data: JSON.parse(window.localStorage.getItem('plant')) || []
+      }
+    }
     dispatch(getCart(res.data))
   } catch (err) {
     console.error(err)
