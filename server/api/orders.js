@@ -12,7 +12,17 @@ router.get('/', async (req, res, next) => {
       },
       include: [{model: Product}]
     })
-    res.json(order)
+    const cart = order.products.map(p => {
+      return {
+        id: p.id,
+        name: p.name,
+        imageUrl: p.imageUrl,
+        price: p.price,
+        quantity: p.OrderHistory.quantity
+      }
+    })
+
+    res.json(cart)
   } catch (err) {
     next(err)
   }
@@ -45,7 +55,7 @@ router.post('/', async (req, res, next) => {
         }
       })
       order.addProduct(plant, {
-        through: {quantity: localCart[i].quantity, price: plant.price}
+        through: {quantity: localCart[i].quantity, price: localCart[i].price}
       })
     }
     res.sendStatus(201)

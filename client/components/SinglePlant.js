@@ -18,9 +18,10 @@ class SinglePlant extends React.Component {
 
   handleClick() {
     const {id, name, imageUrl, price} = this.props.plant
-    const currentPlant = this.props.cart.find(p => p.id === id)
+    const localCart = JSON.parse(window.localStorage.getItem('plant'))
+    const currentPlant = localCart.find(p => p.id === id)
     if (!currentPlant) {
-      this.props.cart.push({
+      localCart.push({
         id: id,
         name: name,
         imageUrl: imageUrl,
@@ -31,10 +32,10 @@ class SinglePlant extends React.Component {
       currentPlant.quantity++
     }
 
-    window.localStorage.setItem('plant', JSON.stringify(this.props.cart))
+    window.localStorage.setItem('plant', JSON.stringify(localCart))
 
     if (this.props.isLoggedIn) {
-      this.props.updateCart(this.props.cart)
+      this.props.updateCart(localCart)
     }
   }
 
@@ -62,8 +63,7 @@ class SinglePlant extends React.Component {
 const mapState = state => {
   return {
     plant: state.allPlantsReducer.singlePlant,
-    isLoggedIn: !!state.user.id,
-    cart: state.cartReducer
+    isLoggedIn: !!state.user.id
   }
 }
 

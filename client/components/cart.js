@@ -21,43 +21,27 @@ class Cart extends React.Component {
   }
 
   componentDidMount() {
-    //login user: load cart from db
-    if (this.props.isLoggedIn) {
-      this.props.loadCart()
-    }
+    this.props.loadCart()
+    window.localStorage.setItem('plant', JSON.stringify(this.props.cart))
   }
 
-  // componentDidUpdate() {
-  //   if (this.props.isLoggedIn) {
-  //     this.props.loadCart()
-  //   }
-  // }
-
-  increment(id) {
-    this.props.increment(id)
+  componentDidUpdate() {
     window.localStorage.setItem('plant', JSON.stringify(this.props.cart))
-
     if (this.props.isLoggedIn) {
       this.props.updateCart(this.props.cart)
     }
+  }
+
+  increment(id) {
+    this.props.increment(id)
   }
 
   decrement(id) {
     this.props.decrement(id)
-    window.localStorage.setItem('plant', JSON.stringify(this.props.cart))
-
-    if (this.props.isLoggedIn) {
-      this.props.updateCart(this.props.cart)
-    }
   }
 
   remove(id) {
     this.props.remove(id)
-    window.localStorage.setItem('plant', JSON.stringify(this.props.cart))
-
-    if (this.props.isLoggedIn) {
-      this.props.updateCart(this.props.cart)
-    }
   }
 
   render() {

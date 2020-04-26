@@ -28,9 +28,14 @@ export const updateCartThunk = product => async dispatch => {
   }
 }
 
+const updateLocalStorage = cart => {
+  window.localStorage.setItem('plant', JSON.stringify(cart))
+}
+
 export const getCartThunk = () => async dispatch => {
   try {
     const res = await axios.get('/api/orders')
+    updateLocalStorage(res.data)
     dispatch(getCart(res.data))
   } catch (err) {
     console.error(err)
@@ -51,14 +56,14 @@ const cartReducer = (state = initialState, action) => {
       return action.cart
     case INCREASE_QTY:
       return state.map(plant => {
-        if (plant.id !== action.id) {
+        if (plant.id !== action.plantId) {
           return plant
         }
         return {...plant, quantity: plant.quantity + 1}
       })
     case DECREASE_QTY:
       return state.map(plant => {
-        if (plant.id !== action.id) {
+        if (plant.id !== action.plantId) {
           return plant
         } else if (plant.quantity === 1) {
           return {...plant, quantity: 1}
@@ -66,7 +71,7 @@ const cartReducer = (state = initialState, action) => {
         return {...plant, quantity: plant.quantity - 1}
       })
     case REMOVE_PLANT:
-      return (newCart = state.filter(plant => plant.id !== action.plantId))
+      return state.filter(plant => plant.id !== action.plantId)
     default:
       return state
   }
