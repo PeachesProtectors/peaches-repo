@@ -18,13 +18,15 @@ class AllPlants extends React.Component {
     const {plants} = this.props
     console.log("PLANTS ==========> ", plants)
     return (
-      <div>
+      <div className='flex'>
+       
         {plants &&
           plants.map(plant => (
             // <Link to={`/products/${plant.id}`} key={plant.id}>
             <Plant key={plant.id} plant={plant} />
             // </Link>
           ))}
+         
       </div>
     )
   }
