@@ -62,19 +62,21 @@ const isAdmin = (req, res, next) => {
 }
 
 router.post('/', isAdmin, async (req, res, next) => {
+  const {body} = req
   try {
-    const newProduct = await Product.create(req.body)
+    const newProduct = await Product.create(body)
     res.json(newProduct)
   } catch (err) {
     next(err)
   }
 })
 
-router.put('/:productId', async (req, res, next) => {
+router.put('/:productId', isAdmin, async (req, res, next) => {
+  const {body, params} = req
   try {
-    const currProduct = await Product.findByPk(req.params.productId)
+    const currProduct = await Product.findByPk(params.productId)
     if (currProduct) {
-      const updatedProduct = await currProduct.update(req.body)
+      const updatedProduct = await currProduct.update(body)
       res.json(updatedProduct)
     } else {
       res.status(404).json('Product not found')
@@ -85,12 +87,13 @@ router.put('/:productId', async (req, res, next) => {
 })
 
 router.delete('/:productId', isAdmin, async (req, res, next) => {
+  const {body, params} = req
   try {
-    const currProduct = await Product.findByPk(req.params.productId)
+    const currProduct = await Product.findByPk(params.productId)
     if (currProduct) {
       const name = currProduct.dataValues.name
       await Product.destroy({
-        where: {id: req.params.productId}
+        where: {id: params.productId}
       })
       res.send(`Goodbye ${name}!`)
     } else {

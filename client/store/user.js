@@ -1,6 +1,6 @@
 import axios from 'axios'
 import history from '../history'
-import {clearCart} from '../store/cartReducer'
+// import {clearCart} from '../store/cartReducer'
 
 /**
  * ACTION TYPES

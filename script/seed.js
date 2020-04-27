@@ -18,9 +18,48 @@ async function seed() {
       isAdmin: true
     }),
     User.create({
+      firstName: 'Irma',
+      lastName: 'Mendoza',
+      email: 'irma@email.com',
+      password: '123',
+      isAdmin: true
+    }),
+    User.create({
+      firstName: 'Artemio',
+      lastName: 'Paradela',
+      email: 'arty@email.com',
+      password: '123',
+      isAdmin: true
+    }),
+    User.create({
+      firstName: 'Nai',
+      lastName: 'Palm',
+      email: 'nana@email.com',
+      password: '123',
+      isAdmin: true
+    }),
+    User.create({
       firstName: 'Murphy',
       lastName: 'Murphs',
       email: 'murphy@email.com',
+      password: '123'
+    }),
+    User.create({
+      firstName: 'Eldede',
+      lastName: 'Mendoza',
+      email: 'eldede@email.com',
+      password: '123'
+    }),
+    User.create({
+      firstName: 'Mickey',
+      lastName: 'Mercedes',
+      email: 'mickey@email.com',
+      password: '123'
+    }),
+    User.create({
+      firstName: 'Beboy',
+      lastName: 'Victoriano',
+      email: 'beboy@email.com',
       password: '123'
     })
   ])
@@ -123,31 +162,12 @@ async function seed() {
     })
   ])
 
-  // const orderHistroy = await Promise.all([
-  //   Order.create({
-  //     orderDate: '2016-08-09 04:05:02'
-  //   }),
-  //   Order.create({
-  //     orderDate: '2020-04-21 16:03:05'
-  //   })
+  // const orders = await Promise.all([
   // ])
-
-  const orders = await Promise.all([
-    Order.create({
-      // orderDate: '2016-08-09 04:05:02',
-      orderStatus: 'pending',
-      userId: 1
-    }),
-    Order.create({
-      // orderDate: '2020-04-21 16:03:05',
-      orderStatus: 'complete',
-      userId: 2
-    })
-  ])
 
   console.log(`seeded ${users.length} users`)
   console.log(`seeded ${products.length} products`)
-  console.log(`seeded ${orders.length} products`)
+  // console.log(`seeded ${orders.length} orders`)
   console.log(`seeded successfully`)
 }
 

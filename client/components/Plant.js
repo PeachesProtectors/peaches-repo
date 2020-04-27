@@ -6,21 +6,22 @@ const Plant = props => {
   return (
     <section>
       <Link to={`/plants/${id}`}>
-      <img src={imageUrl} />
-      <h2 id='name'>{name}</h2>
-      <p></p>
-      <aside>
-        <ul>
-      <li>Price: ${price}</li>
-      </ul>
-      </aside>
-    </Link>
+        <img src={imageUrl} />
+        <h2 id="name">{name}</h2>
+        <p />
+        <aside>
+          <ul>
+            <li>Price: ${price}</li>
+          </ul>
+        </aside>
+      </Link>
     </section>
   )
 }
 
 export default Plant
-{/*<section>
+{
+  /*<section>
     <img src="img.jpg" alt="description" />
     <h2>Product</h2>
     <p>Description</p>
@@ -37,4 +38,5 @@ export default Plant
 <img src={imageUrl} />
 <h2>{name}</h2>
 <h3>Price: ${price}</h3>
-</Link> */}
+</Link> */
+}
