@@ -22,12 +22,12 @@ describe('seed script', () => {
     expect(products).to.have.lengthOf.above(9)
   })
 
-  it('creates at least 10 orders', () => {
-    expect(orders).to.have.lengthOf.above(9)
+  it('creates at least 2 orders', () => {
+    expect(orders).to.have.lengthOf.above(1)
   })
 
-  it('creates at least 5 users', () => {
-    expect(users).to.have.lengthOf.above(4)
+  it('creates at least 2 users', () => {
+    expect(users).to.have.lengthOf.above(1)
   })
 
   it('completes successfully', seed)
