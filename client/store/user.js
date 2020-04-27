@@ -76,9 +76,9 @@ export const authSignup = (
 
 export const logout = () => async dispatch => {
   try {
-    dispatch(removeUser())
     await axios.post('/auth/logout')
-    dispatch(clearCart()) //clear this.props.cart
+    dispatch(removeUser())
+    // dispatch(clearCart())
     window.localStorage.clear() //clear local storage
     history.push('/login')
   } catch (err) {
