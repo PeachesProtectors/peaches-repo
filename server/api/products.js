@@ -70,7 +70,7 @@ router.post('/', isAdmin, async (req, res, next) => {
   }
 })
 
-router.put('/:productId', async (req, res, next) => {
+router.put('/:productId', isAdmin, async (req, res, next) => {
   try {
     const currProduct = await Product.findByPk(req.params.productId)
     if (currProduct) {
