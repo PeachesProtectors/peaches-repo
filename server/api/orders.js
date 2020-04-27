@@ -3,6 +3,7 @@ const {Product, Order, OrderHistory} = require('../db/models')
 
 module.exports = router
 
+//load cart for login user
 router.get('/cart', async (req, res, next) => {
   try {
     const order = await Order.findOne({
@@ -27,6 +28,7 @@ router.get('/cart', async (req, res, next) => {
   }
 })
 
+//update cart
 router.post('/cart', async (req, res, next) => {
   let localCart = req.body || []
   try {
@@ -79,31 +81,3 @@ router.put('/cart', async (req, res, next) => {
     next(err)
   }
 })
-
-// router.get('/', async (req, res, next) => {
-//   try {
-//     const order = await Order.findOne({
-//       where: {
-//         userId: req.user.id,
-//         // orderStatus: 'pending'
-//       }
-//     })
-//     res.json(order)
-//   } catch (err) {
-//     next(err)
-//   }
-// })
-
-// router.delete('/', async (req, res, next) => {
-//   try {
-//     const deleteOrder = await Order.destroy({
-//       where: {
-//         userId: req.user.id,
-//         orderStatus: 'complete'
-//       }
-//     })
-//     res.json(deleteOrder)
-//   } catch (err) {
-//     next(err)
-//   }
-// })
