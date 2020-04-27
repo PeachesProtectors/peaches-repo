@@ -3,26 +3,25 @@ import {connect} from 'react-redux'
 // import PropTypes from 'prop-types'
 import {addPlantThunk} from '../store/admin'
 import AddPlant from './addPlant'
+import UpdatePlant from './update'
 /**
  * COMPONENT
  */
 class Admin extends React.Component {
   render() {
-  const {handleSubmit, plants} = this.props
-  // const options = plants.map(plant => (
-  //   <options value={plant.name} id={plant.id}/>
-  // ))
-
-  return (
-  <div>
-    <h2>Add Plant:</h2>
-    <AddPlant handleSubmit={handleSubmit} />
-    <br />
-    <h2> Update Plant: </h2>
-    
-    <AddPlant />
-  </div>
-  )
+    const {handleSubmit, plants} = this.props
+    // const options = plants.map(plant => (
+    //   <options value={plant.name} id={plant.id}/>
+    // ))
+    return (
+      <div>
+        <h2>Add Plant:</h2>
+        <AddPlant handleSubmit={handleSubmit} />
+        <br />
+        <h2> Update Plant: </h2>
+        <UpdatePlant />
+      </div>
+    )
   }
 }
 
