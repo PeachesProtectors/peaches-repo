@@ -2,28 +2,41 @@ import React from 'react'
 import {connect} from 'react-redux'
 // import {Link} from 'react-router-dom'
 import {updatePlantThunk} from '../store/admin'
+import {getPlantsThunk} from '../store/allPlantsReducer'
 
 class UpdatePlant extends React.Component {
   constructor() {
     super()
     this.state = {
-      plantName: ''
+      id: undefined,
+      plantName: '',
+      description: '',
+      imageUrl: '',
+      price: 0,
+      lightRequirements: 'Low Light'
     }
     this.handleSubmit = this.handleSubmit.bind(this)
     this.handleChange = this.handleChange.bind(this)
   }
-
-  handleChange(e) {
-    this.setState({
-      [e.target.name]: e.target.value
-    })
-    console.log(this.state)
+  componentDidMount() {
+    this.props.getAllPlants()
   }
 
-  async handleSubmit(e) {
-    console.log('e', e)
-    e.preventDefault()
+  handleChange(event) {
+    this.setState({[event.target.name]: event.target.value})
+  }
+
+  async handleSubmit(event) {
+    event.preventDefault()
     try {
+      const plant = {
+        name: this.state.plantName,
+        id: this.state.id,
+        description: this.state.description,
+        imageUrl: this.state.imageUrl,
+        price: this.state.price,
+        lightRequirements: this.state.lightRequirements
+      }
       await this.props.updatePlant(plant)
     } catch (error) {
       console.error(error)
@@ -31,27 +44,86 @@ class UpdatePlant extends React.Component {
   }
 
   render() {
-    const {plant} = this.props
+    const {plants} = this.props
     return (
       <div>
         <h2>Edit info:</h2>
-        <form onSubmit={() => this.handleSubmit(plant)}>
+        <form onSubmit={this.handleSubmit}>
+          <label>
+            Pick your favorite id:
+            <select
+              name="id"
+              value={this.state.value}
+              onChange={this.handleChange}
+            >
+              <option>select plant</option>
+              {plants &&
+                plants.map(plant => (
+                  <option value={plant.id} key={plant.id}>
+                    {plant.name}
+                  </option>
+                ))}
+            </select>
+          </label>
           <div>
             <label htmlFor="plantName">
-              <small>Plant Name</small>
+              <small>Name</small>
             </label>
             <input
               onChange={this.handleChange}
               name="plantName"
               type="text"
-              required
-              autoFocus
               value={this.state.plantName}
             />
           </div>
           <div>
-            <button type="submit">Submit</button>
+            <label htmlFor="description">
+              <small>Description</small>
+            </label>
+            <input
+              onChange={this.handleChange}
+              name="description"
+              type="text"
+              value={this.state.description}
+            />
           </div>
+          <div>
+            <label htmlFor="imageUrl">
+              <small>Photo</small>
+            </label>
+            <input
+              onChange={this.handleChange}
+              name="imageUrl"
+              type="text"
+              value={this.state.imageUrl}
+            />
+          </div>
+          <div>
+            <label htmlFor="price">
+              <small>Price</small>
+            </label>
+            <input
+              onChange={this.handleChange}
+              name="price"
+              type="text"
+              value={this.state.price}
+            />
+          </div>
+          <div>
+            <label htmlFor="lightRequirements">
+              <small>Light Requirements:</small>
+              <select
+                name="lightRequirements"
+                value={this.state.value}
+                onChange={this.handleChange}
+              >
+                <option>select light requirements</option>
+                <option value="Low Light">Low Light</option>
+                <option value="Bright Light">Bright Light</option>
+              </select>
+            </label>
+          </div>
+          <input type="submit" value="Submit" />
         </form>
       </div>
     )
@@ -60,12 +132,13 @@ class UpdatePlant extends React.Component {
 
 const mapState = state => {
   return {
-    plant: state.allPlantsReducer.singlePlant
+    plants: state.allPlantsReducer.plants
   }
 }
 
 const mapDispatch = dispatch => {
   return {
+    getAllPlants: () => dispatch(getPlantsThunk()),
     updatePlant: plant => dispatch(updatePlantThunk(plant))
   }
 }
