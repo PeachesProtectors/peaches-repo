@@ -80,11 +80,11 @@ const Navbar = ({handleClick, isLoggedIn, isAdmin}) => {
 // const Navbar = ({handleClick, isLoggedIn}) => (
 //   <div>
 //     <div className="header">
-    
+
 //   <h1>
 //     <span id='peachy'>PEACHY<span><img className='peach' id="peach1" src={peach}/></span>PLANTS</span>
 //   </h1>
- 
+
 // </div>
 //     {/* <h1>PEACHY PLANTS</h1> */}
 //     <nav className="navbar is-warning" role="navigation" aria-label="main navigation">
@@ -93,13 +93,13 @@ const Navbar = ({handleClick, isLoggedIn, isAdmin}) => {
 //     <a className="navbar-item" href="/plants">
 //       <img src={image} width="40" height="40" />
 //     </a>
-   
+
 //       {/* <a role="button" className="navbar-burger" data-target="navMenu" aria-label="menu" aria-expanded="false">
 //       <span aria-hidden="true"></span>
 //       <span aria-hidden="true"></span>
 //       <span aria-hidden="true"></span>
 //      </a> */}
-    
+
 //     </div>
 
 //       {isLoggedIn ? (
@@ -114,7 +114,7 @@ const Navbar = ({handleClick, isLoggedIn, isAdmin}) => {
 //         <div id="navbarBasicExample" className="navbar-menu is-active">
 //         <div className="navbar-start">
 //         {/* <a className="navbar-item"><Link to="/cart" >Cart</Link></a> */}
-//         <a className="navbar-item" href='/cart'>Cart</a> 
+//         <a className="navbar-item" href='/cart'>Cart</a>
 //         <div className="navbar-item has-dropdown is-hoverable">
 //         <a className="navbar-link">
 //           Plants
@@ -130,7 +130,7 @@ const Navbar = ({handleClick, isLoggedIn, isAdmin}) => {
 //          </div>
 //          </div>
 //          </div>
-        
+
 //         {/* Log in and sign up */}
 //         <div className="navbar-end">
 //         <div className="navbar-item">
@@ -143,8 +143,8 @@ const Navbar = ({handleClick, isLoggedIn, isAdmin}) => {
 //           </div>
 //           </div>
 //           </div>
-          
-//           </div>            
+
+//           </div>
 //       )
 //       }
 //     </nav>
@@ -166,6 +166,7 @@ const mapDispatch = dispatch => {
   return {
     handleClick() {
       dispatch(logout())
+      window.localStorage.clear()
     }
   }
 }

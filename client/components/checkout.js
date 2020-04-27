@@ -1,6 +1,12 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {Link, Route} from 'react-router-dom'
+import {clearCart} from '../store/cartReducer'
+import {
+  postStatusThunk,
+  getOrderThunk,
+  deleteCompleteThunk
+} from '../store/checkoutReducer'
 
 class Checkout extends React.Component {
   constructor() {
@@ -10,21 +16,29 @@ class Checkout extends React.Component {
       address: ''
     }
     this.handleChange = this.handleChange.bind(this)
-    this.handleSubmit = this.handleSubmit.bind(this)
+    this.updateStatus = this.updateStatus.bind(this)
   }
-  // check if they are logged in
-  // this.props.isLoggedIn
-  // componentDidMount() {
-  //   this.props.getAllPlants()
-  // }
-  async handleSubmit(e) {
-    e.preventDefault()
-    try {
-      // send the order to the db
-      // direct user to Thanks component
-    } catch (err) {
-      console.error(err)
+
+  componentDidMount() {
+    this.props.getOrder()
+  }
+
+  updateStatus() {
+    let {order} = this.props.order
+    console.log(order)
+
+    let update = {
+      createdAt: order.createdAt,
+      id: order.id,
+      orderDate: order.orderDate,
+      orderStatus: 'complete',
+      updatedAt: order.updatedAt,
+      userId: order.userId
     }
+    this.props.orderComplete(update)
+    // this.props.removeCompletedOrder()
+    this.props.emptyCart()
+    window.localStorage.clear()
   }
 
   handleChange(e) {
@@ -54,8 +68,8 @@ class Checkout extends React.Component {
           </form>
         </div>
         {/* Order Information */}
-        <Link to="/Thanks" onSubmit={this.handleSubmit}>
-          <button>Pay Now</button>
+        <Link to="/thanks" onClick={() => this.updateStatus()}>
+          <button type="button">Pay Now</button>
         </Link>
       </div>
     )
@@ -64,14 +78,18 @@ class Checkout extends React.Component {
 
 const mapState = state => {
   return {
-    isLoggedIn: !!state.user.id
+    isLoggedIn: !!state.user.id,
+    cart: state.cartReducer,
+    order: state.checkoutReducer
   }
 }
 
-//sends info from form to db
 const mapDispatch = dispatch => {
   return {
-    // getAllPlants: () => dispatch(getPlantsThunk())
+    emptyCart: () => dispatch(clearCart()),
+    getOrder: () => dispatch(getOrderThunk()),
+    orderComplete: update => dispatch(postStatusThunk(update))
+    // removeCompletedOrder: () => dispatch(deleteCompleteThunk())
   }
 }
 
