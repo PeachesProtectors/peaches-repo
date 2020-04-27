@@ -2,82 +2,144 @@ body {
   font-family: sans-serif;
 }
 
-a {
-  text-decoration: none;
+.flex {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly; /* Or space-between or space-around */
 }
 
-label {
-  display: block;
-}
-
-nav a {
-  display: inline-block;
-  margin: 1em;
-}
-
-form div {
-  margin: 1em;
-  display: inline-block;
-}
-
-/* nav bar */
-.navbar {
-  overflow: hidden;
-  background-color: rgb(250, 246, 246);
-}
-
-.navbar a {
-  float: left;
-  font-size: 16px;
-  color: rgb(0, 0, 0);
+.flex > section {
+  /* align-items: center;
+  display: flex;
+  flex: 1 1 0;
+  flex-direction: column;
   text-align: center;
-  padding: 14px 16px;
+  max-width: 400px; */
+  display: flex;
+  align-items: center;
+  width: 32%;
+  padding-bottom: 32%; /* Same as width, sets height */
+  margin-bottom: 2%; /* (100-32*3)/2 */
+  position: relative;
+}
+
+.flex > section > p {
+  flex-grow: 1;
+}
+
+/* This rule ist just because of the responsive images */
+@media (max-width: 1600px) {
+  .flex > section {
+    max-width: 250px;
+  }
+}
+
+.flex ul {
+  display: flex;
+  justify-content: space-between;
+}
+
+.flex aside {
+  width: 100%;
+}
+
+.flex > section {
+  background: #56bcd2;
+  padding: 1em;
+  margin: 0.5em;
+  border-radius: 4px;
+}
+
+.flex ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.flex li {
+  background: #f6b1d0;
+  font-weight: 700;
+  padding: 0.3em 0.6em;
+  border-radius: 1em;
+  text-align: center;
+}
+
+.header {
+  padding: 1em;
+  text-align: center;
+  background: #f8f8f8;
+  color: #ffef03;
+}
+#peachy {
+  border-radius: 1em;
+  top: 100%;
+  font-family: 'Fredoka One';
+  font-size: 50px;
+  /* 22px */
+}
+#name {
+  color: #ffef03;
+  font-weight: bold;
+}
+
+.peach {
+  height: 8%;
+  width: 9%;
+  position: relative;
+}
+
+.fa {
+  padding: 20px;
+  font-size: 30px;
+  width: 30px;
+  text-align: center;
   text-decoration: none;
+  border-radius: 50%;
+}
+.fa:hover {
+  opacity: 0.7;
+}
+.fa-facebook {
+  background: #3b5998;
+  color: white;
 }
 
-.dropdown {
-  float: left;
-  overflow: hidden;
+.fa-twitter {
+  background: #55acee;
+  color: white;
 }
 
-.dropdown .dropbtn {
-  font-size: 16px;
-  border: none;
-  outline: none;
-  color: rgb(0, 0, 0);
-  padding: 27px;
-  background-color: inherit;
-  font-family: inherit;
-  margin: 0;
+.fa-instagram {
+  background: #125688;
+  color: white;
 }
 
-.navbar a:hover,
-.dropdown:hover .dropbtn {
-  background-color: rgb(103, 227, 231);
+div.polaroid {
+  margin-bottom: 50px;
+  margin-top: 50px;
+  position: relative;
+  right: 50%;
+}
+.plant-image {
+  height: 300px;
+  width: 400px;
+}
+.description {
+  margin-top: 50px;
+  padding: 0px 16px 16px 48px;
+  font-family: Arial, Helvetica, sans-serif;
+}
+.plant-description {
+  margin-right: 40%;
+}
+.name-plant {
+  font-size: 3rem;
 }
 
-.dropdown-content {
-  display: none;
-  position: absolute;
-  background-color: rgb(214, 136, 245);
-  min-width: 160px;
-  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
-  z-index: 1;
+#price {
+  margin-left: 30px;
+  font-size: 2.5rem;
 }
-
-.dropdown-content a {
-  float: none;
-  color: #000000;
-  padding: 12px 16px;
-  text-decoration: none;
-  display: block;
-  text-align: left;
-}
-
-.dropdown-content a:hover {
-  background-color: #ddd;
-}
-
-.dropdown:hover .dropdown-content {
-  display: block;
+#single-plant {
+  margin-left: 25%;
+  height: 75vh;
 }

@@ -9,8 +9,7 @@ router.get('/', async (req, res, next) => {
       where: {
         userId: req.user.id,
         orderStatus: 'pending'
-      },
-      include: [{model: Product}]
+      }
     })
     res.json(order)
   } catch (err) {
@@ -18,20 +17,70 @@ router.get('/', async (req, res, next) => {
   }
 })
 
-router.post('/', async (req, res, next) => {
-  let localCart = req.body || []
+router.put('/', async (req, res, next) => {
   try {
-    // get pending order for a userID (logged in)
-    // get the orderID
+    const order = await Order.findOne({
+      where: {
+        userId: req.user.id
+      }
+    })
+    res.json(await order.update(req.body))
+  } catch (err) {
+    next(err)
+  }
+})
 
-    const [order] = await Order.findOrCreate({
+// router.delete('/', async (req, res, next) => {
+//   try {
+//     const deleteOrder = await Order.destroy({
+//       where: {
+//         userId: req.user.id,
+//         orderStatus: 'complete'
+//       }
+//     })
+//     res.json(deleteOrder)
+//   } catch (err) {
+//     next(err)
+//   }
+// })
+
+router.get('/cart', async (req, res, next) => {
+  try {
+    const order = await Order.findOne({
       where: {
         userId: req.user.id,
         orderStatus: 'pending'
       },
       include: [{model: Product}]
     })
+    const cart = order.products.map(p => {
+      return {
+        id: p.id,
+        name: p.name,
+        imageUrl: p.imageUrl,
+        price: p.price,
+        quantity: p.OrderHistory.quantity
+      }
+    })
+    res.json(cart)
+  } catch (err) {
+    next(err)
+  }
+})
 
+router.post('/cart', async (req, res, next) => {
+  let localCart = req.body || []
+  try {
+    // get pending order for a logged in userID
+    const [order] = await Order.findOrCreate({
+      where: {
+        userId: req.user.id
+        // orderStatus: 'pending'
+      },
+      include: [{model: Product}]
+    })
+
+    //clear the cart for userID
     await OrderHistory.destroy({
       where: {
         orderId: order.id
@@ -46,14 +95,13 @@ router.post('/', async (req, res, next) => {
         }
       })
       order.addProduct(plant, {
-        through: {quantity: localCart[i].quantity, price: plant.price}
+        through: {quantity: localCart[i].quantity, price: localCart[i].price}
       })
     }
-
     res.sendStatus(201)
   } catch (err) {
     next(err)
   }
 })
 
-//change order process to 'complete' after checkout 'put route'
+//change order process to 'complete' after checkout
