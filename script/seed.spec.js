@@ -7,23 +7,16 @@ const {User, Product, Order} = require('../server/db/models')
 
 describe('seed script', () => {
   let products, orders, users
-  // before(async () => await db.sync({force: true}))
   beforeEach(async () => {
     await db.sync({force: true})
     await seed()
 
     products = await Product.findAll()
-    orders = await Order.findAll()
     users = await User.findAll()
   })
-  // afterEach(() => db.sync({force: true}))
 
   it('creates at least 10 products', () => {
     expect(products).to.have.lengthOf.above(9)
-  })
-
-  it('creates at least 10 orders', () => {
-    expect(orders).to.have.lengthOf.above(9)
   })
 
   it('creates at least 5 users', () => {

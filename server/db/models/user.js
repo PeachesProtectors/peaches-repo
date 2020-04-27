@@ -20,10 +20,9 @@ const User = db.define('user', {
     }
   },
   isAdmin: {
-    type: Sequelize.STRING,
-    validate: {
-      isIn: [['True', 'False']]
-    }
+    type: Sequelize.BOOLEAN,
+    allowNull: false,
+    defaultValue: false
   },
   password: {
     type: Sequelize.STRING,

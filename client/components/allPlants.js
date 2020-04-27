@@ -1,10 +1,13 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {Link} from 'react-router-dom'
 import Plant from './Plant'
 import {getPlantsThunk} from '../store/allPlantsReducer'
 
 class AllPlants extends React.Component {
+  constructor() {
+    super()
+  }
+
   componentDidMount() {
     this.props.getAllPlants()
   }
@@ -12,13 +15,8 @@ class AllPlants extends React.Component {
   render() {
     const {plants} = this.props
     return (
-      <div>
-        {plants &&
-          plants.map(plant => (
-            // <Link to={`/products/${plant.id}`} key={plant.id}>
-            <Plant key={plant.id} plant={plant} />
-            // </Link>
-          ))}
+      <div className="flex">
+        {plants && plants.map(plant => <Plant key={plant.id} plant={plant} />)}
       </div>
     )
   }
