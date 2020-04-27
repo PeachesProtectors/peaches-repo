@@ -4,6 +4,7 @@ import {connect} from 'react-redux'
 import {addPlantThunk} from '../store/admin'
 import AddPlant from './addPlant'
 import UpdatePlant from './update'
+import DeletePlant from './remove'
 /**
  * COMPONENT
  */
@@ -20,6 +21,9 @@ class Admin extends React.Component {
         <br />
         <h2> Update Plant: </h2>
         <UpdatePlant />
+        <br />
+        <h2> Remove Plant: </h2>
+        <DeletePlant />
       </div>
     )
   }

@@ -33,10 +33,9 @@ export const updatePlantThunk = plant => async () => {
   }
 }
 
-export const deletePlantThunk = plantId => async dispatch => {
+export const deletePlantThunk = plantId => async () => {
   try {
-    const res = await axios.delete(`/api/products/${plantId}`, plantId)
-    dispatch(deletePlant(res.data))
+    await axios.delete(`/api/products/${plantId}`)
   } catch (err) {
     console.error(err)
   }
