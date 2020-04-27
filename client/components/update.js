@@ -3,17 +3,19 @@ import {connect} from 'react-redux'
 import {updatePlantThunk} from '../store/admin'
 import {getPlantsThunk} from '../store/allPlantsReducer'
 
+const initState = {
+  id: undefined,
+  name: '',
+  description: '',
+  imageUrl: '',
+  price: '',
+  lightRequirements: ''
+}
+
 class UpdatePlant extends React.Component {
   constructor() {
     super()
-    this.state = {
-      id: undefined,
-      plantName: '',
-      description: '',
-      imageUrl: '',
-      price: 0,
-      lightRequirements: 'Low Light'
-    }
+    this.state = initState
     this.handleSubmit = this.handleSubmit.bind(this)
     this.handleChange = this.handleChange.bind(this)
   }
@@ -25,17 +27,23 @@ class UpdatePlant extends React.Component {
     this.setState({[e.target.name]: e.target.value})
   }
 
-  async handleSubmit() {
+  async handleSubmit(e) {
+    e.preventDefault()
     try {
-      const plant = {
-        name: this.state.plantName,
-        id: this.state.id,
-        description: this.state.description,
-        imageUrl: this.state.imageUrl,
-        price: this.state.price,
-        lightRequirements: this.state.lightRequirements
-      }
+      const {
+        id,
+        name,
+        description,
+        imageUrl,
+        price,
+        lightRequirements
+      } = this.state
+      const plant = {id, name, description, imageUrl, price, lightRequirements}
       await this.props.updatePlant(plant)
+      document.getElementById(
+        'updated-plant-message'
+      ).innerHTML = `<i>Updated ${plant.name}'s info!</i>`
+      this.setState(initState)
     } catch (error) {
       console.error(error)
     }
@@ -59,14 +67,14 @@ class UpdatePlant extends React.Component {
             </select>
           </label>
           <div>
-            <label htmlFor="plantName">
+            <label htmlFor="name">
               <small>Name</small>
             </label>
             <input
               onChange={this.handleChange}
-              name="plantName"
+              name="name"
               type="text"
-              value={this.state.plantName}
+              value={this.state.name}
             />
           </div>
           <div>
@@ -107,13 +115,14 @@ class UpdatePlant extends React.Component {
             <label htmlFor="lightRequirements">
               <small>Light Requirements:</small>
               <select name="lightRequirements" onChange={this.handleChange}>
-                <option>select light requirements</option>
+                <option> - select light requirements - </option>
                 <option value="Low Light">Low Light</option>
                 <option value="Bright Light">Bright Light</option>
               </select>
             </label>
           </div>
           <button type="submit"> Submit </button>
+          <span id="updated-plant-message" />
         </form>
       </div>
     )
