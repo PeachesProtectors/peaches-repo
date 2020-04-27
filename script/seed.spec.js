@@ -13,17 +13,12 @@ describe('seed script', () => {
     await seed()
 
     products = await Product.findAll()
-    orders = await Order.findAll()
     users = await User.findAll()
   })
   // afterEach(() => db.sync({force: true}))
 
   it('creates at least 10 products', () => {
     expect(products).to.have.lengthOf.above(9)
-  })
-
-  it('creates at least 10 orders', () => {
-    expect(orders).to.have.lengthOf.above(9)
   })
 
   it('creates at least 5 users', () => {

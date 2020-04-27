@@ -162,81 +162,12 @@ async function seed() {
     })
   ])
 
-  // const orderHistroy = await Promise.all([
-  //   Order.create({
-  //     orderDate: '2016-08-09 04:05:02'
-  //   }),
-  //   Order.create({
-  //     orderDate: '2020-04-21 16:03:05'
-  //   })
+  // const orders = await Promise.all([
   // ])
-
-  const orders = await Promise.all([
-    Order.create({
-      orderDate: '2016-08-09 04:05:02',
-      orderStatus: 'pending',
-      userId: 1
-    }),
-    Order.create({
-      orderDate: '2016-08-09 04:05:02',
-      orderStatus: 'pending',
-      userId: 2
-    }),
-    Order.create({
-      orderDate: '2016-08-09 04:05:02',
-      orderStatus: 'pending',
-      userId: 3
-    }),
-    Order.create({
-      orderDate: '2016-08-09 04:05:02',
-      orderStatus: 'pending',
-      userId: 4
-    }),
-    Order.create({
-      orderDate: '2016-08-09 04:05:02',
-      orderStatus: 'pending',
-      userId: 5
-    }),
-    Order.create({
-      orderDate: '2020-04-21 16:03:05',
-      orderStatus: 'complete',
-      userId: 2
-    }),
-    Order.create({
-      orderDate: '2020-04-21 16:03:05',
-      orderStatus: 'complete',
-      userId: 6
-    }),
-    Order.create({
-      orderDate: '2020-04-21 16:03:05',
-      orderStatus: 'complete',
-      userId: 5
-    }),
-    Order.create({
-      orderDate: '2020-04-21 16:03:05',
-      orderStatus: 'complete',
-      userId: 3
-    }),
-    Order.create({
-      orderDate: '2020-04-21 16:03:05',
-      orderStatus: 'complete',
-      userId: 1
-    }),
-    Order.create({
-      orderDate: '2020-04-21 16:03:05',
-      orderStatus: 'complete',
-      userId: 1
-    }),
-    Order.create({
-      orderDate: '2020-04-21 16:03:05',
-      orderStatus: 'complete',
-      userId: 2
-    })
-  ])
 
   console.log(`seeded ${users.length} users`)
   console.log(`seeded ${products.length} products`)
-  console.log(`seeded ${orders.length} orders`)
+  // console.log(`seeded ${orders.length} orders`)
   console.log(`seeded successfully`)
 }
 
