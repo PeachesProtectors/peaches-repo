@@ -41,24 +41,43 @@ class SinglePlant extends React.Component {
     const {plant, isAdmin} = this.props
     const {id, name, imageUrl, description, price, lightReqs} = plant
     return (
-      <div>
-        <img src={imageUrl} />
-
-        <h1>{name}</h1>
-        <h2>Price: {price}</h2>
-
-        <p>{description}</p>
-        <p>{lightReqs}</p>
-
-        <button type="submit" onClick={() => this.handleClick()}>
-          Add to Cart
-        </button>
-        {isAdmin && (
-          <div>
-            {/* <UpdatePlant plant={plant}/> */}
-            {/* <RemovePlant /> */}
+      <div id='single-plant'> 
+        <div className="columns is-mobile">
+          <div className="column is-three-quarters-mobile is-two-thirds-tablet is-half-desktop is-one-third-widescreen is-one-quarter-fullhd">
+            <div className="polaroid">
+            <figure className="plant-image">
+              <img src={imageUrl} />
+            </figure>
+            </div>
           </div>
-        )}
+
+          <div className="column description">
+            <div className="column name-plant">
+             <h1>{name}   <span id='price'>${price}</span></h1>
+            </div>
+            {/* <div className="column">
+              <h2>Price: {price}</h2>
+            </div> */}
+            <div className="column plant-description">
+              <p>{description}</p>
+            </div>
+            <div className="column">
+              <p>{lightReqs}</p>
+            </div>
+            <div className="column">
+              <button
+                type="submit"
+                onClick={() => this.handleClick()}
+                className="button is-medium is-rounded is-danger is-hovered"
+              >
+                <span className="icon is-medium">
+                  <i className="fas fa-shopping-cart"></i>
+                </span>
+                <span>Add to Cart</span>
+              </button>
+            </div>
+          </div>
+        </div>
       </div>
     )
   }
