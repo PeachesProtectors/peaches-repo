@@ -9,7 +9,7 @@ const initState = {
   description: '',
   imageUrl: '',
   price: '',
-  lightRequirements: ''
+  lightRequirements: 'select'
 }
 
 class UpdatePlant extends React.Component {
@@ -39,11 +39,13 @@ class UpdatePlant extends React.Component {
         lightRequirements
       } = this.state
       const plant = {id, name, description, imageUrl, price, lightRequirements}
+
       await this.props.updatePlant(plant)
+      this.setState(initState)
+
       document.getElementById(
         'updated-plant-message'
       ).innerHTML = `<i>Updated ${plant.name}'s info!</i>`
-      this.setState(initState)
     } catch (error) {
       console.error(error)
     }
@@ -57,7 +59,7 @@ class UpdatePlant extends React.Component {
           <label>
             Choose a plant:
             <select name="id" onChange={this.handleChange}>
-              <option> - select plant -</option>
+              <option> - select plant - </option>
               {plants &&
                 plants.map(plant => (
                   <option value={plant.id} key={plant.id}>
@@ -115,7 +117,7 @@ class UpdatePlant extends React.Component {
             <label htmlFor="lightRequirements">
               <small>Light Requirements:</small>
               <select name="lightRequirements" onChange={this.handleChange}>
-                <option> - select light requirements - </option>
+                <option defaultValue> - select light requirements - </option>
                 <option value="Low Light">Low Light</option>
                 <option value="Bright Light">Bright Light</option>
               </select>

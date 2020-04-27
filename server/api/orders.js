@@ -3,7 +3,8 @@ const {Product, Order, OrderHistory} = require('../db/models')
 
 module.exports = router
 
-router.get('/', async (req, res, next) => {
+//load cart for login user
+router.get('/cart', async (req, res, next) => {
   try {
     const order = await Order.findOne({
       where: {
@@ -12,18 +13,26 @@ router.get('/', async (req, res, next) => {
       },
       include: [{model: Product}]
     })
-    res.json(order)
+    const cart = order.products.map(p => {
+      return {
+        id: p.id,
+        name: p.name,
+        imageUrl: p.imageUrl,
+        price: p.price,
+        quantity: p.OrderHistory.quantity
+      }
+    })
+    res.json(cart)
   } catch (err) {
     next(err)
   }
 })
 
-router.post('/', async (req, res, next) => {
+//update cart
+router.post('/cart', async (req, res, next) => {
   let localCart = req.body || []
   try {
-    // get pending order for a userID (logged in)
-    // get the orderID
-
+    // get pending order for a login userID
     const [order] = await Order.findOrCreate({
       where: {
         userId: req.user.id,
@@ -32,6 +41,7 @@ router.post('/', async (req, res, next) => {
       include: [{model: Product}]
     })
 
+    //clear the cart for userID
     await OrderHistory.destroy({
       where: {
         orderId: order.id
@@ -46,14 +56,28 @@ router.post('/', async (req, res, next) => {
         }
       })
       order.addProduct(plant, {
-        through: {quantity: localCart[i].quantity, price: plant.price}
+        through: {quantity: localCart[i].quantity, price: localCart[i].price}
       })
     }
-
     res.sendStatus(201)
   } catch (err) {
     next(err)
   }
 })
 
-//change order process to 'complete' after checkout 'put route'
+//checkout for login user
+router.put('/cart', async (req, res, next) => {
+  try {
+    const order = await Order.findOne({
+      where: {
+        userId: req.user.id,
+        orderStatus: 'pending'
+      },
+      include: [{model: Product}]
+    })
+    await order.update({orderStatus: 'complete'})
+    res.sendStatus(201)
+  } catch (err) {
+    next(err)
+  }
+})
