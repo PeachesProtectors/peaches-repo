@@ -1,6 +1,5 @@
 import React from 'react'
 import {connect} from 'react-redux'
-// import {Link} from 'react-router-dom'
 import {updatePlantThunk} from '../store/admin'
 import {getPlantsThunk} from '../store/allPlantsReducer'
 
@@ -22,12 +21,11 @@ class UpdatePlant extends React.Component {
     this.props.getAllPlants()
   }
 
-  handleChange(event) {
-    this.setState({[event.target.name]: event.target.value})
+  handleChange(e) {
+    this.setState({[e.target.name]: e.target.value})
   }
 
-  async handleSubmit(event) {
-    event.preventDefault()
+  async handleSubmit() {
     try {
       const plant = {
         name: this.state.plantName,
@@ -47,16 +45,11 @@ class UpdatePlant extends React.Component {
     const {plants} = this.props
     return (
       <div>
-        <h2>Edit info:</h2>
         <form onSubmit={this.handleSubmit}>
           <label>
-            Pick your favorite id:
-            <select
-              name="id"
-              value={this.state.value}
-              onChange={this.handleChange}
-            >
-              <option>select plant</option>
+            Choose a plant:
+            <select name="id" onChange={this.handleChange}>
+              <option> - select plant -</option>
               {plants &&
                 plants.map(plant => (
                   <option value={plant.id} key={plant.id}>
@@ -80,16 +73,17 @@ class UpdatePlant extends React.Component {
             <label htmlFor="description">
               <small>Description</small>
             </label>
-            <input
+            <textarea
               onChange={this.handleChange}
-              name="description"
-              type="text"
               value={this.state.description}
+              name="description"
+              rows="5"
+              cols="50"
             />
           </div>
           <div>
             <label htmlFor="imageUrl">
-              <small>Photo</small>
+              <small>Picture</small>
             </label>
             <input
               onChange={this.handleChange}
@@ -112,18 +106,14 @@ class UpdatePlant extends React.Component {
           <div>
             <label htmlFor="lightRequirements">
               <small>Light Requirements:</small>
-              <select
-                name="lightRequirements"
-                value={this.state.value}
-                onChange={this.handleChange}
-              >
+              <select name="lightRequirements" onChange={this.handleChange}>
                 <option>select light requirements</option>
                 <option value="Low Light">Low Light</option>
                 <option value="Bright Light">Bright Light</option>
               </select>
             </label>
           </div>
-          <input type="submit" value="Submit" />
+          <button type="submit"> Submit </button>
         </form>
       </div>
     )

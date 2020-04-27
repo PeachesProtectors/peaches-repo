@@ -7,12 +7,12 @@ const Products = db.define('product', {
     allowNull: false
   },
   description: {
-    type: Sequelize.TEXT
-    // allowNull: false
+    type: Sequelize.TEXT,
+    allowNull: false
   },
   imageUrl: {
-    type: Sequelize.TEXT
-    // allowNull: false
+    type: Sequelize.TEXT,
+    allowNull: false
   },
   price: {
     type: Sequelize.INTEGER,
@@ -23,7 +23,7 @@ const Products = db.define('product', {
   },
   lightRequirement: {
     type: Sequelize.STRING,
-    // allowNull: false,
+    allowNull: false,
     validate: {
       isIn: [['Low Light', 'Bright Light']]
     }

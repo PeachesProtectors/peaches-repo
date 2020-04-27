@@ -1,6 +1,4 @@
 import React from 'react'
-import {connect} from 'react-redux'
-import {Link} from 'react-router-dom'
 
 const AddPlant = props => {
   const {handleSubmit} = props
@@ -8,45 +6,40 @@ const AddPlant = props => {
     <form onSubmit={handleSubmit}>
       <div>
         <label htmlFor="plantName">
-          <small>Plant Name</small>
+          <small>Name</small>
         </label>
         <input name="plantName" type="text" />
       </div>
-
       <div>
         <label htmlFor="description">
           <small>Description</small>
         </label>
-        <input name="description" type="text" />
+        <textarea name="description" rows="5" cols="50" />
       </div>
-
       <div>
         <label htmlFor="imageUrl">
-          <small>Photo</small>
+          <small>Picture</small>
         </label>
         <input name="imageUrl" type="text" />
       </div>
-
       <div>
         <label htmlFor="price">
           <small>Price</small>
         </label>
         <input name="price" type="price" />
       </div>
-
       <div>
-        <label htmlFor="lightRequirement">
+        <label htmlFor="lightRequirements">
           <small>Light Requirements:</small>
+          <select name="lightRequirements">
+            <option> - select light requirements - </option>
+            <option value="Low Light">Low Light</option>
+            <option value="Bright Light">Bright Light</option>
+          </select>
         </label>
-        <input list="lightRequirements" name="lightRequirements" />
-        <datalist id="lightRequirements">
-          <option value="Low Light" />
-          <option value="Bright Light" />
-        </datalist>
       </div>
-
       <div>
-        <button type="submit">Submit</button>
+        <button type="submit">Add New Plant!</button>
       </div>
     </form>
   )

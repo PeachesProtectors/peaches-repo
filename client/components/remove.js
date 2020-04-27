@@ -7,7 +7,7 @@ class DeletePlant extends React.Component {
   constructor() {
     super()
     this.state = {
-      id: undefined,
+      id: undefined
     }
     this.handleSubmit = this.handleSubmit.bind(this)
     this.handleChange = this.handleChange.bind(this)
@@ -16,12 +16,11 @@ class DeletePlant extends React.Component {
     this.props.getAllPlants()
   }
 
-  handleChange(event) {
-    this.setState({[event.target.name]: event.target.value})
+  handleChange(e) {
+    this.setState({[e.target.name]: e.target.value})
   }
 
-  async handleSubmit(event) {
-    // event.preventDefault()
+  async handleSubmit() {
     try {
       await this.props.deletePlant(this.state.id)
     } catch (error) {
@@ -35,38 +34,38 @@ class DeletePlant extends React.Component {
       <div>
         <form onSubmit={this.handleSubmit}>
           <label>
-            Pick Plant:
+            Choose a plant:
             <select
               name="id"
               value={this.state.value}
               onChange={this.handleChange}
             >
-              <option>select plant</option>
+              <option> - select plant - </option>
               {plants &&
-                plants.map((plant) => (
+                plants.map(plant => (
                   <option value={plant.id} key={plant.id}>
                     {plant.name}
                   </option>
                 ))}
             </select>
           </label>
-          <input type="submit" value="Submit" />
+          <button type="submit">Remove</button>
         </form>
       </div>
     )
   }
 }
 
-const mapState = (state) => {
+const mapState = state => {
   return {
-    plants: state.allPlantsReducer.plants,
+    plants: state.allPlantsReducer.plants
   }
 }
 
-const mapDispatch = (dispatch) => {
+const mapDispatch = dispatch => {
   return {
     getAllPlants: () => dispatch(getPlantsThunk()),
-    deletePlant: (plant) => dispatch(deletePlantThunk(plant)),
+    deletePlant: plant => dispatch(deletePlantThunk(plant))
   }
 }
 

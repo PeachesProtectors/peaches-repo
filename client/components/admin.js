@@ -1,37 +1,26 @@
 import React from 'react'
 import {connect} from 'react-redux'
-// import PropTypes from 'prop-types'
 import {addPlantThunk} from '../store/admin'
-import AddPlant from './addPlant'
-import UpdatePlant from './update'
-import DeletePlant from './remove'
+import {AddPlant, UpdatePlant, DeletePlant} from '../components'
+
 /**
  * COMPONENT
  */
 class Admin extends React.Component {
   render() {
-    const {handleSubmit, plants} = this.props
-    // const options = plants.map(plant => (
-    //   <options value={plant.name} id={plant.id}/>
-    // ))
+    const {handleSubmit} = this.props
     return (
       <div>
-        <h2>Add Plant:</h2>
+        <h2> Add Plant: </h2>
         <AddPlant handleSubmit={handleSubmit} />
         <br />
-        <h2> Update Plant: </h2>
+        <h2> Edit Plant: </h2>
         <UpdatePlant />
         <br />
         <h2> Remove Plant: </h2>
         <DeletePlant />
       </div>
     )
-  }
-}
-
-const mapState = state => {
-  return {
-    plants: state.allPlantsReducer.plants
   }
 }
 
@@ -50,14 +39,4 @@ const mapDispatch = dispatch => {
   }
 }
 
-export default connect(mapState, mapDispatch)(Admin)
-
-/**
- * PROP TYPES
- */
-// Admin.propTypes = {
-//   name: PropTypes.string.isRequired,
-//   displayName: PropTypes.string.isRequired,
-//   handleSubmit: PropTypes.func.isRequired,
-//   // error: PropTypes.object
-// }
+export default connect(null, mapDispatch)(Admin)
