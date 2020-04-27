@@ -42,8 +42,9 @@ class SinglePlant extends React.Component {
     const {id, name, imageUrl, description, price, lightReqs} = plant
     return (
       <div id='single-plant'> 
-        <div className="columns is-mobile">
-          <div className="column is-three-quarters-mobile is-two-thirds-tablet is-half-desktop is-one-third-widescreen is-one-quarter-fullhd">
+        <div className="columns is-desktop">
+          {/* <div className="column is-three-quarters-mobile is-two-thirds-tablet is-half-desktop is-one-third-widescreen is-one-quarter-fullhd"> */}
+            <div className = 'column'>
             <div className="polaroid">
             <figure className="plant-image">
               <img src={imageUrl} />
