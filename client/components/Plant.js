@@ -20,23 +20,3 @@ const Plant = props => {
 }
 
 export default Plant
-{
-  /*<section>
-    <img src="img.jpg" alt="description" />
-    <h2>Product</h2>
-    <p>Description</p>
-    <aside>
-      <ul>
-        <li>Spec</li>
-        <li>Spec</li>
-      </ul>
-      <button>Button</button>
-    </aside>
-  </section>
-  
-  <Link to={`/plants/${id}`}>
-<img src={imageUrl} />
-<h2>{name}</h2>
-<h3>Price: ${price}</h3>
-</Link> */
-}

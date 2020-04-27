@@ -4,8 +4,10 @@ import {connect} from 'react-redux'
 import {Link, NavLink} from 'react-router-dom'
 import {logout} from '../store'
 
-const image = "https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/f730e4ec-f0e0-42f9-a59d-17d16bf022c5/d6bffdt-d0bfa9a8-6f3b-4075-bf83-71460891b2a5.png/v1/fill/w_600,h_694,strp/princess_peach_jewels_by_rafaelmartins_d6bffdt-fullview.png?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7ImhlaWdodCI6Ijw9Njk0IiwicGF0aCI6IlwvZlwvZjczMGU0ZWMtZjBlMC00MmY5LWE1OWQtMTdkMTZiZjAyMmM1XC9kNmJmZmR0LWQwYmZhOWE4LTZmM2ItNDA3NS1iZjgzLTcxNDYwODkxYjJhNS5wbmciLCJ3aWR0aCI6Ijw9NjAwIn1dXSwiYXVkIjpbInVybjpzZXJ2aWNlOmltYWdlLm9wZXJhdGlvbnMiXX0.-5u8m4FLwPz__IbZZ0T9aqmbSfWk_ZcYfeH455cYxR4"
-const peach = 'https://ih1.redbubble.net/image.1011066268.6036/st,small,507x507-pad,600x600,f8f8f8.jpg'
+const image =
+  'https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/f730e4ec-f0e0-42f9-a59d-17d16bf022c5/d6bffdt-d0bfa9a8-6f3b-4075-bf83-71460891b2a5.png/v1/fill/w_600,h_694,strp/princess_peach_jewels_by_rafaelmartins_d6bffdt-fullview.png?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7ImhlaWdodCI6Ijw9Njk0IiwicGF0aCI6IlwvZlwvZjczMGU0ZWMtZjBlMC00MmY5LWE1OWQtMTdkMTZiZjAyMmM1XC9kNmJmZmR0LWQwYmZhOWE4LTZmM2ItNDA3NS1iZjgzLTcxNDYwODkxYjJhNS5wbmciLCJ3aWR0aCI6Ijw9NjAwIn1dXSwiYXVkIjpbInVybjpzZXJ2aWNlOmltYWdlLm9wZXJhdGlvbnMiXX0.-5u8m4FLwPz__IbZZ0T9aqmbSfWk_ZcYfeH455cYxR4'
+const peach =
+  'https://ih1.redbubble.net/image.1011066268.6036/st,small,507x507-pad,600x600,f8f8f8.jpg'
 
 const Navbar = ({handleClick, isLoggedIn, isAdmin}) => {
   return (
@@ -31,15 +33,12 @@ const Navbar = ({handleClick, isLoggedIn, isAdmin}) => {
           <div id="navbarBasicExample" className="navbar-menu is-active">
             {/* The navbar will show these links after you log in */}
             <div className="navbar-start">
-              {/* <Link to="/home">Home</Link> */}
               <a className="navbar-item" href="/home">
                 Home
               </a>
-              {/* <Link to="/admin">admin</Link> */}
               <a className="navbar-item" href="/admin">
                 Admin
               </a>
-              {/* <Link to="/cart">Cart</Link> */}
               <a className="navbar-item" href="/cart">
                 Cart
               </a>
@@ -73,7 +72,6 @@ const Navbar = ({handleClick, isLoggedIn, isAdmin}) => {
         ) : isLoggedIn ? (
           <div id="navbarBasicExample" className="navbar-menu is-active">
             {/* The navbar will show these links after you log in */}
-            {/* <Link to="/home">Home</Link> */}
             <div className="navbar-start">
               <a className="navbar-item" href="/home">
                 Home
@@ -97,7 +95,6 @@ const Navbar = ({handleClick, isLoggedIn, isAdmin}) => {
                 </div>
               </div>
             </div>
-            {/* <a href="#" onClick={handleClick}> Logout</a> */}
             <div className="navbar-end">
               <div className="navbar-item">
                 <div className="buttons">

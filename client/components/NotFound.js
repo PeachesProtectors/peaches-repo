@@ -15,8 +15,6 @@ const NotFound = () => (
         src="https://media3.giphy.com/media/Yoi7H75JB38dHERFVB/source.gif"
       />
     </div>
-
-    <center>{/* <Link to="/plants"> Return to Plants Page</Link> */}</center>
   </div>
 )
 
