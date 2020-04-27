@@ -6,14 +6,12 @@ import user from './user'
 import allPlantsReducer from './allPlantsReducer'
 import allUsersReducer from './admin'
 import cartReducer from './cartReducer'
-import checkoutReducer from './checkoutReducer'
 
 const reducer = combineReducers({
   user,
   allPlantsReducer,
   allUsersReducer,
-  cartReducer,
-  checkoutReducer
+  cartReducer
 })
 const middleware = composeWithDevTools(
   applyMiddleware(thunkMiddleware, createLogger({collapsed: true}))
