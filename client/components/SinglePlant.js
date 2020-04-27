@@ -44,16 +44,10 @@ class SinglePlant extends React.Component {
     const {plant, isAdmin} = this.props
     const {id, name, imageUrl, description, price, lightReqs} = plant
     return (
-<<<<<<< HEAD
       <div id='single-plant'> 
         <div className="columns is-desktop">
           {/* <div className="column is-three-quarters-mobile is-two-thirds-tablet is-half-desktop is-one-third-widescreen is-one-quarter-fullhd"> */}
             <div className = 'column'>
-=======
-      <div id="single-plant">
-        <div className="columns is-mobile">
-          <div className="column is-three-quarters-mobile is-two-thirds-tablet is-half-desktop is-one-third-widescreen is-one-quarter-fullhd">
->>>>>>> 6ff9b453566444997c17b1bb61ff456afed82c66
             <div className="polaroid">
               <figure className="plant-image">
                 <img src={imageUrl} />
