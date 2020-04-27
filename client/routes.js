@@ -9,6 +9,8 @@ import SinglePlant from './components/SinglePlant'
 import Cart from './components/cart'
 import Checkout from './components/checkout'
 import Thanks from './components/thanks'
+import BrightPlants from './components/filter/brightPlants'
+import LowPlants from './components/filter/lowPlants'
 import Admin from './components/admin'
 
 /**
@@ -29,6 +31,8 @@ class Routes extends Component {
         <Route path="/signup" component={Signup} />
         <Route exact path="/plants" component={AllPlants} />
         <Route exact path="/plants/:plantId" component={SinglePlant} />
+        <Route exact path="/bright-light" component={BrightPlants} />
+        <Route exact path="/low-light" component={LowPlants} />
         <Route exact path="/cart" component={Cart} />
         <Route exact path="/checkout" component={Checkout} />
         <Route exact path="/thanks" component={Thanks} />

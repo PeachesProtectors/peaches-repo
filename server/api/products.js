@@ -12,6 +12,32 @@ router.get('/', async (req, res, next) => {
   }
 })
 
+router.get('/low-light', async (req, res, next) => {
+  try {
+    const lowLightProducts = await Product.findAll({
+      where: {
+        lightRequirement: 'Low Light'
+      }
+    })
+    res.json(lowLightProducts)
+  } catch (err) {
+    next(err)
+  }
+})
+
+router.get('/bright-light', async (req, res, next) => {
+  try {
+    const brightLightProducts = await Product.findAll({
+      where: {
+        lightRequirement: 'Bright Light'
+      }
+    })
+    res.json(brightLightProducts)
+  } catch (err) {
+    next(err)
+  }
+})
+
 router.get('/:productId', async (req, res, next) => {
   try {
     const singleProduct = await Product.findByPk(req.params.productId)

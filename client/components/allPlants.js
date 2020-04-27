@@ -5,12 +5,17 @@ import Plant from './Plant'
 import {getPlantsThunk} from '../store/allPlantsReducer'
 
 class AllPlants extends React.Component {
+  constructor() {
+    super()
+  }
+
   componentDidMount() {
     this.props.getAllPlants()
   }
 
   render() {
     const {plants} = this.props
+    console.log('PLANTS ==========> ', plants)
     return (
       <div>
         {plants &&
