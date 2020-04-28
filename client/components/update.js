@@ -4,12 +4,12 @@ import {updatePlantThunk} from '../store/admin'
 import {getPlantsThunk} from '../store/allPlantsReducer'
 
 const initState = {
-  id: undefined,
+  id: '',
   name: '',
   description: '',
   imageUrl: '',
   price: '',
-  lightRequirements: 'select'
+  lightRequirements: ''
 }
 
 class UpdatePlant extends React.Component {
@@ -52,6 +52,14 @@ class UpdatePlant extends React.Component {
   }
 
   render() {
+    const {
+      id,
+      name,
+      description,
+      imageUrl,
+      price,
+      lightRequirements
+    } = this.state
     const {plants} = this.props
     return (
       <div>
@@ -59,7 +67,7 @@ class UpdatePlant extends React.Component {
           <label>
             Choose a plant:
             <select name="id" onChange={this.handleChange}>
-              <option> - select plant - </option>
+              <option value={initState.name}> - select plant - </option>
               {plants &&
                 plants.map(plant => (
                   <option value={plant.id} key={plant.id}>
@@ -73,6 +81,7 @@ class UpdatePlant extends React.Component {
               <small>Name</small>
             </label>
             <input
+              required
               onChange={this.handleChange}
               name="name"
               type="text"
@@ -84,6 +93,7 @@ class UpdatePlant extends React.Component {
               <small>Description</small>
             </label>
             <textarea
+              required
               onChange={this.handleChange}
               value={this.state.description}
               name="description"
@@ -96,6 +106,7 @@ class UpdatePlant extends React.Component {
               <small>Picture</small>
             </label>
             <input
+              required
               onChange={this.handleChange}
               name="imageUrl"
               type="text"
@@ -107,23 +118,47 @@ class UpdatePlant extends React.Component {
               <small>Price</small>
             </label>
             <input
+              required
               onChange={this.handleChange}
               name="price"
               type="text"
+              pattern="[0-9]*"
+              title="i.e. 50 = $50"
               value={this.state.price}
             />
           </div>
           <div>
             <label htmlFor="lightRequirements">
               <small>Light Requirements:</small>
-              <select name="lightRequirements" onChange={this.handleChange}>
-                <option defaultValue> - select light requirements - </option>
+              <select
+                required
+                name="lightRequirements"
+                onChange={this.handleChange}
+              >
+                <option value={initState.lightRequirements}>
+                  {' '}
+                  - select light requirements -{' '}
+                </option>
                 <option value="Low Light">Low Light</option>
                 <option value="Bright Light">Bright Light</option>
               </select>
             </label>
           </div>
-          <button type="submit"> Submit </button>
+          <button
+            type="submit"
+            disabled={
+              !id ||
+              !name ||
+              !description ||
+              !imageUrl ||
+              !price ||
+              isNaN(price) ||
+              !lightRequirements
+            }
+          >
+            {' '}
+            Submit{' '}
+          </button>
           <span id="updated-plant-message" />
         </form>
       </div>
