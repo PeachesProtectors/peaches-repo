@@ -1,12 +1,10 @@
 import axios from 'axios'
 import history from '../history'
-
 /**
  * ACTION TYPES
  */
 const GET_PLANTS = 'GET_PLANTS'
 const GET_SINGLE_PLANT = 'GET_SINGLE_PLANT'
-
 //filter
 const GET_LOW_LIGHT = 'GET_LOW_LIGHT'
 const GET_BRIGHT_LIGHT = 'GET_BRIGHT_LIGHT'
@@ -32,10 +30,22 @@ const getBrightLightPlants = plants => ({type: GET_BRIGHT_LIGHT, plants})
 /**
  * THUNK CREATORS
  */
-export const getPlantsThunk = () => async dispatch => {
+export const getPlantsThunk = (word) => async dispatch => {
   try {
+    if(word === 'all'){
     const res = await axios.get('/api/products')
     dispatch(getPlants(res.data))
+  } else if(word === 'desc'){
+    const res = await axios.get('/api/products')
+    const {data} = res
+    data.sort((a, b) => a.price - b.price)
+     dispatch(getPlants(data))
+  } else if(word === 'asc'){
+    const res = await axios.get('/api/products')
+    const {data} = res
+    data.sort((a, b) => b.price - a.price )
+     dispatch(getPlants(data))
+  } 
   } catch (err) {
     console.error(err)
   }
@@ -50,21 +60,45 @@ export const getSinglePlantThunk = id => async dispatch => {
   }
 }
 
-//filter thunks 'Low Light', 'Bright Light'
-//low light
-export const getLowLightThunk = () => async dispatch => {
+export const getLowLightThunk = (word) => async dispatch => {
   try {
-    const res = await axios.get('/api/products/low-light')
-    dispatch(getLowLightPlants(res.data))
+    if(word === 'all'){
+      const res = await axios.get('/api/products/low-light')
+      const {data} = res
+      dispatch(getLowLightPlants(data))
+    } else if(word === 'desc'){
+      const res = await axios.get('/api/products/low-light')
+      const {data} = res
+      data.sort((a, b) => a.price - b.price)
+      dispatch(getLowLightPlants(data))
+    } else if(word === 'asc'){
+      const res = await axios.get('/api/products/low-light')
+      const {data} = res
+      data.sort((a, b) => b.price - a.price )
+      dispatch(getLowLightPlants(data))
+    }
   } catch (err) {
     console.error(err)
   }
 }
-//bright light
-export const getBrightLightThunk = () => async dispatch => {
+
+export const getBrightLightThunk = (word) => async dispatch => {
   try {
-    const res = await axios.get('/api/products/bright-light')
-    dispatch(getBrightLightPlants(res.data))
+    if(word === 'all'){
+      const res = await axios.get('/api/products/bright-light')
+      const {data} = res
+      dispatch(getBrightLightPlants(data))
+    } else if(word === 'desc'){
+      const res = await axios.get('/api/products/bright-light')
+      const {data} = res
+      data.sort((a, b) => a.price - b.price)
+      dispatch(getBrightLightPlants(data))
+    } else if(word === 'asc'){
+      const res = await axios.get('/api/products/bright-light')
+      const {data} = res
+      data.sort((a, b) => b.price - a.price )
+      dispatch(getBrightLightPlants(data))
+    }  
   } catch (err) {
     console.error(err)
   }
@@ -89,3 +123,4 @@ const allPlantsReducer = (state = initialState, action) => {
 }
 
 export default allPlantsReducer
+
