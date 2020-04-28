@@ -1,7 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {deletePlantThunk} from '../store/admin'
-import {getPlantsThunk} from '../store/allPlantsReducer'
+import {getPlantOrderThunk} from '../store/allPlantsReducer'
 
 const initState = {
   id: ''
@@ -69,7 +69,7 @@ const mapState = state => {
 
 const mapDispatch = dispatch => {
   return {
-    getAllPlants: () => dispatch(getPlantsThunk()),
+    getAllPlants: () => dispatch(getPlantOrderThunk()),
     deletePlant: plant => dispatch(deletePlantThunk(plant))
   }
 }
