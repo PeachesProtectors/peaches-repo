@@ -30,7 +30,8 @@ router.get('/cart', async (req, res, next) => {
 
 //update cart
 router.post('/cart', async (req, res, next) => {
-  let localCart = req.body || []
+  const {body} = req
+  let localCart = body || []
   try {
     // get pending order for a login userID
     const [order] = await Order.findOrCreate({
@@ -48,7 +49,7 @@ router.post('/cart', async (req, res, next) => {
       }
     })
 
-    //overwrite products in through table with local storage data instead
+    //overwrite products in through table
     for (let i = 0; i < localCart.length; i++) {
       const plant = await Product.findOne({
         where: {
@@ -84,7 +85,8 @@ router.put('/cart', async (req, res, next) => {
 
 //guest-to-login merge cart
 router.post('/cart/merge', async (req, res, next) => {
-  let localCart = req.body || []
+  const {body} = req
+  let localCart = body || []
   try {
     const [order] = await Order.findOrCreate({
       where: {

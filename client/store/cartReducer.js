@@ -51,6 +51,14 @@ export const checkoutThunk = () => async dispatch => {
   }
 }
 
+export const guestCheckoutThunk = cart => async dispatch => {
+  try {
+    await axios.post('/api/guest', cart)
+  } catch (err) {
+    console.log(err)
+  }
+}
+
 /**
  * INITIAL STATE
  */
