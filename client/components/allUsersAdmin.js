@@ -19,7 +19,7 @@ class AllUsers extends React.Component {
           users.map(user => (
             <div key={user.id}>
               <small>
-                Name: {user.firstName} {user.lastName}
+               Name: {user.firstName} {user.lastName}
               </small>
               <br />
               <small>Email: {user.email}</small>

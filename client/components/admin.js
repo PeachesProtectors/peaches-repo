@@ -1,6 +1,5 @@
 import React from 'react'
 import {AddPlant, UpdatePlant, DeletePlant} from '../components'
-import AllUsers from './allUsersAdmin'
 
 class Admin extends React.Component {
   render() {
@@ -15,8 +14,6 @@ class Admin extends React.Component {
         <h2> Remove Plant: </h2>
         <DeletePlant />
         <br />
-        <h2> Users: </h2>
-        <AllUsers />
       </div>
     )
   }

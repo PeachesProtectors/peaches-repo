@@ -20,6 +20,10 @@ class LowPlants extends React.Component {
       this.props.getDesc()
     } else if (e.target.value === 'asc') {
       this.props.getAsc()
+    } else if(e.target.value === 'atoz'){
+      this.props.getAlphAsc()
+    }else if(e.target.value === 'ztoa'){
+      this.props.getAlphDesc()
     }
   }
 
@@ -48,6 +52,8 @@ const mapDispatch = dispatch => {
     getAllLowPlants: () => dispatch(getLowLightThunk("all")),
     getDesc: () => dispatch(getLowLightThunk("desc")),
     getAsc: () => dispatch(getLowLightThunk("asc")),
+    getAlphAsc: () => dispatch(getLowLightThunk("atoz")),
+    getAlphDesc: () => dispatch(getLowLightThunk("ztoa"))
   }
 }
 

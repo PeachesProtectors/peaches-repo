@@ -9,6 +9,8 @@ const { handleChange } = props
     <option className='has-text-centered' value="DEFAULT" disabled>-Select filter-</option>
     <option value='desc'>Price - Lowest to Highest</option>
     <option value='asc'>Price - Highest to Lowest</option>
+    <option value='atoz'>A to Z</option>
+    <option value='ztoa'>Z to A</option>
   </select>
 </div>
   )

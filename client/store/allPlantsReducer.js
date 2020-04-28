@@ -30,22 +30,31 @@ const getBrightLightPlants = plants => ({type: GET_BRIGHT_LIGHT, plants})
 /**
  * THUNK CREATORS
  */
-export const getPlantsThunk = (word) => async dispatch => {
+export const getPlantsThunk = (word) => async (dispatch) => {
   try {
-    if(word === 'all'){
-    const res = await axios.get('/api/products')
-    dispatch(getPlants(res.data))
-  } else if(word === 'desc'){
     const res = await axios.get('/api/products')
     const {data} = res
-    data.sort((a, b) => a.price - b.price)
-     dispatch(getPlants(data))
-  } else if(word === 'asc'){
-    const res = await axios.get('/api/products')
-    const {data} = res
-    data.sort((a, b) => b.price - a.price )
-     dispatch(getPlants(data))
-  } 
+    if (word === 'all') {
+      dispatch(getPlants(data))
+    } else if (word === 'desc') {
+      data.sort((a, b) => a.price - b.price)
+      dispatch(getPlants(data))
+    } else if (word === 'asc') {
+      data.sort((a, b) => b.price - a.price)
+      dispatch(getPlants(data))
+    } else if (word === 'atoz'){
+      data.sort(function(a, b){
+        if(a.name < b.name) { return -1; }
+        if(a.name > b.name) { return 1; }
+        return 0;})
+        dispatch(getPlants(data))
+    }else if (word === 'ztoa'){
+      data.sort(function(a, b){
+        if(a.name > b.name) { return -1; }
+        if(a.name < b.name) { return 1; }
+        return 0;})
+        dispatch(getPlants(data))
+    }
   } catch (err) {
     console.error(err)
   }
@@ -62,20 +71,28 @@ export const getSinglePlantThunk = id => async dispatch => {
 
 export const getLowLightThunk = (word) => async dispatch => {
   try {
-    if(word === 'all'){
-      const res = await axios.get('/api/products/low-light')
+    const res = await axios.get('/api/products/low-light')
       const {data} = res
+    if(word === 'all'){
       dispatch(getLowLightPlants(data))
     } else if(word === 'desc'){
-      const res = await axios.get('/api/products/low-light')
-      const {data} = res
       data.sort((a, b) => a.price - b.price)
       dispatch(getLowLightPlants(data))
     } else if(word === 'asc'){
-      const res = await axios.get('/api/products/low-light')
-      const {data} = res
       data.sort((a, b) => b.price - a.price )
       dispatch(getLowLightPlants(data))
+    }else if (word === 'atoz'){
+      data.sort(function(a, b){
+        if(a.name < b.name) { return -1; }
+        if(a.name > b.name) { return 1; }
+        return 0;})
+        dispatch(getLowLightPlants(data))
+    }else if (word === 'ztoa'){
+      data.sort(function(a, b){
+        if(a.name > b.name) { return -1; }
+        if(a.name < b.name) { return 1; }
+        return 0;})
+        dispatch(getLowLightPlants(data))
     }
   } catch (err) {
     console.error(err)
@@ -84,20 +101,28 @@ export const getLowLightThunk = (word) => async dispatch => {
 
 export const getBrightLightThunk = (word) => async dispatch => {
   try {
+    const res = await axios.get('/api/products/bright-light')
+    const {data} = res
     if(word === 'all'){
-      const res = await axios.get('/api/products/bright-light')
-      const {data} = res
       dispatch(getBrightLightPlants(data))
     } else if(word === 'desc'){
-      const res = await axios.get('/api/products/bright-light')
-      const {data} = res
       data.sort((a, b) => a.price - b.price)
       dispatch(getBrightLightPlants(data))
     } else if(word === 'asc'){
-      const res = await axios.get('/api/products/bright-light')
-      const {data} = res
       data.sort((a, b) => b.price - a.price )
       dispatch(getBrightLightPlants(data))
+    }else if (word === 'atoz'){
+      data.sort(function(a, b){
+        if(a.name < b.name) { return -1; }
+        if(a.name > b.name) { return 1; }
+        return 0;})
+        dispatch(getBrightLightPlants(data))
+    }else if (word === 'ztoa'){
+      data.sort(function(a, b){
+        if(a.name > b.name) { return -1; }
+        if(a.name < b.name) { return 1; }
+        return 0;})
+        dispatch(getBrightLightPlants(data))
     }  
   } catch (err) {
     console.error(err)

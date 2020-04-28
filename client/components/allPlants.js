@@ -20,6 +20,10 @@ class AllPlants extends React.Component {
       this.props.getDesc()
     } else if (e.target.value === 'asc') {
       this.props.getAsc()
+    } else if(e.target.value === 'atoz'){
+      this.props.getAlphAsc()
+    }else if(e.target.value === 'ztoa'){
+      this.props.getAlphDesc()
     }
   }
 
@@ -48,6 +52,8 @@ const mapDispatch = (dispatch) => {
     getAllPlants: () => dispatch(getPlantsThunk("all")),
     getDesc: () => dispatch(getPlantsThunk("desc")),
     getAsc: () => dispatch(getPlantsThunk("asc")),
+    getAlphAsc: () => dispatch(getPlantsThunk("atoz")),
+    getAlphDesc: () => dispatch(getPlantsThunk("ztoa"))
   }
 }
 

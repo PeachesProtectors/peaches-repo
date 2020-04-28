@@ -19,6 +19,10 @@ class BrightPlants extends React.Component {
       this.props.getDesc()
     } else if (e.target.value === 'asc') {
       this.props.getAsc()
+    } else if(e.target.value === 'atoz'){
+      this.props.getAlphAsc()
+    }else if(e.target.value === 'ztoa'){
+      this.props.getAlphDesc()
     }
   }
 
@@ -51,7 +55,8 @@ const mapDispatch = dispatch => {
     getAllBrightPlants: () => dispatch(getBrightLightThunk('all')),
     getDesc: () => dispatch(getBrightLightThunk("desc")),
     getAsc: () => dispatch(getBrightLightThunk("asc")),
-  
+    getAlphAsc: () => dispatch(getBrightLightThunk("atoz")),
+    getAlphDesc: () => dispatch(getBrightLightThunk("ztoa"))
   }
 }
 
