@@ -1,7 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {getSingleOrderThunk} from '../store/historyReducer'
-import {getPlantsThunk} from '../store/allPlantsReducer'
+import {getPlantOrderThunk} from '../store/allPlantsReducer'
 
 class SingleOrder extends React.Component {
   componentDidMount() {
@@ -60,7 +60,7 @@ const mapState = state => {
 const mapDispatch = dispatch => {
   return {
     getSingleOrder: id => dispatch(getSingleOrderThunk(id)),
-    getPlant: () => dispatch(getPlantsThunk())
+    getPlant: () => dispatch(getPlantOrderThunk())
   }
 }
 

@@ -69,6 +69,15 @@ export const getPlantsThunk = word => async dispatch => {
   }
 }
 
+export const getPlantOrderThunk = () => async dispatch => {
+  try {
+    const res = await axios.get('/api/products')
+    dispatch(getPlants(res.data))
+  } catch (err) {
+    console.error(err)
+  }
+}
+
 export const getSinglePlantThunk = id => async dispatch => {
   try {
     const res = await axios.get(`/api/products/${id}`)
