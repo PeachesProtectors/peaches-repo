@@ -65,7 +65,7 @@ class UpdatePlant extends React.Component {
       <div>
         <form onSubmit={this.handleSubmit}>
           <label>
-            Choose a plant:*
+            Choose a plant:
             <select name="id" onChange={this.handleChange}>
               <option value={initState.name}> - select plant - </option>
               {plants &&
@@ -90,7 +90,7 @@ class UpdatePlant extends React.Component {
           </div>
           <div>
             <label htmlFor="description">
-              <small>Description*</small>
+              <small>Description</small>
             </label>
             <textarea
               required
@@ -103,7 +103,7 @@ class UpdatePlant extends React.Component {
           </div>
           <div>
             <label htmlFor="imageUrl">
-              <small>Picture*</small>
+              <small>Picture</small>
             </label>
             <input
               required
@@ -122,12 +122,14 @@ class UpdatePlant extends React.Component {
               onChange={this.handleChange}
               name="price"
               type="text"
+              pattern="[0-9]*"
+              title="i.e. 50 = $50"
               value={this.state.price}
             />
           </div>
           <div>
             <label htmlFor="lightRequirements">
-              <small>Light Requirements:*</small>
+              <small>Light Requirements:</small>
               <select
                 required
                 name="lightRequirements"
@@ -150,6 +152,7 @@ class UpdatePlant extends React.Component {
               !description ||
               !imageUrl ||
               !price ||
+              isNaN(price) ||
               !lightRequirements
             }
           >
