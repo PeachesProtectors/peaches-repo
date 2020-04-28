@@ -2,6 +2,7 @@ import React from 'react'
 import {connect} from 'react-redux'
 import {getSinglePlantThunk} from '../store/allPlantsReducer'
 import {updateCartThunk, getCartThunk} from '../store/cartReducer'
+import {useToasts} from 'react-toast-notifications'
 
 class SinglePlant extends React.Component {
   constructor() {
