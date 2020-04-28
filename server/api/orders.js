@@ -95,7 +95,12 @@ router.post('/cart/merge', async (req, res, next) => {
       },
       include: [{model: Product}]
     })
-    let ids = order.products.map(p => p.id)
+
+    let ids = []
+    if (order.products) {
+      ids = order.products.map(p => p.id)
+    }
+
     for (let i = 0; i < localCart.length; i++) {
       if (ids.includes(localCart[i].id)) {
         const product = order.products.find(p => p.id === localCart[i].id)
@@ -115,7 +120,7 @@ router.post('/cart/merge', async (req, res, next) => {
             id: localCart[i].id
           }
         })
-        order.addProduct(plant, {
+        await order.addProduct(plant, {
           through: {quantity: localCart[i].quantity, price: localCart[i].price}
         })
       }
