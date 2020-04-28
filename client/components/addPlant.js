@@ -43,6 +43,7 @@ class AddPlant extends React.Component {
     }
   }
   render() {
+    const {name, description, imageUrl, price, lightRequirements} = this.state
     return (
       <form onSubmit={this.handleSubmit}>
         <div>
@@ -87,6 +88,8 @@ class AddPlant extends React.Component {
             onChange={this.handleChange}
             name="price"
             type="text"
+            pattern="[0-9]*"
+            title="i.e. 50 = $50"
             value={this.state.price}
           />
         </div>
@@ -94,14 +97,26 @@ class AddPlant extends React.Component {
           <label htmlFor="lightRequirements">
             <small>Light Requirements:</small>
             <select name="lightRequirements" onChange={this.handleChange}>
-              <option> - select light requirements - </option>
+              <option value="DEFAULT"> - select light requirements - </option>
               <option value="Low Light">Low Light</option>
               <option value="Bright Light">Bright Light</option>
             </select>
           </label>
         </div>
         <div>
-          <button type="submit">Add New Plant!</button>
+          <button
+            type="submit"
+            disabled={
+              !name ||
+              !description ||
+              !imageUrl ||
+              isNaN(price) ||
+              !price ||
+              !lightRequirements
+            }
+          >
+            Add New Plant!
+          </button>
         </div>
         <span id="added-plant-message" />
       </form>
