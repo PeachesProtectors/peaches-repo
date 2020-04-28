@@ -42,6 +42,9 @@ const Navbar = ({handleClick, isLoggedIn, isAdmin}) => {
               <a className="navbar-item" href="/cart">
                 Cart
               </a>
+              <a className="navbar-item" href="/orderhistory">
+                Order History
+              </a>
               <div className="navbar-item has-dropdown is-hoverable">
                 <a className="navbar-link">Plants</a>
 
@@ -79,9 +82,11 @@ const Navbar = ({handleClick, isLoggedIn, isAdmin}) => {
               <a className="navbar-item" href="/cart">
                 Cart
               </a>
+              <a className="navbar-item" href="/orderhistory">
+                Order History
+              </a>
               <div className="navbar-item has-dropdown is-hoverable">
                 <a className="navbar-link">Plants</a>
-
                 <div className="navbar-dropdown">
                   <a className="navbar-item" href="/plants">
                     All Plants
