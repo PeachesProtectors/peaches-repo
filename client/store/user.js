@@ -37,6 +37,13 @@ export const auth = (email, password, method) => async dispatch => {
   } catch (authError) {
     return dispatch(getUser({error: authError}))
   }
+  //guest to login user: merge cart
+  try {
+    let local = JSON.parse(window.localStorage.getItem('plant')) || []
+    await axios.post('/api/orders/cart/merge', local)
+  } catch (err) {
+    console.log(err)
+  }
 
   try {
     dispatch(getUser(res.data))

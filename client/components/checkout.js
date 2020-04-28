@@ -1,7 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {Link, Route} from 'react-router-dom'
-import {checkoutThunk} from '../store/cartReducer'
+import {checkoutThunk, guestCheckoutThunk} from '../store/cartReducer'
 
 class Checkout extends React.Component {
   constructor() {
@@ -15,7 +15,11 @@ class Checkout extends React.Component {
   }
 
   handleClick() {
-    this.props.checkout()
+    if (this.props.isLoggedIn) {
+      this.props.checkout()
+    } else {
+      this.props.guestCheckout(this.props.cart)
+    }
     window.localStorage.clear()
   }
 
@@ -46,7 +50,7 @@ class Checkout extends React.Component {
           </form>
         </div>
         {/* Order Information */}
-        <Link to="/thanks" onClick={() => this.handleClick()}>
+        <Link to="/thanks" onClick={cart => this.handleClick(cart)}>
           <button type="button">Pay Now</button>
         </Link>
       </div>
@@ -63,7 +67,8 @@ const mapState = state => {
 
 const mapDispatch = dispatch => {
   return {
-    checkout: () => dispatch(checkoutThunk())
+    checkout: () => dispatch(checkoutThunk()),
+    guestCheckout: cart => dispatch(guestCheckoutThunk(cart))
   }
 }
 
