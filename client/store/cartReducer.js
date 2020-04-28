@@ -34,7 +34,6 @@ const updateLocalStorage = cart => {
 export const getCartThunk = () => async dispatch => {
   try {
     const {data} = await axios.get('/api/orders/cart')
-    console.log('3333333', data)
     updateLocalStorage(data)
     dispatch(getCart(data))
   } catch (err) {
@@ -52,9 +51,9 @@ export const checkoutThunk = () => async dispatch => {
   }
 }
 
-export const guestCheckoutThunk = cart => async dispatch => {
+export const guestCheckoutThunk = guestInfo => async dispatch => {
   try {
-    await axios.post('/api/guest', cart)
+    await axios.post('/api/guest', guestInfo)
   } catch (err) {
     console.log(err)
   }

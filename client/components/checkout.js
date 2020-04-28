@@ -18,7 +18,11 @@ class Checkout extends React.Component {
     if (this.props.isLoggedIn) {
       this.props.checkout()
     } else {
-      this.props.guestCheckout(this.props.cart)
+      const guestInfo = {
+        cart: this.props.cart,
+        email: this.state.email
+      }
+      this.props.guestCheckout(guestInfo)
     }
 
     window.localStorage.clear()
