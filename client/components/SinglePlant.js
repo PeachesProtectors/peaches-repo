@@ -18,7 +18,6 @@ class SinglePlant extends React.Component {
   }
 
   handleClick() {
-    // does not differ for login and guest
     const {id, name, imageUrl, price} = this.props.plant
     const localCart = JSON.parse(window.localStorage.getItem('plant'))
     const currentPlant = localCart.find(p => p.id === id)
@@ -45,8 +44,8 @@ class SinglePlant extends React.Component {
     const {id, name, imageUrl, description, price, lightReqs} = plant
     return (
       <div id="single-plant">
-        <div className="columns is-mobile">
-          <div className="column is-three-quarters-mobile is-two-thirds-tablet is-half-desktop is-one-third-widescreen is-one-quarter-fullhd">
+        <div className="columns is-desktop">
+          <div className="column">
             <div className="polaroid">
               <figure className="plant-image">
                 <img src={imageUrl} />
@@ -60,9 +59,6 @@ class SinglePlant extends React.Component {
                 {name} <span id="price">${price}</span>
               </h1>
             </div>
-            {/* <div className="column">
-              <h2>Price: {price}</h2>
-            </div> */}
             <div className="column plant-description">
               <p>{description}</p>
             </div>

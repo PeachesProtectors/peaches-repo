@@ -3,47 +3,7 @@ const {Product, Order, OrderHistory} = require('../db/models')
 
 module.exports = router
 
-router.get('/', async (req, res, next) => {
-  try {
-    const order = await Order.findOne({
-      where: {
-        userId: req.user.id,
-        orderStatus: 'pending'
-      }
-    })
-    res.json(order)
-  } catch (err) {
-    next(err)
-  }
-})
-
-router.put('/', async (req, res, next) => {
-  try {
-    const order = await Order.findOne({
-      where: {
-        userId: req.user.id
-      }
-    })
-    res.json(await order.update(req.body))
-  } catch (err) {
-    next(err)
-  }
-})
-
-// router.delete('/', async (req, res, next) => {
-//   try {
-//     const deleteOrder = await Order.destroy({
-//       where: {
-//         userId: req.user.id,
-//         orderStatus: 'complete'
-//       }
-//     })
-//     res.json(deleteOrder)
-//   } catch (err) {
-//     next(err)
-//   }
-// })
-
+//load cart for login user
 router.get('/cart', async (req, res, next) => {
   try {
     const order = await Order.findOne({
@@ -68,14 +28,15 @@ router.get('/cart', async (req, res, next) => {
   }
 })
 
+//update cart
 router.post('/cart', async (req, res, next) => {
   let localCart = req.body || []
   try {
-    // get pending order for a logged in userID
+    // get pending order for a login userID
     const [order] = await Order.findOrCreate({
       where: {
-        userId: req.user.id
-        // orderStatus: 'pending'
+        userId: req.user.id,
+        orderStatus: 'pending'
       },
       include: [{model: Product}]
     })
@@ -104,4 +65,19 @@ router.post('/cart', async (req, res, next) => {
   }
 })
 
-//change order process to 'complete' after checkout
+//checkout for login user
+router.put('/cart', async (req, res, next) => {
+  try {
+    const order = await Order.findOne({
+      where: {
+        userId: req.user.id,
+        orderStatus: 'pending'
+      },
+      include: [{model: Product}]
+    })
+    await order.update({orderStatus: 'complete'})
+    res.sendStatus(201)
+  } catch (err) {
+    next(err)
+  }
+})

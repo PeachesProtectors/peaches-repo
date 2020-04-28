@@ -13,7 +13,6 @@ class AllUsers extends React.Component {
 
   render() {
     const {users} = this.props
-    // console.log("USERS ======> ", users[0])
     return (
       <div>
         {users &&

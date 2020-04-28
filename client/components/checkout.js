@@ -1,12 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {Link, Route} from 'react-router-dom'
-import {clearCart} from '../store/cartReducer'
-import {
-  postStatusThunk,
-  getOrderThunk,
-  deleteCompleteThunk
-} from '../store/checkoutReducer'
+import {checkoutThunk} from '../store/cartReducer'
 
 class Checkout extends React.Component {
   constructor() {
@@ -16,28 +11,11 @@ class Checkout extends React.Component {
       address: ''
     }
     this.handleChange = this.handleChange.bind(this)
-    this.updateStatus = this.updateStatus.bind(this)
+    this.handleClick = this.handleClick.bind(this)
   }
 
-  componentDidMount() {
-    this.props.getOrder()
-  }
-
-  updateStatus() {
-    let {order} = this.props.order
-    console.log(order)
-
-    let update = {
-      createdAt: order.createdAt,
-      id: order.id,
-      orderDate: order.orderDate,
-      orderStatus: 'complete',
-      updatedAt: order.updatedAt,
-      userId: order.userId
-    }
-    this.props.orderComplete(update)
-    // this.props.removeCompletedOrder()
-    this.props.emptyCart()
+  handleClick() {
+    this.props.checkout()
     window.localStorage.clear()
   }
 
@@ -68,7 +46,7 @@ class Checkout extends React.Component {
           </form>
         </div>
         {/* Order Information */}
-        <Link to="/thanks" onClick={() => this.updateStatus()}>
+        <Link to="/thanks" onClick={() => this.handleClick()}>
           <button type="button">Pay Now</button>
         </Link>
       </div>
@@ -79,17 +57,13 @@ class Checkout extends React.Component {
 const mapState = state => {
   return {
     isLoggedIn: !!state.user.id,
-    cart: state.cartReducer,
-    order: state.checkoutReducer
+    cart: state.cartReducer
   }
 }
 
 const mapDispatch = dispatch => {
   return {
-    emptyCart: () => dispatch(clearCart()),
-    getOrder: () => dispatch(getOrderThunk()),
-    orderComplete: update => dispatch(postStatusThunk(update))
-    // removeCompletedOrder: () => dispatch(deleteCompleteThunk())
+    checkout: () => dispatch(checkoutThunk())
   }
 }
 

@@ -7,17 +7,14 @@ const GET_CART = 'GET_CART'
 const INCREASE_QTY = 'INCREASE_QTY'
 const DECREASE_QTY = 'DECREASE_QTY'
 const REMOVE_PLANT = 'REMOVE_PLANT'
-const CLEAR_CART = 'CLEAR_CART'
 
 /**
  * ACTION CREATORS
  */
-
 export const getCart = cart => ({type: GET_CART, cart})
 export const increaseQty = plantId => ({type: INCREASE_QTY, plantId})
 export const decreaseQty = plantId => ({type: DECREASE_QTY, plantId})
 export const removePlant = plantId => ({type: REMOVE_PLANT, plantId})
-export const clearCart = () => ({type: CLEAR_CART}) //login user(comp/navbar) clear this.props.cart
 
 /**
  * THUNK CREATORS
@@ -39,12 +36,20 @@ export const getCartThunk = () => async dispatch => {
   try {
     //login
     res = await axios.get('/api/orders/cart')
-    updateLocalStorage(res.data) //sync db with localstorage
+    updateLocalStorage(res.data) //sync localstorage with db cart
     dispatch(getCart(res.data))
   } catch (err) {
     //guest
     res = {data: JSON.parse(window.localStorage.getItem('plant')) || []}
     dispatch(getCart(res.data))
+    console.log(err)
+  }
+}
+
+export const checkoutThunk = () => async dispatch => {
+  try {
+    await axios.put('/api/orders/cart')
+  } catch (err) {
     console.log(err)
   }
 }
@@ -79,8 +84,6 @@ const cartReducer = (state = initialState, action) => {
       })
     case REMOVE_PLANT:
       return state.filter(plant => plant.id !== action.plantId)
-    case CLEAR_CART:
-      return []
     default:
       return state
   }
