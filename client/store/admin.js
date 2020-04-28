@@ -1,7 +1,6 @@
 import axios from 'axios'
 
 const GET_ALL_USERS = 'GET_ALL_USERS'
-const GET_SINGLE_USERS = 'GET_SINGLE_USERS'
 const initialState = {
   users: []
 }
@@ -14,6 +13,16 @@ export const getAllUsersThunk = () => async dispatch => {
   try {
     const res = await axios.get('/api/users') // check the server api route
     dispatch(getAllUsers(res.data))
+  } catch (err) {
+    console.error(err)
+  }
+}
+
+export const updateAdminThunk = user => async () => {
+  try {
+    console.log('THUNK ======> ', user)
+    await axios.put(`/api/users/${user.id}`, user)
+    console.log('THUNK AFTER ======> ', user)
   } catch (err) {
     console.error(err)
   }

@@ -1,6 +1,6 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {Link, Route} from 'react-router-dom'
+import {Link} from 'react-router-dom'
 import {
   updateCartThunk,
   getCartThunk,
@@ -54,6 +54,7 @@ class Cart extends React.Component {
             {cart.map(item => (
               <li key={item.id}>
                 <h3>{item.name}</h3>
+                <img src={item.imageUrl} height="150" width="150" /> <br />
                 <button type="button" onClick={() => this.increment(item.id)}>
                   +
                 </button>
@@ -64,14 +65,22 @@ class Cart extends React.Component {
                 <button type="button" onClick={() => this.remove(item.id)}>
                   remove
                 </button>
-                <p>{item.price}</p>
+                <p>Price: ${item.price}</p> <br />
               </li>
             ))}
+            <p>
+              Subtotal: ${cart.reduce((accum, product) => {
+                let prodSum = product.quantity * product.price
+                return accum + prodSum
+              }, 0)}
+            </p>
           </ul>
         )}
-        <button type="button">
-          <Link to="/checkout"> Checkout </Link>
-        </button>
+        {cart.length > 0 && (
+          <button type="button">
+            <Link to="/checkout"> Checkout </Link>
+          </button>
+        )}
       </div>
     )
   }

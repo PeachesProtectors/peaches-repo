@@ -1,7 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
-import {Link, NavLink} from 'react-router-dom'
 import {logout} from '../store'
 
 const image =
@@ -10,6 +9,22 @@ const peach =
   'https://ih1.redbubble.net/image.1011066268.6036/st,small,507x507-pad,600x600,f8f8f8.jpg'
 
 const Navbar = ({handleClick, isLoggedIn, isAdmin}) => {
+  document.addEventListener('DOMContentLoaded', () => {
+    const $navbarBurgers = Array.prototype.slice.call(
+      document.querySelectorAll('.navbar-burger'),
+      0
+    )
+    if ($navbarBurgers.length > 0) {
+      $navbarBurgers.forEach(el => {
+        el.addEventListener('click', () => {
+          const target = el.dataset.target
+          const $target = document.getElementById(target)
+          el.classList.toggle('is-active')
+          $target.classList.toggle('is-active')
+        })
+      })
+    }
+  })
   return (
     <div>
       <div className="header">
@@ -29,6 +44,22 @@ const Navbar = ({handleClick, isLoggedIn, isAdmin}) => {
         role="navigation"
         aria-label="main navigation"
       >
+        <div className="navbar-brand">
+          <a className="navbar-item" href="/plants">
+            <img src={image} width="30" height="28" />
+          </a>
+          <a
+            role="button"
+            className="navbar-burger burger"
+            aria-label="menu"
+            aria-expanded="false"
+            data-target="navbarBasicExample"
+          >
+            <span aria-hidden="true" />
+            <span aria-hidden="true" />
+            <span aria-hidden="true" />
+          </a>
+        </div>
         {isAdmin ? (
           <div id="navbarBasicExample" className="navbar-menu is-active">
             {/* The navbar will show these links after you log in */}
@@ -36,11 +67,25 @@ const Navbar = ({handleClick, isLoggedIn, isAdmin}) => {
               <a className="navbar-item" href="/home">
                 Home
               </a>
-              <a className="navbar-item" href="/admin">
-                Admin
-              </a>
+
+              <div className="navbar-item has-dropdown is-hoverable">
+                <a className="navbar-link">Admin</a>
+
+                <div className="navbar-dropdown">
+                  <a className="navbar-item" href="/admin">
+                    Admin
+                  </a>
+                  <a className="navbar-item" href="/all-users">
+                    Users
+                  </a>
+                </div>
+              </div>
+
               <a className="navbar-item" href="/cart">
                 Cart
+              </a>
+              <a className="navbar-item" href="/orderhistory">
+                Order History
               </a>
               <div className="navbar-item has-dropdown is-hoverable">
                 <a className="navbar-link">Plants</a>
@@ -79,9 +124,11 @@ const Navbar = ({handleClick, isLoggedIn, isAdmin}) => {
               <a className="navbar-item" href="/cart">
                 Cart
               </a>
+              <a className="navbar-item" href="/orderhistory">
+                Order History
+              </a>
               <div className="navbar-item has-dropdown is-hoverable">
                 <a className="navbar-link">Plants</a>
-
                 <div className="navbar-dropdown">
                   <a className="navbar-item" href="/plants">
                     All Plants

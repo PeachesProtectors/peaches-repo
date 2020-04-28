@@ -1,21 +1,32 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {Link, Route} from 'react-router-dom'
-import {checkoutThunk} from '../store/cartReducer'
+import {Link} from 'react-router-dom'
+import {checkoutThunk, guestCheckoutThunk} from '../store/cartReducer'
 
 class Checkout extends React.Component {
   constructor() {
     super()
     this.state = {
+      name: '',
       email: '',
-      address: ''
+      address: '',
+      creditcard: ''
     }
     this.handleChange = this.handleChange.bind(this)
     this.handleClick = this.handleClick.bind(this)
   }
 
   handleClick() {
-    this.props.checkout()
+    if (this.props.isLoggedIn) {
+      this.props.checkout()
+    } else {
+      const guestInfo = {
+        cart: this.props.cart,
+        email: this.state.email
+      }
+      this.props.guestCheckout(guestInfo)
+    }
+
     window.localStorage.clear()
   }
 
@@ -31,6 +42,13 @@ class Checkout extends React.Component {
         <div>
           <form>
             <div>
+              <div>
+                <label htmlFor="name">
+                  <small>Name</small>
+                </label>
+                <input name="name" type="text" onChange={this.handleChange} />
+              </div>
+
               <label htmlFor="email">
                 <small>Email</small>
               </label>
@@ -43,12 +61,23 @@ class Checkout extends React.Component {
               </label>
               <input name="address" type="text" onChange={this.handleChange} />
             </div>
+
+            <div>
+              <label htmlFor="creditCard">
+                <small>Credit Card</small>
+              </label>
+              <input
+                name="creditCard"
+                type="text"
+                onChange={this.handleChange}
+              />
+            </div>
+
+            <Link to="/thanks" onClick={cart => this.handleClick(cart)}>
+              <button type="button">Pay Now</button>
+            </Link>
           </form>
         </div>
-        {/* Order Information */}
-        <Link to="/thanks" onClick={() => this.handleClick()}>
-          <button type="button">Pay Now</button>
-        </Link>
       </div>
     )
   }
@@ -63,7 +92,8 @@ const mapState = state => {
 
 const mapDispatch = dispatch => {
   return {
-    checkout: () => dispatch(checkoutThunk())
+    checkout: () => dispatch(checkoutThunk()),
+    guestCheckout: cart => dispatch(guestCheckoutThunk(cart))
   }
 }
 

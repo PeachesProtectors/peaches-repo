@@ -1,14 +1,16 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {deletePlantThunk} from '../store/admin'
-import {getPlantsThunk} from '../store/allPlantsReducer'
+import {getPlantOrderThunk} from '../store/allPlantsReducer'
+
+const initState = {
+  id: ''
+}
 
 class DeletePlant extends React.Component {
   constructor() {
     super()
-    this.state = {
-      id: undefined
-    }
+    this.state = initState
     this.handleSubmit = this.handleSubmit.bind(this)
     this.handleChange = this.handleChange.bind(this)
   }
@@ -17,7 +19,7 @@ class DeletePlant extends React.Component {
   }
 
   handleChange(e) {
-    this.setState({[e.target.name]: e.target.value})
+    this.setState({id: e.target.value})
   }
 
   async handleSubmit() {
@@ -36,11 +38,12 @@ class DeletePlant extends React.Component {
           <label>
             Choose a plant:
             <select
+              required
               name="id"
-              value={this.state.value}
+              value={this.state.id}
               onChange={this.handleChange}
             >
-              <option> - select plant - </option>
+              <option value={initState.id}> - select plant - </option>
               {plants &&
                 plants.map(plant => (
                   <option value={plant.id} key={plant.id}>
@@ -49,7 +52,9 @@ class DeletePlant extends React.Component {
                 ))}
             </select>
           </label>
-          <button type="submit">Remove</button>
+          <button type="submit" disabled={!this.state.id}>
+            Remove
+          </button>
         </form>
       </div>
     )
@@ -64,7 +69,7 @@ const mapState = state => {
 
 const mapDispatch = dispatch => {
   return {
-    getAllPlants: () => dispatch(getPlantsThunk()),
+    getAllPlants: () => dispatch(getPlantOrderThunk()),
     deletePlant: plant => dispatch(deletePlantThunk(plant))
   }
 }
