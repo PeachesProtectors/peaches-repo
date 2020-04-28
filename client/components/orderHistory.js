@@ -14,8 +14,6 @@ class OrderHistory extends React.Component {
     return (
       <div>
         {history.map(order => {
-          console.log(order.products.body)
-
           return (
             <div key={order.id}>
               <Link to={`/orderhistory/${order.id}`}>
