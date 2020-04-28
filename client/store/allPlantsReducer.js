@@ -1,12 +1,10 @@
 import axios from 'axios'
 import history from '../history'
-
 /**
  * ACTION TYPES
  */
 const GET_PLANTS = 'GET_PLANTS'
 const GET_SINGLE_PLANT = 'GET_SINGLE_PLANT'
-
 //filter
 const GET_LOW_LIGHT = 'GET_LOW_LIGHT'
 const GET_BRIGHT_LIGHT = 'GET_BRIGHT_LIGHT'
@@ -32,10 +30,31 @@ const getBrightLightPlants = plants => ({type: GET_BRIGHT_LIGHT, plants})
 /**
  * THUNK CREATORS
  */
-export const getPlantsThunk = () => async dispatch => {
+export const getPlantsThunk = (word) => async (dispatch) => {
   try {
     const res = await axios.get('/api/products')
-    dispatch(getPlants(res.data))
+    const {data} = res
+    if (word === 'all') {
+      dispatch(getPlants(data))
+    } else if (word === 'desc') {
+      data.sort((a, b) => a.price - b.price)
+      dispatch(getPlants(data))
+    } else if (word === 'asc') {
+      data.sort((a, b) => b.price - a.price)
+      dispatch(getPlants(data))
+    } else if (word === 'atoz'){
+      data.sort(function(a, b){
+        if(a.name < b.name) { return -1; }
+        if(a.name > b.name) { return 1; }
+        return 0;})
+        dispatch(getPlants(data))
+    }else if (word === 'ztoa'){
+      data.sort(function(a, b){
+        if(a.name > b.name) { return -1; }
+        if(a.name < b.name) { return 1; }
+        return 0;})
+        dispatch(getPlants(data))
+    }
   } catch (err) {
     console.error(err)
   }
@@ -50,21 +69,61 @@ export const getSinglePlantThunk = id => async dispatch => {
   }
 }
 
-//filter thunks 'Low Light', 'Bright Light'
-//low light
-export const getLowLightThunk = () => async dispatch => {
+export const getLowLightThunk = (word) => async dispatch => {
   try {
     const res = await axios.get('/api/products/low-light')
-    dispatch(getLowLightPlants(res.data))
+      const {data} = res
+    if(word === 'all'){
+      dispatch(getLowLightPlants(data))
+    } else if(word === 'desc'){
+      data.sort((a, b) => a.price - b.price)
+      dispatch(getLowLightPlants(data))
+    } else if(word === 'asc'){
+      data.sort((a, b) => b.price - a.price )
+      dispatch(getLowLightPlants(data))
+    }else if (word === 'atoz'){
+      data.sort(function(a, b){
+        if(a.name < b.name) { return -1; }
+        if(a.name > b.name) { return 1; }
+        return 0;})
+        dispatch(getLowLightPlants(data))
+    }else if (word === 'ztoa'){
+      data.sort(function(a, b){
+        if(a.name > b.name) { return -1; }
+        if(a.name < b.name) { return 1; }
+        return 0;})
+        dispatch(getLowLightPlants(data))
+    }
   } catch (err) {
     console.error(err)
   }
 }
-//bright light
-export const getBrightLightThunk = () => async dispatch => {
+
+export const getBrightLightThunk = (word) => async dispatch => {
   try {
     const res = await axios.get('/api/products/bright-light')
-    dispatch(getBrightLightPlants(res.data))
+    const {data} = res
+    if(word === 'all'){
+      dispatch(getBrightLightPlants(data))
+    } else if(word === 'desc'){
+      data.sort((a, b) => a.price - b.price)
+      dispatch(getBrightLightPlants(data))
+    } else if(word === 'asc'){
+      data.sort((a, b) => b.price - a.price )
+      dispatch(getBrightLightPlants(data))
+    }else if (word === 'atoz'){
+      data.sort(function(a, b){
+        if(a.name < b.name) { return -1; }
+        if(a.name > b.name) { return 1; }
+        return 0;})
+        dispatch(getBrightLightPlants(data))
+    }else if (word === 'ztoa'){
+      data.sort(function(a, b){
+        if(a.name > b.name) { return -1; }
+        if(a.name < b.name) { return 1; }
+        return 0;})
+        dispatch(getBrightLightPlants(data))
+    }  
   } catch (err) {
     console.error(err)
   }
@@ -89,3 +148,4 @@ const allPlantsReducer = (state = initialState, action) => {
 }
 
 export default allPlantsReducer
+

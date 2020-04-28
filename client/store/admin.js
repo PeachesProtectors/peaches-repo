@@ -19,6 +19,16 @@ export const getAllUsersThunk = () => async dispatch => {
   }
 }
 
+export const updateAdminThunk = user => async () => {
+  try {
+    console.log("THUNK ======> ", user)
+    await axios.put(`/api/users/${user.id}`, user)
+    console.log("THUNK AFTER ======> ", user)
+  } catch (err) {
+    console.error(err)
+  }
+}
+
 export const addPlantThunk = plant => async () => {
   try {
     await axios.post('/api/products', plant)
