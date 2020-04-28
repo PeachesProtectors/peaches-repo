@@ -6,7 +6,7 @@ module.exports = router
 //checkout for guest
 router.post('/', async (req, res, next) => {
   const {body} = req
-  let localCart = body || []
+  let localCart = body.cart || []
   try {
     const guestOrder = await Order.create({
       userId: null,
@@ -20,7 +20,11 @@ router.post('/', async (req, res, next) => {
         }
       })
       guestOrder.addProduct(plant, {
-        through: {quantity: localCart[i].quantity, price: localCart[i].price}
+        through: {
+          quantity: localCart[i].quantity,
+          price: localCart[i].price,
+          email: body.email
+        }
       })
     }
     res.sendStatus(201)

@@ -51,9 +51,9 @@ export const checkoutThunk = () => async dispatch => {
   }
 }
 
-export const guestCheckoutThunk = cart => async dispatch => {
+export const guestCheckoutThunk = guestInfo => async dispatch => {
   try {
-    await axios.post('/api/guest', cart)
+    await axios.post('/api/guest', guestInfo)
   } catch (err) {
     console.log(err)
   }
