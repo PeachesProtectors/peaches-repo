@@ -20,6 +20,7 @@ class Checkout extends React.Component {
     } else {
       this.props.guestCheckout(this.props.cart)
     }
+
     window.localStorage.clear()
   }
 

@@ -67,6 +67,12 @@ class Cart extends React.Component {
                 <p>{item.price}</p>
               </li>
             ))}
+            <p>
+              Subtotal: ${cart.reduce((accum, product) => {
+                let prodSum = product.quantity * product.price
+                return accum + prodSum
+              }, 0)}
+            </p>
           </ul>
         )}
         <button type="button">
