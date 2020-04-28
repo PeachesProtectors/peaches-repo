@@ -32,16 +32,13 @@ const updateLocalStorage = cart => {
 }
 
 export const getCartThunk = () => async dispatch => {
-  let res
   try {
-    //login
-    res = await axios.get('/api/orders/cart')
-    updateLocalStorage(res.data) //sync localstorage with db cart
-    dispatch(getCart(res.data))
+    const {data} = await axios.get('/api/orders/cart')
+    updateLocalStorage(data)
+    dispatch(getCart(data))
   } catch (err) {
-    //guest
-    res = {data: JSON.parse(window.localStorage.getItem('plant')) || []}
-    dispatch(getCart(res.data))
+    let localCart = JSON.parse(window.localStorage.getItem('plant')) || []
+    dispatch(getCart(localCart))
     console.log(err)
   }
 }

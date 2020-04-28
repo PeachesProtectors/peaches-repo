@@ -81,3 +81,45 @@ router.put('/cart', async (req, res, next) => {
     next(err)
   }
 })
+
+//guest-to-login merge cart
+router.post('/cart/merge', async (req, res, next) => {
+  let localCart = req.body || []
+  try {
+    const [order] = await Order.findOrCreate({
+      where: {
+        userId: req.user.id,
+        orderStatus: 'pending'
+      },
+      include: [{model: Product}]
+    })
+    let ids = order.products.map(p => p.id)
+    for (let i = 0; i < localCart.length; i++) {
+      if (ids.includes(localCart[i].id)) {
+        const product = order.products.find(p => p.id === localCart[i].id)
+        const newQty = localCart[i].quantity + product.OrderHistory.quantity
+        await OrderHistory.update(
+          {quantity: newQty},
+          {
+            where: {
+              orderId: order.id,
+              productId: localCart[i].id
+            }
+          }
+        )
+      } else {
+        const plant = await Product.findOne({
+          where: {
+            id: localCart[i].id
+          }
+        })
+        order.addProduct(plant, {
+          through: {quantity: localCart[i].quantity, price: localCart[i].price}
+        })
+      }
+    }
+    res.sendStatus(201)
+  } catch (err) {
+    next(err)
+  }
+})
