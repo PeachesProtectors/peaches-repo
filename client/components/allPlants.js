@@ -4,10 +4,6 @@ import Plant from './Plant'
 import {getPlantsThunk} from '../store/allPlantsReducer'
 
 class AllPlants extends React.Component {
-  constructor() {
-    super()
-  }
-
   componentDidMount() {
     this.props.getAllPlants()
   }

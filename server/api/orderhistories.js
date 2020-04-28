@@ -33,8 +33,9 @@ router.get('/:orderId', async (req, res, next) => {
 })
 
 router.post('/', async (req, res, next) => {
+  const {body} = req
   try {
-    const newOrder = await OrderHistory.create(req.body)
+    const newOrder = await OrderHistory.create(body)
     res.json(newOrder)
   } catch (err) {
     next(err)

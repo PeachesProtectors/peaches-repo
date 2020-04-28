@@ -1,6 +1,6 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {Link, Route} from 'react-router-dom'
+import {Link} from 'react-router-dom'
 import {
   updateCartThunk,
   getCartThunk,
@@ -69,9 +69,11 @@ class Cart extends React.Component {
             ))}
           </ul>
         )}
-        <button type="button">
-          <Link to="/checkout"> Checkout </Link>
-        </button>
+        {cart.length > 0 && (
+          <button type="button">
+            <Link to="/checkout"> Checkout </Link>
+          </button>
+        )}
       </div>
     )
   }

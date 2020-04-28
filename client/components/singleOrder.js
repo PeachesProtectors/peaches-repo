@@ -22,8 +22,7 @@ class SingleOrder extends React.Component {
             return (
               <div key={i}>
                 <p>
-                  {' '}
-                  {i + 1}){' '}
+                  {i + 1})
                   {plants.map(plant => {
                     if (plant.id === product.productId) {
                       return plant.name
@@ -37,7 +36,6 @@ class SingleOrder extends React.Component {
             )
           })}
           <p>
-            {' '}
             Subtotal: ${history.reduce((accum, product) => {
               let prodSum = product.quantity * product.price
               return accum + prodSum

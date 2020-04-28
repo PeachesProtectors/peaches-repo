@@ -19,8 +19,7 @@ class OrderHistory extends React.Component {
           return (
             <div key={order.id}>
               <Link to={`/orderhistory/${order.id}`}>
-                {' '}
-                Order Number: {order.id}{' '}
+                Order Number: {order.id}
               </Link>
               <p> Order Date: {order.orderDate.slice(0, 10)} </p>
               <br />

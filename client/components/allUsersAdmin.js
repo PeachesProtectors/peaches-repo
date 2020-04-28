@@ -3,10 +3,6 @@ import {connect} from 'react-redux'
 import {getAllUsersThunk} from '../store/admin'
 
 class AllUsers extends React.Component {
-  constructor() {
-    super()
-  }
-
   componentDidMount() {
     this.props.getAllUsers()
   }

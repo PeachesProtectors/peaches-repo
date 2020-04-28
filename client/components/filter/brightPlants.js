@@ -1,13 +1,9 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {Link} from 'react-router-dom'
 import Plant from '../Plant'
 import {getBrightLightThunk} from '../../store/allPlantsReducer'
 
 class BrightPlants extends React.Component {
-  constructor(props) {
-    super(props)
-  }
   componentDidMount() {
     this.props.getAllBrightPlants()
   }
