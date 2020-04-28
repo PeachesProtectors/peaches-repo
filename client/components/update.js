@@ -4,12 +4,12 @@ import {updatePlantThunk} from '../store/admin'
 import {getPlantsThunk} from '../store/allPlantsReducer'
 
 const initState = {
-  id: undefined,
+  id: '',
   name: '',
   description: '',
   imageUrl: '',
   price: '',
-  lightRequirements: 'select'
+  lightRequirements: ''
 }
 
 class UpdatePlant extends React.Component {
@@ -52,14 +52,22 @@ class UpdatePlant extends React.Component {
   }
 
   render() {
+    const {
+      id,
+      name,
+      description,
+      imageUrl,
+      price,
+      lightRequirements
+    } = this.state
     const {plants} = this.props
     return (
       <div>
         <form onSubmit={this.handleSubmit}>
           <label>
-            Choose a plant:
+            Choose a plant:*
             <select name="id" onChange={this.handleChange}>
-              <option> - select plant - </option>
+              <option value={initState.name}> - select plant - </option>
               {plants &&
                 plants.map(plant => (
                   <option value={plant.id} key={plant.id}>
@@ -73,6 +81,7 @@ class UpdatePlant extends React.Component {
               <small>Name</small>
             </label>
             <input
+              required
               onChange={this.handleChange}
               name="name"
               type="text"
@@ -81,9 +90,10 @@ class UpdatePlant extends React.Component {
           </div>
           <div>
             <label htmlFor="description">
-              <small>Description</small>
+              <small>Description*</small>
             </label>
             <textarea
+              required
               onChange={this.handleChange}
               value={this.state.description}
               name="description"
@@ -93,9 +103,10 @@ class UpdatePlant extends React.Component {
           </div>
           <div>
             <label htmlFor="imageUrl">
-              <small>Picture</small>
+              <small>Picture*</small>
             </label>
             <input
+              required
               onChange={this.handleChange}
               name="imageUrl"
               type="text"
@@ -107,6 +118,7 @@ class UpdatePlant extends React.Component {
               <small>Price</small>
             </label>
             <input
+              required
               onChange={this.handleChange}
               name="price"
               type="text"
@@ -115,15 +127,35 @@ class UpdatePlant extends React.Component {
           </div>
           <div>
             <label htmlFor="lightRequirements">
-              <small>Light Requirements:</small>
-              <select name="lightRequirements" onChange={this.handleChange}>
-                <option defaultValue> - select light requirements - </option>
+              <small>Light Requirements:*</small>
+              <select
+                required
+                name="lightRequirements"
+                onChange={this.handleChange}
+              >
+                <option value={initState.lightRequirements}>
+                  {' '}
+                  - select light requirements -{' '}
+                </option>
                 <option value="Low Light">Low Light</option>
                 <option value="Bright Light">Bright Light</option>
               </select>
             </label>
           </div>
-          <button type="submit"> Submit </button>
+          <button
+            type="submit"
+            disabled={
+              !id ||
+              !name ||
+              !description ||
+              !imageUrl ||
+              !price ||
+              !lightRequirements
+            }
+          >
+            {' '}
+            Submit{' '}
+          </button>
           <span id="updated-plant-message" />
         </form>
       </div>
