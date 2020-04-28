@@ -1,18 +1,21 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {getAllUsersThunk} from '../store/admin'
+import {getAllUsersThunk, updateAdminThunk} from '../store/admin'
 
 class AllUsers extends React.Component {
   constructor() {
     super()
+   
   }
 
   componentDidMount() {
     this.props.getAllUsers()
   }
 
+
   render() {
     const {users} = this.props
+    console.log("USERS =========> ", users)
     return (
       <div>
         {users &&
@@ -23,15 +26,19 @@ class AllUsers extends React.Component {
               </small>
               <br />
               <small>Email: {user.email}</small>
+              <br />  
+              <small>
+                Admin: {`${user.isAdmin}` }
+                </small>
               <br />
-              <small>{user.isAdmin}</small>
               <br />
             </div>
           ))}
-      </div>
-    )
+      </div>)
   }
 }
+
+
 
 const mapState = state => {
   return {
