@@ -8,7 +8,6 @@ const DeleteForm = props => {
   const {addToast} = useToasts()
 
   const onSubmit = async e => {
-    console.log('new sub', stateId)
     e.preventDefault()
     await deletePlant(stateId)
     handleSubmit()

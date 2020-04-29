@@ -20,12 +20,10 @@ class DeletePlant extends React.Component {
   }
 
   handleChange(e) {
-    console.log('hello change')
     this.setState({id: e.target.value})
   }
 
   handleSubmit() {
-    console.log('1 sub')
     this.setState(initState)
   }
 
