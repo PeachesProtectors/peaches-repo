@@ -40,7 +40,6 @@ class AddPlant extends React.Component {
     }
   }
   render() {
-    const {name, description, imageUrl, price, lightRequirements} = this.state
     return (
       <div>
         <AddPlantForm
