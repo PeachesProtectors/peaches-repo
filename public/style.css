@@ -1,5 +1,6 @@
 body {
   font-family: sans-serif;
+  min-height: 100vh;
 }
 
 .flex {
@@ -106,92 +107,62 @@ body {
 }
 
 div.polaroid {
-  margin-bottom: 50px;
-  margin-top: 50px;
+  margin-top: 40px;
+}
+.single-plant{
+  left: -7%;
   position: relative;
-  right: 50%;
+  min-height: 100vh;
 }
 .plant-image {
-  height: 300px;
-  width: 400px;
+  height: 65vh;
+  width: 50vw; 
+}
+#plant-name{
+  font-size: 2.25rem;
+  line-height: 1.1;
+}
+div.word-plant.column{
+  margin-top: 40px ;
+  margin-bottom: 40px;
+  position: static;
 }
 .description {
   margin-top: 50px;
-  padding: 0px 16px 16px 48px;
+  position: relative;
+  padding: 16px;
+ /*  padding: 0px 10px 3vmax 10px; */
   font-family: Arial, Helvetica, sans-serif;
 }
-.plant-description {
-  margin-right: 40%;
+div.plant-description {
+  margin: 10px
 }
 .name-plant {
   font-size: 3rem;
 }
 
-#price {
-  margin-left: 30px;
-  font-size: 2.5rem;
-}
 #single-plant {
   margin-left: 25%;
-  height: 75vh;
+  height: 100vh;
 }
-
-.switch {
-  position: relative;
-  display: inline-block;
-  width: 60px;
-  height: 34px;
-}
-
-.switch input {
-  opacity: 0;
-  width: 0;
-  height: 0;
-}
-
-.slider {
-  position: absolute;
-  cursor: pointer;
-  top: 0;
+footer.plant-footer{
+  position: static;
   left: 0;
-  right: 0;
   bottom: 0;
-  background-color: #ccc;
-  -webkit-transition: 0.4s;
-  transition: 0.4s;
+  height: 10%;
+  width: 100%;
+  /* position: static;
+  flex: 0 0 50px;/
+  margin-top: auto; */
 }
-
-.slider:before {
-  position: absolute;
-  content: '';
-  height: 26px;
-  width: 26px;
-  left: 4px;
-  bottom: 4px;
-  background-color: white;
-  -webkit-transition: 0.4s;
-  transition: 0.4s;
-}
-
-input:checked + .slider {
-  background-color: #2196f3;
-}
-
-input:focus + .slider {
-  box-shadow: 0 0 1px #2196f3;
-}
-
-input:checked + .slider:before {
-  -webkit-transform: translateX(26px);
-  -ms-transform: translateX(26px);
-  transform: translateX(26px);
-}
-
-/* Rounded sliders */
-.slider.round {
-  border-radius: 34px;
-}
-
-.slider.round:before {
-  border-radius: 50%;
-}
+ 
+@media only screen and (max-width: 767px){
+  footer.footer {
+  margin-top:25px;
+  padding-top: 15px;
+  padding-bottom: 10px;
+  position:static;
+  left:0;
+  bottom:0;
+  width:100%;
+  } }

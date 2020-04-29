@@ -2,7 +2,10 @@ import React from 'react'
 
 const Navbar = () => (
   <div>
-    <footer className="footer">
+    <footer className="footer hero">
+    <div className="container hero-body">
+    <div className="content ">
+      {/* <!-- Left side --> */}
       <div className="level-left">
         <div className="level-item">
           <p className="subtitle is-5">
@@ -32,6 +35,8 @@ const Navbar = () => (
             </span>
           </button>
         </p>
+      </div>
+      </div>
       </div>
     </footer>
   </div>

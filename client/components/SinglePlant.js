@@ -44,19 +44,20 @@ class SinglePlant extends React.Component {
     const {plant} = this.props
     const {name, imageUrl, description, price, lightReqs} = plant
     return (
+      <div>
+      <div className="container single-plant is-fullhd level hero">
       <div id="single-plant">
         <div className="columns is-desktop">
+
           <div className="column">
             <div className="polaroid">
-              <figure className="plant-image">
-                <img src={imageUrl} />
-              </figure>
+                <img src={imageUrl}  className="plant-image" />
             </div>
           </div>
 
-          <div className="column description">
+          <div className="word-plant column">
             <div className="column name-plant">
-              <h1>
+              <h1 id='plant-name'>
                 {name} <span id="price">${price}</span>
               </h1>
             </div>
@@ -80,6 +81,8 @@ class SinglePlant extends React.Component {
             </div>
           </div>
         </div>
+      </div>
+      </div>
       </div>
     )
   }
