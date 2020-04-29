@@ -32,11 +32,8 @@ class BrightPlants extends React.Component {
       <div>
         <Sort handleChange={this.handleChange} />
         <div className="flex">
-          `{brightPlants &&
-            brightPlants.map(plant => (
-              <Plant key={plant.id} plant={plant} />
-            ))}{' '}
-          `
+          {brightPlants &&
+            brightPlants.map(plant => <Plant key={plant.id} plant={plant} />)}
         </div>
       </div>
     )
