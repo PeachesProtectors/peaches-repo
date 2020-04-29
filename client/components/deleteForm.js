@@ -1,19 +1,24 @@
 import React from 'react'
 import {useToasts} from 'react-toast-notifications'
+import {deletePlantThunk} from '../store/admin'
+import {connect} from 'react-redux'
 
 const DeleteForm = props => {
-  const {plants, stateId, handleChange, handleSubmit} = props
+  const {plants, stateId, handleChange, handleSubmit, deletePlant} = props
   const {addToast} = useToasts()
 
-  const onSubmit = e => {
+  const onSubmit = async e => {
+    console.log('new sub', stateId)
     e.preventDefault()
+    await deletePlant(stateId)
+    handleSubmit()
     addToast('Successfully removed plant!', {appearance: 'success'})
   }
   return (
-    <form onSubmit={(handleSubmit, onSubmit)}>
+    <form onSubmit={onSubmit}>
       <label>
         Choose a plant:
-        <select required name="id" value={stateId} onChange={handleChange}>
+        <select name="id" onChange={handleChange}>
           <option value=""> - select plant - </option>
           {plants &&
             plants.map(plant => (
@@ -30,4 +35,10 @@ const DeleteForm = props => {
   )
 }
 
-export default DeleteForm
+const mapDispatch = dispatch => {
+  return {
+    deletePlant: plant => dispatch(deletePlantThunk(plant))
+  }
+}
+
+export default connect(null, mapDispatch)(DeleteForm)

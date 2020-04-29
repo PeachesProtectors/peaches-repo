@@ -1,6 +1,5 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {addPlantThunk} from '../store/admin'
 import AddPlantForm from './addPlantForm'
 
 const initState = {
@@ -23,17 +22,8 @@ class AddPlant extends React.Component {
     this.setState({[e.target.name]: e.target.value})
   }
 
-  async handleSubmit(e) {
-    e.preventDefault()
+  handleSubmit() {
     try {
-      const name = e.target.name.value
-      const description = e.target.description.value
-      const imageUrl = e.target.imageUrl.value
-      const price = e.target.price.value
-      const lightRequirement = e.target.lightRequirements.value
-      const plant = {name, description, imageUrl, price, lightRequirement}
-
-      await this.props.addPlant(plant)
       this.setState(initState)
     } catch (error) {
       console.error(error)
@@ -52,10 +42,4 @@ class AddPlant extends React.Component {
   }
 }
 
-const mapDispatch = dispatch => {
-  return {
-    addPlant: plant => dispatch(addPlantThunk(plant))
-  }
-}
-
-export default connect(null, mapDispatch)(AddPlant)
+export default AddPlant
