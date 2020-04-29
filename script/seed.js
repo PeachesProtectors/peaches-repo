@@ -233,6 +233,36 @@ async function seed() {
         'https://cdn.shopify.com/s/files/1/0150/6262/products/the-sill_kalanchoe-flapjack-succulent-duo_variant_x-small_grant_mint_1440x.jpg?v=1585147313',
       price: 45,
       lightRequirement: 'Bright Light'
+    }),
+
+    Product.create({
+      name: 'Pilea Peperomioides',
+      description:
+        'The Pilea peperomioides, also called the pancake or UFO plant, is known for its cute coin-shaped leaves. A self-propagator, the Pilea produces sweet little babies or “pups” on it’s own, which pop up from the soil surrounding the mother plant.',
+      imageUrl:
+        'https://cdn.shopify.com/s/files/1/0150/6262/products/the-sill_pilea_variant_x-small_grant_mint_bddcc4c7-3aaf-453b-bd55-e5b4aee5a089_1440x.jpg?v=1586980304',
+      price: 29,
+      lightRequirement: 'Bright Light'
+    }),
+
+    Product.create({
+      name: 'Money Tree Plant',
+      description:
+        'The Money Tree is a popular houseplant because of its resilience, ease of growth, and fun braided trunk.',
+      imageUrl:
+        'https://cdn.shopify.com/s/files/1/0150/6262/products/the-sill_money-tree_variant_small_grant_black_1440x.jpg?v=1583177241',
+      price: 45,
+      lightRequirement: 'Bright Light'
+    }),
+
+    Product.create({
+      name: 'Six Assorted Air Plants',
+      description:
+        'Our set of six assorted Air Plants thrive without potting soil. Assortment includes a variety of six tillandsia, ranging 2 inches to 4 inches in size. They prefer bright, indirect light and weekly soakings. Air Plants are pet-friendly!',
+      imageUrl:
+        '//cdn.shopify.com/s/files/1/0150/6262/products/the-sill_airplants-assorted_6_768x.jpg?v=1585928827',
+      price: 30,
+      lightRequirement: 'Bright Light'
     })
   ])
 
