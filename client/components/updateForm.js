@@ -100,7 +100,6 @@ const UpdateForm = props => {
         {' '}
         Submit{' '}
       </button>
-      <span id="updated-plant-message" />
     </form>
   )
 }
