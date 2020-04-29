@@ -86,7 +86,7 @@ const AddPlantForm = props => {
           disabled={
             !state.name ||
             !state.description ||
-            !state.imageUrl ||
+            // !state.imageUrl ||
             isNaN(state.price) ||
             !state.price ||
             !state.lightRequirements
