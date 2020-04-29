@@ -43,29 +43,6 @@ class DeletePlant extends React.Component {
           handleChange={this.handleChange}
           handleSubmit={this.handleSubmit}
         />
-
-        {/* <form onSubmit={this.handleSubmit}>
-          <label>
-            Choose a plant:
-            <select
-              required
-              name="id"
-              value={this.state.id}
-              onChange={this.handleChange}
-            >
-              <option value={initState.id}> - select plant - </option>
-              {plants &&
-                plants.map(plant => (
-                  <option value={plant.id} key={plant.id}>
-                    {plant.name}
-                  </option>
-                ))}
-            </select>
-          </label>
-          <button type="submit" disabled={!this.state.id}>
-            Remove
-          </button>
-        </form> */}
       </div>
     )
   }

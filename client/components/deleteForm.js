@@ -7,7 +7,7 @@ const DeleteForm = props => {
 
   const onSubmit = e => {
     e.preventDefault()
-    addToast('Removed Plant!', {appearance: 'success'})
+    addToast('Successfully removed plant!', {appearance: 'success'})
   }
   return (
     <form onSubmit={(handleSubmit, onSubmit)}>
