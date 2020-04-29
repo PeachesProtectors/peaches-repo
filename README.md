@@ -1,5 +1,7 @@
 # Peachy Plants Plants E-Commerce Website
 
+https://peachy-plants.herokuapp.com/
+
 ## Group Members
 
 [Jennifer Chen][creator1]
@@ -12,8 +14,4 @@
 [creator3]: https://github.com/cruzn978
 [creator4]: https://github.com/Naomoreira
 
-<<<<<<< HEAD
 ![](public/page.png)
-=======
-![](public/page.png)
->>>>>>> 5dedb332abb5d962d39a15c4cb0e3b8af75cbdd6
