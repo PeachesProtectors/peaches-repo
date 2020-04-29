@@ -1,6 +1,9 @@
-# Peachy Plants Plants E-Commerce Website 
+# Peachy Plants Plants E-Commerce Website
+
+https://peachy-plants.herokuapp.com/
 
 ## Group Members
+
 [Jennifer Chen][creator1]
 [Linwei Liu][creator2]
 [Nichole Cruzalegui ][creator3]

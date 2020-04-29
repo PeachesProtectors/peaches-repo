@@ -1,5 +1,4 @@
 import React from 'react'
-
 import {Navbar} from './components'
 import Routes from './routes'
 import Footer from './components/filter/footer'
@@ -9,7 +8,9 @@ const App = () => {
     <div>
       <Navbar />
       <Routes />
+      <div>
       <Footer />
+      </div>
     </div>
   )
 }

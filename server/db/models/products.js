@@ -12,7 +12,8 @@ const Products = db.define('product', {
   },
   imageUrl: {
     type: Sequelize.TEXT,
-    allowNull: false
+    defaultValue:
+      'https://shared.inmemoriam.be/flowers/ncba0et66c-bloemen-5.jpg'
   },
   price: {
     type: Sequelize.INTEGER,

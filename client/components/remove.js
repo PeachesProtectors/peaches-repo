@@ -1,7 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {deletePlantThunk} from '../store/admin'
 import {getPlantOrderThunk} from '../store/allPlantsReducer'
+import DeleteForm from './deleteForm'
 
 const initState = {
   id: ''
@@ -14,6 +14,7 @@ class DeletePlant extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this)
     this.handleChange = this.handleChange.bind(this)
   }
+
   componentDidMount() {
     this.props.getAllPlants()
   }
@@ -22,40 +23,20 @@ class DeletePlant extends React.Component {
     this.setState({id: e.target.value})
   }
 
-  async handleSubmit() {
-    try {
-      await this.props.deletePlant(this.state.id)
-    } catch (error) {
-      console.error(error)
-    }
+  handleSubmit() {
+    this.setState(initState)
   }
 
   render() {
     const {plants} = this.props
     return (
       <div>
-        <form onSubmit={this.handleSubmit}>
-          <label>
-            Choose a plant:
-            <select
-              required
-              name="id"
-              value={this.state.id}
-              onChange={this.handleChange}
-            >
-              <option value={initState.id}> - select plant - </option>
-              {plants &&
-                plants.map(plant => (
-                  <option value={plant.id} key={plant.id}>
-                    {plant.name}
-                  </option>
-                ))}
-            </select>
-          </label>
-          <button type="submit" disabled={!this.state.id}>
-            Remove
-          </button>
-        </form>
+        <DeleteForm
+          plants={plants}
+          stateId={this.state.id}
+          handleChange={this.handleChange}
+          handleSubmit={this.handleSubmit}
+        />
       </div>
     )
   }
@@ -69,8 +50,7 @@ const mapState = state => {
 
 const mapDispatch = dispatch => {
   return {
-    getAllPlants: () => dispatch(getPlantOrderThunk()),
-    deletePlant: plant => dispatch(deletePlantThunk(plant))
+    getAllPlants: () => dispatch(getPlantOrderThunk())
   }
 }
 
