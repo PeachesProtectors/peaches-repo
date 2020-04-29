@@ -30,7 +30,8 @@ router.get('/cart', async (req, res, next) => {
 
 //update cart
 router.post('/cart', async (req, res, next) => {
-  let localCart = req.body || []
+  const {body} = req
+  let localCart = body || []
   try {
     // get pending order for a login userID
     const [order] = await Order.findOrCreate({
@@ -48,7 +49,7 @@ router.post('/cart', async (req, res, next) => {
       }
     })
 
-    //overwrite products in through table with local storage data instead
+    //overwrite products in through table
     for (let i = 0; i < localCart.length; i++) {
       const plant = await Product.findOne({
         where: {
@@ -76,6 +77,54 @@ router.put('/cart', async (req, res, next) => {
       include: [{model: Product}]
     })
     await order.update({orderStatus: 'complete'})
+    res.sendStatus(201)
+  } catch (err) {
+    next(err)
+  }
+})
+
+//guest-to-login merge cart
+router.post('/cart/merge', async (req, res, next) => {
+  const {body} = req
+  let localCart = body || []
+  try {
+    const [order] = await Order.findOrCreate({
+      where: {
+        userId: req.user.id,
+        orderStatus: 'pending'
+      },
+      include: [{model: Product}]
+    })
+
+    let ids = []
+    if (order.products) {
+      ids = order.products.map(p => p.id)
+    }
+
+    for (let i = 0; i < localCart.length; i++) {
+      if (ids.includes(localCart[i].id)) {
+        const product = order.products.find(p => p.id === localCart[i].id)
+        const newQty = localCart[i].quantity + product.OrderHistory.quantity
+        await OrderHistory.update(
+          {quantity: newQty},
+          {
+            where: {
+              orderId: order.id,
+              productId: localCart[i].id
+            }
+          }
+        )
+      } else {
+        const plant = await Product.findOne({
+          where: {
+            id: localCart[i].id
+          }
+        })
+        await order.addProduct(plant, {
+          through: {quantity: localCart[i].quantity, price: localCart[i].price}
+        })
+      }
+    }
     res.sendStatus(201)
   } catch (err) {
     next(err)

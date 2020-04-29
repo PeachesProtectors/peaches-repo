@@ -2,7 +2,7 @@ import React from 'react'
 import {connect} from 'react-redux'
 import {getSinglePlantThunk} from '../store/allPlantsReducer'
 import {updateCartThunk, getCartThunk} from '../store/cartReducer'
-import Footer from './filter/footer'
+
 class SinglePlant extends React.Component {
   constructor() {
     super()
@@ -40,8 +40,8 @@ class SinglePlant extends React.Component {
   }
 
   render() {
-    const {plant, isAdmin} = this.props
-    const {id, name, imageUrl, description, price, lightReqs} = plant
+    const {plant} = this.props
+    const {name, imageUrl, description, price, lightReqs} = plant
     return (
       <div>
       <div className="container single-plant is-fullhd level hero">

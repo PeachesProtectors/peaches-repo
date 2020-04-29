@@ -17,7 +17,6 @@ const Navbar = () => (
         </div>
       </div>
 
-      {/* <!-- Right side --> */}
       <div className="level-right">
         <p className="buttons">
           <button className="button is-medium">

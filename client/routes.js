@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {withRouter, Route, Switch} from 'react-router-dom'
 import PropTypes from 'prop-types'
-import {Login, Signup, UserHome} from './components'
+import {Login, Signup, UserHome, AllUsers} from './components'
 import {me} from './store'
 import AllPlants from './components/allPlants'
 import SinglePlant from './components/SinglePlant'
@@ -12,6 +12,8 @@ import Thanks from './components/thanks'
 import BrightPlants from './components/filter/brightPlants'
 import LowPlants from './components/filter/lowPlants'
 import Admin from './components/admin'
+import OrderHistory from './components/orderHistory'
+import SingleOrder from './components/singleOrder'
 
 /**
  * COMPONENT
@@ -41,12 +43,25 @@ class Routes extends Component {
             {/* Admin ONLY */}
             <Route path="/home" component={UserHome} />
             <Route path="/admin" component={Admin} />
+            <Route exact path="/orderhistory" component={OrderHistory} />
+            <Route
+              exact
+              path="/orderhistory/:orderId"
+              component={SingleOrder}
+            />
+            <Route path="/all-users" component={AllUsers} />
           </Switch>
         )}
         {isLoggedIn && (
           <Switch>
             {/* Routes placed here are only available after logging in */}
             <Route path="/home" component={UserHome} />
+            <Route exact path="/orderhistory" component={OrderHistory} />
+            <Route
+              exact
+              path="/orderhistory/:orderId"
+              component={SingleOrder}
+            />
           </Switch>
         )}
 

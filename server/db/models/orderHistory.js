@@ -11,6 +11,14 @@ const OrderHistory = db.define('OrderHistory', {
   },
   quantity: {
     type: Sequelize.INTEGER
+  },
+  email: {
+    type: Sequelize.STRING,
+    unique: true,
+    allowNull: true,
+    validate: {
+      isEmail: true
+    }
   }
 })
 

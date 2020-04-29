@@ -1,12 +1,8 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {getAllUsersThunk} from '../store/admin'
+import {getAllUsersThunk, updateAdminThunk} from '../store/admin'
 
 class AllUsers extends React.Component {
-  constructor() {
-    super()
-  }
-
   componentDidMount() {
     this.props.getAllUsers()
   }
@@ -24,7 +20,8 @@ class AllUsers extends React.Component {
               <br />
               <small>Email: {user.email}</small>
               <br />
-              <small>{user.isAdmin}</small>
+              <small>Admin: {`${user.isAdmin}`}</small>
+              <br />
               <br />
             </div>
           ))}
