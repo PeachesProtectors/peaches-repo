@@ -13,7 +13,7 @@ import './socket'
 ReactDOM.render(
   <Provider store={store}>
     <Router history={history}>
-      <ToastProvider>
+      <ToastProvider autoDismiss autoDismissTimeout={3000}>
         <App />
       </ToastProvider>
     </Router>
