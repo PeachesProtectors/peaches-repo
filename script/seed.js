@@ -263,6 +263,16 @@ async function seed() {
         '//cdn.shopify.com/s/files/1/0150/6262/products/the-sill_airplants-assorted_6_768x.jpg?v=1585928827',
       price: 30,
       lightRequirement: 'Bright Light'
+    }),
+
+    Product.create({
+      name: 'Xerographica Air Plant',
+      description:
+        'Our set of six assorted Air Plants thrive without potting soil. Assortment includes a variety of six tillandsia, ranging 2 inches to 4 inches in size. They prefer bright, indirect light and weekly soakings. Air Plants are pet-friendly!',
+      imageUrl:
+        '//cdn.shopify.com/s/files/1/0150/6262/products/the-sill_airplants-assorted_6_768x.jpg?v=1585928827',
+      price: 30,
+      lightRequirement: 'Bright Light'
     })
   ])
 
