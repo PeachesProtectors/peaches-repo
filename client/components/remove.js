@@ -1,6 +1,5 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {deletePlantThunk} from '../store/admin'
 import {getPlantOrderThunk} from '../store/allPlantsReducer'
 import DeleteForm from './deleteForm'
 
@@ -21,16 +20,13 @@ class DeletePlant extends React.Component {
   }
 
   handleChange(e) {
+    console.log('hello change')
     this.setState({id: e.target.value})
   }
 
-  async handleSubmit(e) {
-    e.preventDefault()
-    try {
-      await this.props.deletePlant(this.state.id)
-    } catch (error) {
-      console.error(error)
-    }
+  handleSubmit() {
+    console.log('1 sub')
+    this.setState(initState)
   }
 
   render() {
@@ -56,8 +52,7 @@ const mapState = state => {
 
 const mapDispatch = dispatch => {
   return {
-    getAllPlants: () => dispatch(getPlantOrderThunk()),
-    deletePlant: plant => dispatch(deletePlantThunk(plant))
+    getAllPlants: () => dispatch(getPlantOrderThunk())
   }
 }
 

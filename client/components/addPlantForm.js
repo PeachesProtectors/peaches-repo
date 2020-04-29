@@ -1,17 +1,28 @@
 import React from 'react'
+import {connect} from 'react-redux'
 import {useToasts} from 'react-toast-notifications'
+import {addPlantThunk} from '../store/admin'
 
 const AddPlantForm = props => {
   const {state, handleChange, handleSubmit} = props
   const {addToast} = useToasts()
 
-  const onSubmit = e => {
+  const onSubmit = async e => {
     e.preventDefault()
+    const name = e.target.name.value
+    const description = e.target.description.value
+    const imageUrl = e.target.imageUrl.value
+    const price = e.target.price.value
+    const lightRequirement = e.target.lightRequirements.value
+    const plant = {name, description, imageUrl, price, lightRequirement}
+    await props.addPlant(plant)
+
+    handleSubmit()
     addToast('Successfully added new plant!', {appearance: 'success'})
   }
 
   return (
-    <form onSubmit={(handleSubmit, onSubmit)}>
+    <form onSubmit={onSubmit}>
       <div>
         <label htmlFor="name">
           <small>Name</small>
@@ -88,4 +99,10 @@ const AddPlantForm = props => {
   )
 }
 
-export default AddPlantForm
+const mapDispatch = dispatch => {
+  return {
+    addPlant: plant => dispatch(addPlantThunk(plant))
+  }
+}
+
+export default connect(null, mapDispatch)(AddPlantForm)
