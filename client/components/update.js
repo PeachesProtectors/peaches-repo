@@ -1,6 +1,5 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {updatePlantThunk} from '../store/admin'
 import UpdateForm from './updateForm'
 import {getPlantOrderThunk} from '../store/allPlantsReducer'
 
@@ -28,23 +27,8 @@ class UpdatePlant extends React.Component {
     this.setState({[e.target.name]: e.target.value})
   }
 
-  async handleSubmit(e) {
-    e.preventDefault()
-    try {
-      const {
-        id,
-        name,
-        description,
-        imageUrl,
-        price,
-        lightRequirements
-      } = this.state
-      const plant = {id, name, description, imageUrl, price, lightRequirements}
-      await this.props.updatePlant(plant)
-      this.setState(initState)
-    } catch (error) {
-      console.error(error)
-    }
+  handleSubmit() {
+    this.setState(initState)
   }
 
   render() {
@@ -70,8 +54,7 @@ const mapState = state => {
 
 const mapDispatch = dispatch => {
   return {
-    getAllPlants: () => dispatch(getPlantOrderThunk()),
-    updatePlant: plant => dispatch(updatePlantThunk(plant))
+    getAllPlants: () => dispatch(getPlantOrderThunk())
   }
 }
 
